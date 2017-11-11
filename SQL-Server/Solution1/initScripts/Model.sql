@@ -9,17 +9,29 @@ IF OBJECT_ID('Bungalow') IS NOT NULL
 IF OBJECT_ID('Tenda') IS NOT NULL
 	DROP TABLE Tenda
 
+IF OBJECT_ID('ComponenteFatura') IS NOT NULL
+	DROP TABLE ComponenteFatura
+
 IF OBJECT_ID('Fatura') IS NOT NULL
 	DROP TABLE Fatura
 
 IF OBJECT_ID('Atividade') IS NOT NULL
 	DROP TABLE Atividade
+	
+IF OBJECT_ID('ExtraEstada') IS NOT NULL
+	DROP TABLE ExtraEstada
+
+IF OBJECT_ID('EstadaHóspede') IS NOT NULL
+	DROP TABLE EstadaHóspede
+
+IF OBJECT_ID('EstadaAlojamento') IS NOT NULL
+	DROP TABLE EstadaAlojamento
 
 IF OBJECT_ID('Extra') IS NOT NULL
 	DROP TABLE Extra
 
-IF OBJECT_ID('Hospede') IS NOT NULL
-	DROP TABLE Hospede
+IF OBJECT_ID('Hóspede') IS NOT NULL
+	DROP TABLE Hóspede
 
 IF OBJECT_ID('Estada') IS NOT NULL
 	DROP TABLE Estada
@@ -38,72 +50,90 @@ create table Parque (
    morada varchar(256) not null,
    estrelas numeric
    -- telefone?????
-
 )
 
 create table Alojamento(
 	preço_base numeric not null ,
 	descrição varchar(256) ,
 	localização varchar(20)not null,
-	nome_alojamento varchar (56) primary key not null,
-	nome_parque varchar (56) not null references Parque(nome),
+	nome varchar(56) primary key not null,
+	nome_parque varchar(56) not null references Parque(nome),
 	max_pessoas numeric not null
 )
 
 create table Bungalow(
-	tipologia varchar(256) not null,
-	nome varchar(56)not null references alojamento(nome_alojamento)
+	tipologia varchar(256) not null check (tipologia = 'T0' or tipologia = 'T1' or
+								tipologia = 'T2' or tipologia = 'T3' or tipologia = 'T4'),
+	nome_alojamento varchar(56)not null references alojamento(nome)
 )
-
 
 create table Tenda(
-	area numeric not null,
-	nome varchar(56) not null references alojamento(nome_alojamento),
-	tipo varchar(25) not null
-)
-
-create table Hospede(
-   email varchar(64) ,
-   morada varchar(128) not null,
-   nome varchar(128)not null,
-   bi numeric unique not null,
-   nif numeric primary key not null
+	área numeric not null,
+	nome_alojamento varchar(56) not null references alojamento(nome),
+	tipo varchar(25) not null check (tipo = 'yurt' or tipo = 'tipi' or tipo = 'safari')
 )
 
 create table Estada(
 	id numeric primary key not null,
-	data_inicio Date not null,
+	data_início Date not null,
 	data_fim Date not null,
-	nome_alojamento varchar(56) not null references alojamento(nome_alojamento),
-	responsável varchar(128) not null
+	nif_hóspede varchar(128) not null
+)
+
+create table Hóspede(
+   email varchar(64) ,
+   morada varchar(128) not null,
+   nome varchar(128)not null,
+   bi numeric unique not null,
+   nif numeric primary key not null,
+   id_estada numeric not null references Estada(id)
 )
 
 create table Atividade(
 	número numeric primary key not null identity,
 	data_atividade Date not null,
 	preço money not null,
-	lotaçao numeric not null,
+	lotação numeric not null,
 	nome_atividade varchar(56) not null,
 	nome_parque varchar(56) not null references Parque(nome),
-	descrição varchar(526)
+	descrição varchar(256)
 )
 
 create table Extra(
 	id  numeric primary key not null,
 	id_estada numeric references estada(id),
---	nif numeric references hospede(nif),
---	nome_alojamento varchar(56) references alojamento(nome_alojamento),
-	descriçao varchar(64),
+	descrição varchar(256),
 	preço_dia money not null,
-	tipo varchar(15) --RI extra de hospede ou alojamento
-
+	tipo varchar(15) check (tipo = 'Alojamento' or tipo = 'Hóspede')
 )
 
 create table Fatura(
 	id numeric primary key not null,
-	nome_hospede varchar(128) not null,
-	nif_hospede numeric not null references Hospede(nif),
-	nr_atividade numeric not null references atividade(número),
-	nome_alojamento varchar(56) not null references Alojamento(nome_alojamento),
-	id_extra numeric not null references Extra(id)
-) --não está correto
+	nome_hóspede varchar(128) not null,
+	nif_hóspede numeric not null references Hóspede(nif),
+)
+
+create table ComponenteFatura(
+	id_fatura numeric primary key not null references Fatura(id),
+	descrição varchar(256) not null,
+	preço numeric not null,
+	tipo varchar(30) not null check (tipo = 'Alojamento' or tipo = 'Extra' or tipo = 'Atividade')
+)
+
+create table ExtraEstada(
+	id_extra numeric not null references Extra(id),
+	id_estada numeric not null references Estada(id),
+	primary key (id_extra, id_estada)
+)
+
+create table EstadaHóspede(
+	nif_hóspede numeric not null references Hóspede(nif),
+	id_estada numeric not null references Estada(id),
+	primary key (nif_hóspede, id_estada)
+)
+
+create table EstadaAlojamento(
+	nome_alojamento varchar(56) not null references Alojamento(nome),
+	id_estada numeric not null references Estada(id),
+	primary key (nome_alojamento, id_estada)
+)
