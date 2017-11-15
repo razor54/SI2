@@ -36,8 +36,8 @@ as
 	if exists (select * from Estada where id = @id_estada) 
 		begin
 			begin tran
-				insert into Hóspede(nif, bi, nome, morada, email, id_estada)
-					values(@nif, @bi, @nome, @morada, @email, @id_estada)
+				insert into Hóspede(nif, bi, nome, morada, email)
+					values(@nif, @bi, @nome, @morada, @email)
 				insert into EstadaHóspede(nif_hóspede, id_estada)
 					values(@nif, @id_estada)
 			commit

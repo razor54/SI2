@@ -38,10 +38,10 @@ as
 	if exists (select * from Estada where id = @id_estada)
 		begin
 			begin tran
-				insert into Extra(id, id_estada, descrição, preço_dia, tipo)
-					values(@id, @id_estada, @descrição, @preço_dia, @tipo)
-				insert into ExtraEstada(id_extra, id_estada)
-					values(@id, @id_estada)
+				insert into Extra(id, descrição, preço_dia, tipo)
+					values(@id, @descrição, @preço_dia, @tipo)
+				insert into ExtraEstada(id_extra, id_estada, preço_dia, descrição)
+					values(@id, @id_estada, @preço_dia, @descrição)
 			commit
 		end
 	else

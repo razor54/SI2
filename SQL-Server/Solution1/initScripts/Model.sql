@@ -30,6 +30,9 @@ IF OBJECT_ID('EstadaAlojamento') IS NOT NULL
 IF OBJECT_ID('Extra') IS NOT NULL
 	DROP TABLE Extra
 
+IF OBJECT_ID('HóspedeAtividade') IS NOT NULL
+	DROP TABLE HóspedeAtividade
+
 IF OBJECT_ID('Hóspede') IS NOT NULL
 	DROP TABLE Hóspede
 
@@ -41,8 +44,6 @@ IF OBJECT_ID('Alojamento') IS NOT NULL
 
 IF OBJECT_ID('Parque') IS NOT NULL
 	DROP TABLE Parque
-
-
 
 create table Parque (
    email varchar(50) not null,
@@ -77,7 +78,8 @@ create table Estada(
 	id numeric primary key not null,
 	data_início Date not null,
 	data_fim Date not null,
-	nif_hóspede varchar(128) not null
+	nif_hóspede numeric not null,
+	pagamento varchar(12) check(pagamento = 'pago')
 )
 
 create table Hóspede(
@@ -86,29 +88,31 @@ create table Hóspede(
    nome varchar(128)not null,
    bi numeric unique not null,
    nif numeric primary key not null,
-   id_estada numeric not null references Estada(id)
+   --id_estada numeric not null references Estada(id)
 )
 
 create table Atividade(
-	número numeric primary key not null identity,
+	número numeric not null identity,
 	data_atividade Date not null,
 	preço money not null,
 	lotação numeric not null,
 	nome_atividade varchar(56) not null,
 	nome_parque varchar(56) not null references Parque(nome),
-	descrição varchar(256)
+	descrição varchar(256),
+	primary key (número, nome_atividade, nome_parque)
 )
 
 create table Extra(
 	id  numeric primary key not null,
-	id_estada numeric references estada(id),
+	--id_estada numeric references estada(id),
 	descrição varchar(256),
 	preço_dia money not null,
 	tipo varchar(15) check (tipo = 'Alojamento' or tipo = 'Hóspede')
 )
 
 create table Fatura(
-	id numeric primary key not null,
+	id numeric not null primary key,
+	id_estada numeric not null references Estada(id),
 	nome_hóspede varchar(128) not null,
 	nif_hóspede numeric not null references Hóspede(nif),
 )
@@ -123,6 +127,8 @@ create table ComponenteFatura(
 create table ExtraEstada(
 	id_extra numeric not null references Extra(id),
 	id_estada numeric not null references Estada(id),
+	preço_dia money not null,-- references Extra(preço_dia),
+	descrição varchar(256) not null,-- references Extra(descrição),
 	primary key (id_extra, id_estada)
 )
 
@@ -135,5 +141,14 @@ create table EstadaHóspede(
 create table EstadaAlojamento(
 	nome_alojamento varchar(56) not null references Alojamento(nome),
 	id_estada numeric not null references Estada(id),
+	preço_base money not null,-- references Alojamento(preço_base),
+	descrição varchar(256) not null, -- references Alojamento(descrição),
 	primary key (nome_alojamento, id_estada)
+)
+
+create table HóspedeAtividade(
+	nif_hóspede numeric not null references Hóspede(nif),
+	nome_atividade varchar(56) not null,-- references Atividade(nome_atividade),
+	nome_parque varchar(56) not null,-- references Atividade(nome_parque),
+	primary key(nif_hóspede, nome_atividade, nome_parque)
 )
