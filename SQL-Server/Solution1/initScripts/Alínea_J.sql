@@ -63,7 +63,6 @@ begin tran
 		N'Rua Sem Nome', N'jaquim@gmail.com', N'12345'
 
 	declare @nome_hóspede varchar(128)
-	select * from Hóspede
 	select @nome_hóspede = nome from Hóspede where nif = 111
 	insert into Fatura(id, id_estada, nome_hóspede, nif_hóspede)
 		values(9999, 12345, @nome_hóspede, 111)
