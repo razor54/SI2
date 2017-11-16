@@ -16,7 +16,7 @@ go
 /** PAGAMENTO DE UMA ESTADA COM EMISSÃO DE FATURA **/
 
 create procedure pagamentoEstadaComFatura
-	@id_estada numeric
+	@id_estada numeric, @total numeric output
 as
 	if exists(select * from Estada where id = @id_estada)
 		begin
@@ -51,6 +51,8 @@ as
 			-- imprimimos a fatura
 			print @texto_fatura
 			print concat('Preço total: ', @preço_total)
+			select @total = @preço_total
+			return
 		end
 go
 
@@ -75,7 +77,8 @@ begin tran
 
 	exec inscreverHóspedeNumaAtividade N'111', N'Canoagem', N'Marechal Carmona'
 
-	exec pagamentoEstadaComFatura N'12345' -- ou passar nif?
+	declare @preço_total numeric
+	exec pagamentoEstadaComFatura N'12345', @preço_total output -- ou passar nif?
 
 	--select * from Estada
 	--select * from Hóspede

@@ -141,3 +141,30 @@ begin tran
 	rollback
 	end catch
 go			
+
+
+begin tran
+
+	begin 
+		try
+			insert into parque (nome,email ,morada ,estrelas)
+						values( 'Parque Arrabida','arr@parqueArrabida.com','Arrabida',5)
+			insert into bungallows (tipologia, nome_alojamento,preço_base ,descrição  ,localização ,nome_parque ,
+	                    max_pessoas )
+						values('T2','Rua torya',7999,'sem ventilaçao','Arrabida','Parque Arrabida',100)
+			select *from Bungallows
+			select *from Bungalow
+			select * from Alojamento
+
+			delete from Bungallows where nome_alojamento = 'Rua torya'
+
+			select *from Bungallows
+			select *from Bungalow
+			select * from Alojamento
+
+		rollback
+	end try
+	begin catch
+	rollback
+	end catch
+go			
