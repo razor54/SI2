@@ -118,10 +118,13 @@ create table Fatura(
 )
 
 create table ComponenteFatura(
-	id_fatura numeric primary key not null references Fatura(id),
+	id numeric not null identity,
+	id_fatura numeric not null references Fatura(id),
 	descrição varchar(256) not null,
 	preço numeric not null,
-	tipo varchar(30) not null check (tipo = 'Alojamento' or tipo = 'Extra' or tipo = 'Atividade')
+	tipo varchar(30) not null check (tipo = 'Alojamento' or tipo = 'Extra Alojamento' 
+		or tipo = 'Extra Hóspede' or tipo = 'Atividade'),
+	primary key(id, id_fatura)
 )
 
 create table ExtraEstada(
