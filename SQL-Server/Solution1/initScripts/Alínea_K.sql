@@ -2,7 +2,7 @@ SET XACT_ABORT ON
 SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
-
+-- acrescentar pagamento!!
 IF EXISTS (
 		select type_desc, type
 		from sys.procedures with(nolock)

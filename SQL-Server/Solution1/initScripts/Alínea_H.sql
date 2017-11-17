@@ -2,7 +2,33 @@ SET XACT_ABORT ON
 SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
--- INCOMPLETO
+
+IF EXISTS (
+        select type_desc, type
+        from sys.procedures with(nolock)
+        where name = 'criarEstadaParaUmPeríodoDeTempo'
+            and type = 'P'
+		)
+		DROP PROCEDURE dbo.criarEstadaParaUmPeríodoDeTempo
+
+IF EXISTS (
+		select type_desc, type
+		from sys.procedures with(nolock)
+		where name = 'inserirEstadaComResponsávelExistente'
+			and type = 'P'
+		)
+		DROP PROCEDURE dbo.inserirEstadaComResponsávelExistente
+
+IF EXISTS (
+        select type_desc, type
+        from sys.procedures with(nolock)
+        where name = 'inserirEstadaSemResponsávelExistente'
+            and type = 'P'
+	    )
+		DROP PROCEDURE dbo.inserirEstadaSemResponsávelExistente
+
+go
+-- INCOMPLETO ???
 
 /** CRIAR ESTADA PARA UM PERÍODO DE TEMPO **/
 -- try catch ?
@@ -56,8 +82,8 @@ create procedure inserirEstadaSemResponsávelExistente
 	@morada varchar(128), @email varchar(64)
 as
 	begin tran
-		insert into Hóspede(email, morada, nome, bi, nif, id_estada)
-			values(@email, @morada, @nome, @bi, @nif_hóspede, @id)
+		insert into Hóspede(email, morada, nome, bi, nif)
+			values(@email, @morada, @nome, @bi, @nif_hóspede)
 		insert into Estada(id, data_início, data_fim, nif_hóspede)
 			values(@id, @data_início, @data_fim, @nif_hóspede)
 	commit

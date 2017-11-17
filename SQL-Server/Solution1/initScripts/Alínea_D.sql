@@ -80,6 +80,7 @@ as
 go
 
 begin tran
+	--inserir estada, fatura e hóspede
 	insert into Parque(nome, email, morada, estrelas)
 		values('Marechal Carmona', 'mcarmona@gmail.com', 'Rua de Cascais', 4)
 	exec inserirBungalowNumParque N'125', N'Alojamento pequeno com bela vista', 

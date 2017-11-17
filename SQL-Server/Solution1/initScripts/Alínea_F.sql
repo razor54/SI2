@@ -33,7 +33,7 @@ go
 
 create procedure inserirExtraPessoal
 	@id numeric, @id_estada numeric, @descrição varchar(256),
-	@preço_dia money, @tipo varchar(15)
+	@preço_dia money, @tipo varchar(15), @id_fatura numeric
 as
 	if exists (select * from Estada where id = @id_estada)
 		begin
@@ -42,6 +42,8 @@ as
 					values(@id, @descrição, @preço_dia, @tipo)
 				insert into ExtraEstada(id_extra, id_estada, preço_dia, descrição)
 					values(@id, @id_estada, @preço_dia, @descrição)
+				insert into ComponenteFatura(id_fatura, descrição, preço, tipo)
+					values(@id_fatura, @descrição, @preço_dia, @tipo)
 			commit
 		end
 	else
@@ -51,6 +53,7 @@ as
 		1);
 go
 
+-- inserir fatura e tudo mais
 begin tran
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
 		values(12345, '01-01-2000', '05-02-2000', 111)
@@ -83,6 +86,7 @@ as
 		1);
 go
 
+-- inserir fatura e tudo mais
 begin tran
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
 		values(12345, '01-01-2000', '05-02-2000', 111)
@@ -118,6 +122,7 @@ as
 		1);
 go
 
+-- inserir fatura e tudo mais
 begin tran
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
 		values(12345, '01-01-2000', '05-02-2000', 111)
