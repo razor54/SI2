@@ -31,7 +31,7 @@ go
 -- INCOMPLETO ???
 
 /** CRIAR ESTADA PARA UM PERÍODO DE TEMPO **/
--- try catch ?
+-- verificar de novo (NÃO ALTERADO)
 create procedure criarEstadaParaUmPeríodoDeTempo
 	@id numeric, @data_início Date, @data_fim Date, @nif_hóspede numeric,
 	@bi numeric, @nome_hóspede varchar(128), @morada varchar(128), @email varchar(64),

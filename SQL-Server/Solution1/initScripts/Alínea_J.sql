@@ -14,45 +14,54 @@ IF EXISTS (
 go
 
 /** PAGAMENTO DE UMA ESTADA COM EMISSÃO DE FATURA **/
-
+-- prevenir que alguém apague a estada durante a execução
+-- é possível ??
+-- verificar de novo (NÃO ALTERADO!!)
 create procedure pagamentoEstadaComFatura
 	@id_estada numeric, @total numeric output
 as
 	if exists(select * from Estada where id = @id_estada)
 		begin
-			declare @id_fatura numeric, @preço_total numeric,
-			@descrição varchar(256), @preço numeric,
-			@tipo varchar(30), @numHóspedes numeric,
-			@texto_fatura varchar(1024)
-			--
-			set @preço_total = 0
-			-- declare numHóspedes as count from select by nif
-			select @numHóspedes = count(nif_hóspede) from EstadaHóspede
-				where id_estada = @id_estada
-			-- vamos buscar a fatura respetiva à estada
-			select @id_fatura = id from Fatura where id_estada = @id_estada
-			-- iniciamos um cursor para iterar sobre os componentes da fatura
-			declare cursor_fatura cursor for
-			select descrição, preço, tipo from ComponenteFatura where id_fatura = @id_fatura
-			open cursor_fatura
-			fetch next from cursor_fatura into @descrição, @preço, @tipo
-			while @@FETCH_STATUS = 0 -- ??
-			begin
-				-- concat não funciona
-				select @texto_fatura = concat(@texto_fatura, 
-					concat(char(13), concat(@descrição, concat(' ', @preço))))
-				if(@tipo = 'Extra Hóspede')
-					set @preço = @preço * @numHóspedes
-				set @preço_total = @preço_total + @preço
-				fetch next from cursor_fatura into @descrição, @preço, @tipo
-			end
-			close cursor_fatura
-			deallocate cursor_fatura
-			-- imprimimos a fatura
-			print @texto_fatura
-			print concat('Preço total: ', @preço_total)
-			select @total = @preço_total
-			return
+			begin try
+				begin tran
+					declare @id_fatura numeric, @preço_total numeric,
+					@descrição varchar(256), @preço numeric,
+					@tipo varchar(30), @numHóspedes numeric,
+					@texto_fatura varchar(1024)
+					--
+					set @preço_total = 0
+					-- declare numHóspedes as count from select by nif
+					select @numHóspedes = count(nif_hóspede) from EstadaHóspede
+						where id_estada = @id_estada
+					-- vamos buscar a fatura respetiva à estada
+					select @id_fatura = id from Fatura where id_estada = @id_estada
+					-- iniciamos um cursor para iterar sobre os componentes da fatura
+					declare cursor_fatura cursor for
+					select descrição, preço, tipo from ComponenteFatura where id_fatura = @id_fatura
+					open cursor_fatura
+					fetch next from cursor_fatura into @descrição, @preço, @tipo
+					while @@FETCH_STATUS = 0
+					begin
+						-- concat não funciona
+						select @texto_fatura = concat(@texto_fatura, 
+							concat(char(13), concat(@descrição, concat(' ', @preço))))
+						if(@tipo = 'Extra Hóspede')
+							set @preço = @preço * @numHóspedes
+						set @preço_total = @preço_total + @preço
+						fetch next from cursor_fatura into @descrição, @preço, @tipo
+					end
+					close cursor_fatura
+					deallocate cursor_fatura
+					-- imprimimos a fatura
+					print @texto_fatura
+					print concat('Preço total: ', @preço_total)
+					select @total = @preço_total
+				commit
+				return
+			end try
+			begin catch
+				rollback
+			end catch
 		end
 go
 
@@ -79,9 +88,6 @@ begin tran
 	declare @preço_total numeric
 	exec pagamentoEstadaComFatura N'12345', @preço_total output -- ou passar nif?
 
-	--select * from Estada
-	--select * from Hóspede
-	--select * from Parque
 	select * from Atividade
 	select * from HóspedeAtividade
 	select * from Fatura

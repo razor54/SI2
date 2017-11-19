@@ -12,17 +12,17 @@ IF EXISTS (
 		DROP PROCEDURE dbo.somaDosPreçosDasFaturas
 go
 
-
+-- prevenir que alguém apague uma estada durante a execução
 create procedure somaDosPreçosDasFaturas
 @year numeric, @low int, @top int
 as
+	set transaction isolation level repeatable read
 	begin tran
 		begin try
 			declare @preço_total numeric = 0
 			DECLARE @id numeric
 
-			DECLARE MY_CURSOR CURSOR 
-FOR 
+			DECLARE MY_CURSOR CURSOR FOR 
 			SELECT DISTINCT id 
 			FROM (select * from Estada where YEAR(data_fim) = @year 
 						order by id
@@ -34,7 +34,6 @@ FOR
 			WHILE @@FETCH_STATUS = 0
 			BEGIN 
 				declare @preço numeric
-				--Do something with Id here
 				exec pagamentoEstadaComFatura
 					@id_estada = @id, @total = @preço output
 
@@ -45,19 +44,15 @@ FOR
 			CLOSE MY_CURSOR
 			DEALLOCATE MY_CURSOR
 			select @preço_total
-			Print concat('Preço total das varias faturas: ', @preço_total)
-			commit
+			Print concat('Preço total das várias faturas: ', @preço_total)
 		end try
 
 		begin catch
 			rollback
 		end catch
+	commit
 go
 
-
----TESTES
-
---inserir hospede
 begin tran
 	--SET DATEFORMAT dmy; 
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
@@ -69,8 +64,6 @@ begin tran
 		values(67890, '04-01-2000', '08-01-2016', 222)
 	exec inserirHóspedeComEstadaExistente N'222', N'789', N'Pedro', 
 		N'Praceta Sem Nome', N'pedro@gmail.com', N'67890'
-
-	--select * from Hóspede
 
 	declare @nome_hóspede varchar(128)
 	
@@ -94,13 +87,7 @@ begin tran
 	exec inscreverHóspedeNumaAtividade N'222', N'Hipismo', N'Marechal Carmona'
 	
 	declare @média numeric, @preço_estada numeric
-	--exec pagamentoEstadaComFatura N'12345', @preço_estada output -- ou passar nif?
-	--set @média = @preço_estada
-	--exec pagamentoEstadaComFatura N'67890', @preço_estada output -- ou passar nif?
-	--set @média += @preço_estada
-
-	--select @média
-
+	
 	exec somaDosPreçosDasFaturas
 		2016 , 0 , 5
 

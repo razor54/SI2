@@ -3,6 +3,8 @@ SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
 
+-- será necessário inscrever hóspede sem estada?
+
 IF EXISTS (
         select type_desc, type
         from sys.procedures with(nolock)
@@ -29,24 +31,31 @@ IF EXISTS (
 
 go
 /** INSERIR HÓSPEDE **/
+-- prevenir que alguém apague a estada a meio da execução
 create procedure inserirHóspedeComEstadaExistente 
 	@nif numeric, @bi numeric, @nome varchar(128),
 	@morada varchar(128), @email varchar(64), @id_estada numeric
 as
-	if exists (select * from Estada where id = @id_estada) 
-		begin
-			begin tran
-				insert into Hóspede(nif, bi, nome, morada, email)
-					values(@nif, @bi, @nome, @morada, @email)
-				insert into EstadaHóspede(nif_hóspede, id_estada)
-					values(@nif, @id_estada)
-			commit
-		end
-	else
-		raiserror
-			(N'Não existe nenhuma estada com o id pedido',
-			10,
-			1); 
+	set transaction isolation level repeatable read
+	begin tran
+		if exists (select * from Estada where id = @id_estada) 
+			begin
+				begin try
+					insert into Hóspede(nif, bi, nome, morada, email)
+						values(@nif, @bi, @nome, @morada, @email)
+					insert into EstadaHóspede(nif_hóspede, id_estada)
+						values(@nif, @id_estada)
+				end try
+				begin catch
+					rollback
+				end catch
+			end
+		else
+			raiserror
+				(N'Não existe nenhuma estada com o id pedido',
+				10,
+				1); 
+	commit
 go
 
 begin tran
@@ -57,30 +66,37 @@ begin tran
 
 	select * from Hóspede
 	select * from EstadaHóspede
-	go
 rollback
 
 go
 /** REMOVER HÓSPEDE **/
+-- prevenir que alguém apague o hóspede a meio da execução
 create procedure removerHóspede 
 	@nif numeric
 as
-	if exists (select * from Hóspede where nif = @nif)
-		begin
-			begin tran
-				declare @id_estada numeric
-				select @id_estada = id_estada from EstadaHóspede 
-					where nif_hóspede = @nif
-				delete from EstadaHóspede where nif_hóspede = @nif
-				delete from Hóspede where nif = @nif
-				delete from Estada where id = @id_estada
-			commit
-		end
-	else
-		raiserror
-		(N'Não existe nenhum hóspede com o nif pedido',
-		10,
-		1);
+	set transaction isolation level repeatable read
+	begin tran
+		if exists (select * from Hóspede where nif = @nif)
+			begin
+				begin try
+					declare @id_estada numeric
+					select @id_estada = id_estada from EstadaHóspede 
+						where nif_hóspede = @nif
+					delete from EstadaHóspede where nif_hóspede = @nif
+					delete from Hóspede where nif = @nif
+					-- e se for hóspede responsável?
+				end try
+				begin catch
+					rollback
+				end catch
+			end
+		else
+			raiserror
+			(N'Não existe nenhum hóspede com o nif pedido',
+			10,
+			1);
+	commit
+
 go
 
 begin tran
@@ -92,16 +108,18 @@ begin tran
 
 	select * from Hóspede
 	select * from EstadaHóspede
-	select * from Estada
+	--select * from Estada
 	go
 rollback
 
 go
 /** ATUALIZAR HÓSPEDE **/
+-- prevenir que alguém apague o hóspede a meio da execução
 create procedure atualizarHóspede 
 	@nif numeric, @bi numeric, @nome varchar(128),
 	@morada varchar(128), @email varchar(64)
 as
+	set transaction isolation level repeatable read
 	if exists (select * from Hóspede where nif = @nif)
 		update Hóspede
 		set bi = @bi, nome = @nome, morada = @morada, 
@@ -123,5 +141,4 @@ begin tran
 		N'jaquim@gmail.com'
 
 	select * from Hóspede
-	go
 rollback

@@ -2,7 +2,7 @@ SET XACT_ABORT ON
 SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
--- acrescentar pagamento!!
+-- ACRESCENTAR PAGAMENTO!!
 IF EXISTS (
 		select type_desc, type
 		from sys.procedures with(nolock)
@@ -22,42 +22,59 @@ IF EXISTS (
 go
 
 /** ENVIAR UM EMAIL **/
-
+-- prevenir que alguém apague o hóspede durante a execução
+-- será necessário verificar???
 create procedure enviarEmail
 	@nif_hóspede numeric, @mensagem varchar(512)
 as
-	if exists (select * from Hóspede where nif = @nif_hóspede)
-		begin
-			select @mensagem = CONCAT(@mensagem, char(13))
-			print @mensagem
-		end
-	else
-		raiserror
-			(N'Não existe nenhuma estada com o id pedido',
-			10,
-			1);
+	set transaction isolation level repeatable read
+	begin tran
+		if exists (select * from Hóspede where nif = @nif_hóspede)
+			begin
+				begin try
+					select @mensagem = CONCAT(@mensagem, char(13))
+					print @mensagem
+				end try
+				begin catch
+					rollback
+				end catch
+			end
+		else
+			raiserror
+				(N'Não existe nenhuma estada com o id pedido',
+				10,
+				1);
+	commit
 go
 
 /** ENVIAR EMAILS COM ESTADAS A INICIAR BREVEMENTE **/
-
+-- prevenir que alguém apague uma estada durante a execução
 create procedure enviarEmailsNumIntervaloTemporal
 	@dias numeric
 as
-	declare @início date = '01-01-2000'--getdate()
-	declare @fim date = dateadd(DAY, @dias, @início), @nif numeric
+	set transaction isolation level repeatable read
+	begin tran
+		begin try
+			declare @início date = '01-01-2000'--getdate()
+			declare @fim date = dateadd(DAY, @dias, @início), @nif numeric
 
-	select * from Estada
-	declare cursor_fatura cursor for
-	select nif_hóspede from Estada where data_início between @início and @fim
-	open cursor_fatura
-	fetch next from cursor_fatura into @nif
-	while @@FETCH_STATUS = 0 -- ??
-	begin
-		exec enviarEmail @nif, N'Tem uma estada marcada para breve'
-		fetch next from cursor_fatura into @nif
-	end
-	close cursor_fatura
-	deallocate cursor_fatura
+			select * from Estada
+			declare cursor_fatura cursor for
+			select nif_hóspede from Estada where data_início between @início and @fim
+			open cursor_fatura
+			fetch next from cursor_fatura into @nif
+			while @@FETCH_STATUS = 0
+			begin
+				exec enviarEmail @nif, N'Tem uma estada marcada para breve'
+				fetch next from cursor_fatura into @nif
+			end
+			close cursor_fatura
+			deallocate cursor_fatura
+		end try
+		begin catch
+			rollback
+		end catch
+	commit
 go
 
 begin tran
@@ -72,5 +89,4 @@ begin tran
 		N'Praceta Sem Nome', N'pedro@gmail.com', N'67890'
 
 	exec enviarEmailsNumIntervaloTemporal N'5'
-
 rollback

@@ -12,31 +12,24 @@ IF EXISTS (
 		DROP PROCEDURE dbo.listarAtividadesComlugares
 go
 
+-- prevenir que alguém apague a atividade durante a execução
 create procedure listarAtividadesComlugares
 	@dataInit Date,@dataFim Date
 as
-	begin 
-
-		--select count(nif_hóspede) from HóspedeAtividade
-
-		select	número ,
-				data_atividade ,
-				preço ,
-				lotação ,
-				nome_atividade ,
-				descrição 
-			from dbo.Atividade 
-			--DECLARE @NomeAtividade varchar(56);
-			-- Initialize the variable.
-		--	SET @NomeAtividade = 'atirar pau ao gato';
-			where (select count(*) as i
-					from 
-						( select nif_hóspede from HóspedeAtividade 
-								as hospedeAct where hospedeAct.nome_atividade = dbo.Atividade.nome_atividade ) a
-					--group by nif_hóspede 
-					having count(*)<lotação
-				)<lotação and data_atividade between @dataInit and @dataFim
-	end
+	set transaction isolation level repeatable read
+	begin tran
+		begin try
+			select	número, data_atividade, preço, lotação, nome_atividade, descrição from dbo.Atividade 
+				-- Initialize the variable.
+				where (select count(*) as i from 
+							(select nif_hóspede from HóspedeAtividade 
+									as hospedeAct where hospedeAct.nome_atividade = dbo.Atividade.nome_atividade ) a
+				having count(*)<lotação)<lotação and data_atividade between @dataInit and @dataFim
+			end try
+			begin catch
+				rollback
+			end catch
+	commit
 go
 
 --inserir hospede
@@ -60,14 +53,7 @@ begin tran
 	insert into dbo.Parque( email , nome, morada ,estrelas)
 				values( 'aprqueAQUA@aprqueAQUA.com','aprqueAQUA','Rua sem nome',1)
 
-	insert into Atividade(
-							data_atividade ,
-							preço ,
-							lotação ,
-							nome_atividade ,
-							nome_parque ,
-							descrição
-						 )
+	insert into Atividade(data_atividade, preço, lotação, nome_atividade, nome_parque, descrição)
 			values('01-01-2017',200,2,'atirar pau ao gato','aprqueAQUA','sem descriçao'),
 				  ('01-02-2016',2020,3,'nataçao sincronizada','aprqueAQUA','sem descriçao')
 --
