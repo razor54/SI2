@@ -2,7 +2,7 @@ SET XACT_ABORT ON
 SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
--- ACRESCENTAR PAGAMENTO!!
+
 IF EXISTS (
 		select type_desc, type
 		from sys.procedures with(nolock)
@@ -22,12 +22,9 @@ IF EXISTS (
 go
 
 /** ENVIAR UM EMAIL **/
--- prevenir que alguém apague o hóspede durante a execução
--- será necessário verificar???
 create procedure enviarEmail
 	@nif_hóspede numeric, @mensagem varchar(512)
 as
-	set transaction isolation level repeatable read
 	begin tran
 		if exists (select * from Hóspede where nif = @nif_hóspede)
 			begin
@@ -52,7 +49,7 @@ go
 create procedure enviarEmailsNumIntervaloTemporal
 	@dias numeric
 as
-	set transaction isolation level repeatable read
+	set transaction isolation level serializable
 	begin tran
 		begin try
 			declare @início date = '01-01-2000'--getdate()

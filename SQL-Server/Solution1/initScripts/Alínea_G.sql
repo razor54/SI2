@@ -75,6 +75,7 @@ go
 /** REMOVER ATIVIDADE **/
 -- prevenir que alguém apague a atitivade a meio da execução
 -- pode-se apagar uma atividade mas terá que se reembolsar os inscritos
+-- se já estiver a decorrer, não se pode remover
 create procedure removerAtividade
 	@nome_atividade varchar(56), @nome_parque varchar(56)
 as
@@ -84,6 +85,10 @@ as
 			and nome_parque = @nome_parque)
 			begin
 				begin try
+					declare @data_atividade date
+					select @data_atividade = data_atividade from Atividade where nome_atividade = @nome_atividade
+					if (@data_atividade = getdate())
+						throw 10, 'Atividade a decorrer', 1
 					delete from Atividade where nome_atividade = @nome_atividade
 						and nome_parque = @nome_parque
 				end try
@@ -162,5 +167,4 @@ begin tran
 		N'Marechal Carmona', N'Nivel Básico de Canoagem'
 
 	select * from Atividade
-	go
 rollback

@@ -278,7 +278,7 @@ as
 						where nome_alojamento = @nome
 					update Alojamento
 						set preço_base = @preço_base, descrição = @descrição,
-							localização = @localização, max_pessoas =  @max_pessoas	-- sem nome_parque
+							localização = @localização, max_pessoas =  @max_pessoas
 				end try
 				begin catch
 					rollback

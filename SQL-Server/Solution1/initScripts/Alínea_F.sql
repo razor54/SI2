@@ -81,7 +81,7 @@ go
 
 /** REMOVER EXTRA PESSOAL **/
 -- prevenir que alguém apague o extra a meio da execução
--- verificar novamente
+-- não devemos remover um extra de uma estada ativa
 create procedure removerExtraPessoal
 	@id numeric, @id_fatura numeric
 as
@@ -90,11 +90,12 @@ as
 		if exists (select * from Extra where id = @id)
 			begin
 				begin try
-					declare @data_fim date, @id_estada numeric
+					declare @data_início date, @data_fim date, @id_estada numeric
 					select @id_estada = id_estada from ExtraEstada where id_extra = @id
-					select @data_fim = data_fim from Estada where id = @id_estada
+					select @data_fim = data_fim, @data_início = data_início
+						from Estada where id = @id_estada
 					-- não devo poder remover extra se estiver em estada ativa
-					if (@data_fim >= getdate())
+					if (@data_fim >= getdate() and @data_início <= getdate())
 						throw 10, 'Estada ainda está ativa', 1
 					delete from ComponenteFatura where id_fatura = @id_fatura
 					delete from ExtraEstada where id_extra = @id
@@ -135,6 +136,7 @@ go
 
 /** ATUALIZAR EXTRA PESSOAL **/
 -- prevenir que alguém apague o extra a meio da execução
+-- não atualizamos a fatura porque o cliente paga o valor com que comprou
 create procedure atualizarExtraPessoal
 	@id numeric, @id_estada numeric, @descrição varchar(256),
 	@preço_dia money, @tipo varchar(15)

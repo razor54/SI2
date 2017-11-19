@@ -12,11 +12,11 @@ IF EXISTS (
 		DROP PROCEDURE dbo.listarAtividadesComlugares
 go
 
--- prevenir que alguém apague a atividade durante a execução
+-- prevenir que alguém altere as atividade durante a execução
 create procedure listarAtividadesComlugares
 	@dataInit Date,@dataFim Date
 as
-	set transaction isolation level repeatable read
+	set transaction isolation level serializable
 	begin tran
 		begin try
 			select	número, data_atividade, preço, lotação, nome_atividade, descrição from dbo.Atividade 
@@ -32,9 +32,7 @@ as
 	commit
 go
 
---inserir hospede
 begin tran
-	--SET DATEFORMAT dmy; 
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
 		values(123456, '01-01-2000', '05-02-2000', 111)
 	exec inserirHóspedeComEstadaExistente N'111', N'456', N'Jaquim', 
@@ -48,7 +46,6 @@ begin tran
 		N'Rua Sem Nome', N'jaquim@gmail.com', N'123456'
 
 	select * from Hóspede
-	go
 
 	insert into dbo.Parque( email , nome, morada ,estrelas)
 				values( 'aprqueAQUA@aprqueAQUA.com','aprqueAQUA','Rua sem nome',1)
@@ -59,12 +56,9 @@ begin tran
 --
 	insert into dbo.HóspedeAtividade (nif_hóspede ,nome_atividade ,nome_parque)
 		values(113,'atirar pau ao gato','aprqueAQUA'),
-			  (112,'atirar pau ao gato','aprqueAQUA')
-	
-	delete from dbo.HóspedeAtividade where nif_hóspede = 112
+			  (112,'atirar pau ao gato','aprqueAQUA'),
+			  (111, 'atirar pau ao gato', 'aprqueAQUA')
 	
 	select * from HóspedeAtividade
 	exec listarAtividadesComlugares N'01-01-2016', N'01-01-2018'
-
-
 rollback

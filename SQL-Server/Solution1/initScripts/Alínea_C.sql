@@ -3,8 +3,6 @@ SET NOCOUNT ON
 USE [SI2-Trabalho];
 GO
 
--- será necessário inscrever hóspede sem estada?
-
 IF EXISTS (
         select type_desc, type
         from sys.procedures with(nolock)
@@ -108,8 +106,6 @@ begin tran
 
 	select * from Hóspede
 	select * from EstadaHóspede
-	--select * from Estada
-	go
 rollback
 
 go

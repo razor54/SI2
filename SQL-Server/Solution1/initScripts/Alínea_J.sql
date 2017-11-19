@@ -14,23 +14,21 @@ IF EXISTS (
 go
 
 /** PAGAMENTO DE UMA ESTADA COM EMISSÃO DE FATURA **/
--- prevenir que alguém apague a estada durante a execução
--- é possível ??
--- verificar de novo (NÃO ALTERADO!!)
+-- prevenir que alguém apague algo relacionado com a estada em questão
 create procedure pagamentoEstadaComFatura
 	@id_estada numeric, @total numeric output
 as
-	if exists(select * from Estada where id = @id_estada)
-		begin
-			begin try
-				begin tran
+	set transaction isolation level serializable
+	begin tran
+		if exists(select * from Estada where id = @id_estada)
+			begin
+				begin try
 					declare @id_fatura numeric, @preço_total numeric,
 					@descrição varchar(256), @preço numeric,
 					@tipo varchar(30), @numHóspedes numeric,
 					@texto_fatura varchar(1024)
 					--
 					set @preço_total = 0
-					-- declare numHóspedes as count from select by nif
 					select @numHóspedes = count(nif_hóspede) from EstadaHóspede
 						where id_estada = @id_estada
 					-- vamos buscar a fatura respetiva à estada
@@ -52,17 +50,20 @@ as
 					end
 					close cursor_fatura
 					deallocate cursor_fatura
+					-- dizemos que foi pago
+					update Estada
+						set pagamento = 'pago'
+						where id = @id_estada
 					-- imprimimos a fatura
 					print @texto_fatura
 					print concat('Preço total: ', @preço_total)
 					select @total = @preço_total
-				commit
-				return
-			end try
-			begin catch
-				rollback
-			end catch
-		end
+				end try
+				begin catch
+					rollback
+				end catch
+			end
+	commit
 go
 
 begin tran
@@ -86,7 +87,7 @@ begin tran
 	exec inscreverHóspedeNumaAtividade N'111', N'Canoagem', N'Marechal Carmona'
 
 	declare @preço_total numeric
-	exec pagamentoEstadaComFatura N'12345', @preço_total output -- ou passar nif?
+	exec pagamentoEstadaComFatura N'12345', @preço_total output
 
 	select * from Atividade
 	select * from HóspedeAtividade

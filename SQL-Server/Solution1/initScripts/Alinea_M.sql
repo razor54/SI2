@@ -24,7 +24,7 @@ as
 
 			DECLARE MY_CURSOR CURSOR FOR 
 			SELECT DISTINCT id 
-			FROM (select * from Estada where YEAR(data_fim) = @year 
+			FROM (select * from Estada where YEAR(data_fim) = @year
 						order by id
 						OFFSET     @low ROWS       
 						FETCH NEXT @top ROWS ONLY
@@ -54,14 +54,13 @@ as
 go
 
 begin tran
-	--SET DATEFORMAT dmy; 
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
-		values(12345, '01-01-2000', '05-02-2016', 111)
+		values(12345, '01-01-2000', '05-02-2000', 111)
 	exec inserirHóspedeComEstadaExistente N'111', N'456', N'Jaquim', 
 		N'Rua Sem Nome', N'jaquim@gmail.com', N'12345'
 
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
-		values(67890, '04-01-2000', '08-01-2016', 222)
+		values(67890, '04-01-2000', '08-01-2000', 222)
 	exec inserirHóspedeComEstadaExistente N'222', N'789', N'Pedro', 
 		N'Praceta Sem Nome', N'pedro@gmail.com', N'67890'
 
@@ -86,9 +85,10 @@ begin tran
 	exec inscreverHóspedeNumaAtividade N'111', N'Canoagem', N'Marechal Carmona'
 	exec inscreverHóspedeNumaAtividade N'222', N'Hipismo', N'Marechal Carmona'
 	
-	declare @média numeric, @preço_estada numeric
-	
-	exec somaDosPreçosDasFaturas
-		2016 , 0 , 5
+	declare @preço_estada numeric
+
+	--exec pagamentoEstadaComFatura 12345, @preço_estada
+
+	exec somaDosPreçosDasFaturas 2000, 0, 5
 
 rollback

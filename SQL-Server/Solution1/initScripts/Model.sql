@@ -88,7 +88,6 @@ create table Hóspede(
    nome varchar(128)not null,
    bi numeric unique not null,
    nif numeric primary key not null,
-   --id_estada numeric not null references Estada(id)
 )
 
 create table Atividade(
