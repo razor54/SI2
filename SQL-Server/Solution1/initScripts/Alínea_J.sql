@@ -54,6 +54,9 @@ as
 					update Estada
 						set pagamento = 'pago'
 						where id = @id_estada
+					update Fatura 
+						set valor_final = @preço_total
+						where id = @id_fatura
 					-- imprimimos a fatura
 					print @texto_fatura
 					print concat('Preço total: ', @preço_total)

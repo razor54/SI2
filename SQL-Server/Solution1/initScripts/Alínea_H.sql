@@ -67,7 +67,7 @@ create procedure criarEstadaParaUmPeríodoDeTempo
 	@preço_base money, @descrição_alojamento varchar(256), @localização varchar(20), 
 	@nome_alojamento varchar(128), @max_pessoas numeric, @nome_parque varchar(56), 
 	@tipologia varchar(256), @id_extra_alojamento numeric, @descrição_extra_alojamento varchar(256),
-	@preço_dia_extra money, @tipo_extra varchar(15), @id_fatura numeric,
+	@preço_dia_extra money, @tipo_extra varchar(15), @id_fatura numeric
 as
 	begin tran
 		begin try

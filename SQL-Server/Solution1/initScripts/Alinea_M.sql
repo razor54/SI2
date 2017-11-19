@@ -6,45 +6,23 @@ GO
 IF EXISTS (
 		select type_desc, type
 		from sys.procedures with(nolock)
-		where name = 'somaDosPreçosDasFaturas'
+		where name = 'mediaDosPreçosDasFaturas'
 			and type = 'P'
 		)
-		DROP PROCEDURE dbo.somaDosPreçosDasFaturas
+		DROP PROCEDURE dbo.mediaDosPreçosDasFaturas
 go
 
 -- prevenir que alguém apague uma estada durante a execução
-create procedure somaDosPreçosDasFaturas
+create procedure mediaDosPreçosDasFaturas
 @year numeric, @low int, @top int
 as
 	set transaction isolation level repeatable read
 	begin tran
 		begin try
-			declare @preço_total numeric = 0
-			DECLARE @id numeric
-
-			DECLARE MY_CURSOR CURSOR FOR 
-			SELECT DISTINCT id 
-			FROM (select * from Estada where YEAR(data_fim) = @year
-						order by id
-						OFFSET     @low ROWS       
-						FETCH NEXT @top ROWS ONLY
-				)a
-			OPEN MY_CURSOR
-			FETCH NEXT FROM MY_CURSOR INTO @id
-			WHILE @@FETCH_STATUS = 0
-			BEGIN 
-				declare @preço numeric
-				exec pagamentoEstadaComFatura
-					@id_estada = @id, @total = @preço output
-
-				set @preço_total = @preço_total + @preço
-
-				FETCH NEXT FROM MY_CURSOR INTO @id
-			END
-			CLOSE MY_CURSOR
-			DEALLOCATE MY_CURSOR
-			select @preço_total
-			Print concat('Preço total das várias faturas: ', @preço_total)
+		declare @media_preços decimal
+		
+			select @media_preços=AVG(valor_final)from Fatura inner join Estada on id_estada = Estada.id and pagamento= 'pago'
+			Print concat('Media do preço das várias faturas: ', @media_preços)
 		end try
 
 		begin catch
@@ -84,11 +62,17 @@ begin tran
 
 	exec inscreverHóspedeNumaAtividade N'111', N'Canoagem', N'Marechal Carmona'
 	exec inscreverHóspedeNumaAtividade N'222', N'Hipismo', N'Marechal Carmona'
+
+	declare @preço_total numeric
+	exec pagamentoEstadaComFatura N'12345', @preço_total output
+	declare @preço_outro numeric
+	exec pagamentoEstadaComFatura N'67890', @preço_outro output
+
 	
 	declare @preço_estada numeric
 
 	--exec pagamentoEstadaComFatura 12345, @preço_estada
 
-	exec somaDosPreçosDasFaturas 2000, 0, 5
+	exec mediaDosPreçosDasFaturas 2000, 0, 5
 
 rollback

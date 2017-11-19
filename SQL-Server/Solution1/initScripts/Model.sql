@@ -114,6 +114,7 @@ create table Fatura(
 	id_estada numeric not null references Estada(id),
 	nome_hóspede varchar(128) not null,
 	nif_hóspede numeric not null references Hóspede(nif),
+	valor_final numeric
 )
 
 create table ComponenteFatura(
