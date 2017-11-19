@@ -27,7 +27,6 @@ as
 					@descrição varchar(256), @preço numeric,
 					@tipo varchar(30), @numHóspedes numeric,
 					@texto_fatura varchar(1024)
-					--
 					set @preço_total = 0
 					select @numHóspedes = count(nif_hóspede) from EstadaHóspede
 						where id_estada = @id_estada
@@ -40,7 +39,6 @@ as
 					fetch next from cursor_fatura into @descrição, @preço, @tipo
 					while @@FETCH_STATUS = 0
 					begin
-						-- concat não funciona
 						select @texto_fatura = concat(@texto_fatura, 
 							concat(char(13), concat(@descrição, concat(' ', @preço))))
 						if(@tipo = 'Extra Hóspede')

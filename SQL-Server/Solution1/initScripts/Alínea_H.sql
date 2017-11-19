@@ -59,7 +59,6 @@ as
 	commit
 go
 
--- INCOMPLETO
 /** CRIAR ESTADA PARA UM PERÍODO DE TEMPO **/
 create procedure criarEstadaParaUmPeríodoDeTempo
 	@id numeric, @data_início Date, @data_fim Date, @nif_hóspede numeric,
@@ -67,7 +66,8 @@ create procedure criarEstadaParaUmPeríodoDeTempo
 	@preço_base money, @descrição_alojamento varchar(256), @localização varchar(20), 
 	@nome_alojamento varchar(128), @max_pessoas numeric, @nome_parque varchar(56), 
 	@tipologia varchar(256), @id_extra_alojamento numeric, @descrição_extra_alojamento varchar(256),
-	@preço_dia_extra money, @tipo_extra varchar(15), @id_fatura numeric
+	@preço_extra_alojamento money, @tipo_extra varchar(15), @id_fatura numeric, @id_extra_pessoal numeric,
+	@descrição_extra_pessoal varchar(256), @preço_extra_pessoal numeric
 as
 	begin tran
 		begin try
@@ -87,11 +87,11 @@ as
 			exec inserirHóspedeComEstadaExistente @nif_hóspede, @bi, @nome_hóspede, 
 				@morada, @email, @id
 			-- adicionar um extra de alojamento a essa estada
-			exec inserirExtraDeAlojamento N'999', N'12345', N'Animal de Companhia', 
-				N'15', N'Alojamento', @id_fatura
+			exec inserirExtraDeAlojamento @id_extra_alojamento, @id, @descrição_extra_alojamento, 
+				@preço_extra_alojamento, N'Alojamento', @id_fatura
 			-- adicionar um extra pessoal a essa estada
-			exec inserirExtraPessoal N'999', N'12345', N'Pequeno Almoço', 
-				N'15', N'Hóspede', @id_fatura
+			exec inserirExtraPessoal @id_extra_pessoal, @id, @descrição_extra_pessoal, 
+				@preço_extra_pessoal, N'Hóspede', @id_fatura
 		end try
 		begin catch
 			rollback

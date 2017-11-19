@@ -19,10 +19,9 @@ as
 	set transaction isolation level repeatable read
 	begin tran
 		begin try
-		declare @media_preços decimal
-		
+			declare @media_preços decimal
 			select @media_preços=AVG(valor_final)from Fatura inner join Estada on id_estada = Estada.id and pagamento= 'pago'
-			Print concat('Media do preço das várias faturas: ', @media_preços)
+			Print concat('Média do preço das várias faturas: ', @media_preços)
 		end try
 
 		begin catch
@@ -65,13 +64,7 @@ begin tran
 
 	declare @preço_total numeric
 	exec pagamentoEstadaComFatura N'12345', @preço_total output
-	declare @preço_outro numeric
-	exec pagamentoEstadaComFatura N'67890', @preço_outro output
-
-	
-	declare @preço_estada numeric
-
-	--exec pagamentoEstadaComFatura 12345, @preço_estada
+	exec pagamentoEstadaComFatura N'67890', @preço_total output
 
 	exec mediaDosPreçosDasFaturas 2000, 0, 5
 

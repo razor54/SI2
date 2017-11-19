@@ -77,12 +77,13 @@ as
 		if exists (select * from Hóspede where nif = @nif)
 			begin
 				begin try
-					declare @id_estada numeric
+					declare @id_estada numeric, @responsável numeric
 					select @id_estada = id_estada from EstadaHóspede 
 						where nif_hóspede = @nif
+					if not exists (select nif_hóspede from Estada where nif_hóspede = @nif) 
+						throw 10, 'Não pode remover o hóspede responsável por uma estada', 1
 					delete from EstadaHóspede where nif_hóspede = @nif
 					delete from Hóspede where nif = @nif
-					-- e se for hóspede responsável?
 				end try
 				begin catch
 					rollback

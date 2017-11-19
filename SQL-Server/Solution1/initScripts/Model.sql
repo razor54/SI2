@@ -50,7 +50,7 @@ create table Parque (
    nome varchar(56)primary key not null,
    morada varchar(256) not null,
    estrelas numeric
-   -- telefone?????
+   -- telefone
 )
 
 create table Alojamento(
@@ -103,7 +103,6 @@ create table Atividade(
 
 create table Extra(
 	id  numeric primary key not null,
-	--id_estada numeric references estada(id),
 	descrição varchar(256),
 	preço_dia money not null,
 	tipo varchar(15) check (tipo = 'Alojamento' or tipo = 'Hóspede')
