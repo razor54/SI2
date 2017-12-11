@@ -8,10 +8,10 @@ namespace ADOSI2.model
 {
     class Parque
     {
-        public virtual string Email { get; set; }
-        public virtual string Nome { get; set; }
-        public virtual string Morada { get; set; }
-        public virtual int? Estrelas { get; set; }
+        public string Email { get; set; }
+        public string Nome { get; set; }
+        public string Morada { get; set; }
+        public int? Estrelas { get; set; }
        
         
     }

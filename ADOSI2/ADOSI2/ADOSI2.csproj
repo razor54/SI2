@@ -51,7 +51,9 @@
     <Compile Include="mapper\AtividadeProxy.cs" />
     <Compile Include="mapper\BungalowProxy.cs" />
     <Compile Include="mapper\ComponenteFaturaProxy.cs" />
+    <Compile Include="mapper\FaturaProxy.cs" />
     <Compile Include="mapper\IMapper.cs" />
+    <Compile Include="mapper\TendaProxy.cs" />
     <Compile Include="model\Alojamento.cs" />
     <Compile Include="model\Atividade.cs" />
     <Compile Include="model\Bungalow.cs" />
