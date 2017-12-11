@@ -47,6 +47,10 @@
     <Compile Include="dal\IContext.cs" />
     <Compile Include="dal\IRepository.cs" />
     <Compile Include="mapper\AbstractMapper.cs" />
+    <Compile Include="mapper\AlojamentoProxy.cs" />
+    <Compile Include="mapper\AtividadeProxy.cs" />
+    <Compile Include="mapper\BungalowProxy.cs" />
+    <Compile Include="mapper\ComponenteFaturaProxy.cs" />
     <Compile Include="mapper\IMapper.cs" />
     <Compile Include="model\Alojamento.cs" />
     <Compile Include="model\Atividade.cs" />

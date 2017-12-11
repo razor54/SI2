@@ -12,8 +12,8 @@ namespace ADOSI2.model
         public int Preço { get; set; }
         public int Lotaçao { get; set; }
         public int NomeAtividade { get; set; }
-        public virtual Parque NomeParque{ get; set; }
-        public virtual string Decriçao{ get; set; }
+        public virtual Parque Parque{ get; set; }
+        public string Decriçao{ get; set; }
 
 
     }

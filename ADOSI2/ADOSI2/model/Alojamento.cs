@@ -8,10 +8,10 @@ namespace ADOSI2.model
 {
     class Alojamento
     {
-        public virtual int PreçoBase { get; set; } 
-        public virtual string Descrição { get; set; } 
-        public virtual string Localizaçao { get; set; } 
-        public virtual Parque NomeParque { get; set; } 
-        public virtual int MaxPessoas { get; set; } 
+        public int PreçoBase { get; set; } 
+        public string Descrição { get; set; } 
+        public string Localizaçao { get; set; } 
+        public virtual Parque Parque { get; set; } 
+        public int MaxPessoas { get; set; } 
     }
 }
