@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="concrete\AlojamentoMapper.cs" />
     <Compile Include="concrete\Context.cs" />
+    <Compile Include="dal\IAlojamentoMapper.cs" />
     <Compile Include="dal\IContext.cs" />
     <Compile Include="dal\IRepository.cs" />
     <Compile Include="mapper\AbstractMapper.cs" />

@@ -11,6 +11,7 @@ namespace ADOSI2.model
         public int PreçoBase { get; set; } 
         public string Descrição { get; set; } 
         public string Localizaçao { get; set; } 
+        public string Nome { get; set; }
         public virtual Parque Parque { get; set; } 
         public int MaxPessoas { get; set; } 
     }

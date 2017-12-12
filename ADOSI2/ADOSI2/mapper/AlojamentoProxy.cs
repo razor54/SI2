@@ -14,7 +14,7 @@ namespace ADOSI2.mapper
         public AlojamentoProxy(Alojamento c, IContext ctx) : base()
         {
             context = ctx;
-
+            base.Nome = c.Nome;
             base.Descrição = c.Descrição;
             base.Localizaçao = c.Localizaçao;
             base.MaxPessoas = c.MaxPessoas;
