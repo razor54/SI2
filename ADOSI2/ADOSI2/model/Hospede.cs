@@ -8,9 +8,11 @@ namespace ADOSI2.model
 {
     class Hospede
     {
-        public string Email { get; set; }
-        public string Morada { get; set; }
-        public int Bi { get; set; }
         public int Nif { get; set; }
+        public int Bi { get; set; }
+        public string Nome { get; set; }
+        public string Morada { get; set; }
+        public string Email { get; set; }
+        
     }
 }

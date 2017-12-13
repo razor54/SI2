@@ -45,7 +45,10 @@
   <ItemGroup>
     <Compile Include="concrete\AlojamentoMapper.cs" />
     <Compile Include="concrete\Context.cs" />
-    <Compile Include="dal\IAlojamentoMapper.cs" />
+    <Compile Include="concrete\EstadaMapper.cs" />
+    <Compile Include="concrete\HospedeMapper.cs" />
+    <Compile Include="concrete\ParqueMapper.cs" />
+    <Compile Include="mapper\IAlojamentoMapper.cs" />
     <Compile Include="dal\IContext.cs" />
     <Compile Include="dal\IRepository.cs" />
     <Compile Include="mapper\AbstractMapper.cs" />
@@ -54,7 +57,10 @@
     <Compile Include="mapper\BungalowProxy.cs" />
     <Compile Include="mapper\ComponenteFaturaProxy.cs" />
     <Compile Include="mapper\FaturaProxy.cs" />
+    <Compile Include="mapper\IEstadaMapper.cs" />
+    <Compile Include="mapper\IHospedeMapper.cs" />
     <Compile Include="mapper\IMapper.cs" />
+    <Compile Include="mapper\IParqueMapper.cs" />
     <Compile Include="mapper\TendaProxy.cs" />
     <Compile Include="model\Alojamento.cs" />
     <Compile Include="model\Atividade.cs" />
