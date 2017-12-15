@@ -19,45 +19,15 @@ namespace ADOSI2.concrete
         {
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Estada where id=@id";
-            }
-        }
+        protected override string DeleteCommandText => "delete from Estada where id=@id";
 
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "INSERT INTO Estada(id, data_início, data_fim, nif_hóspede) values (@id,@data_início, @data_fim, @nif_hóspede)";
-            }
-        }
+        protected override string InsertCommandText => "INSERT INTO Estada(id, data_início, data_fim, nif_hóspede) values (@id,@data_início, @data_fim, @nif_hóspede)";
 
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select id, data_início, data_fim, nif_hóspede from Estada";
-            }
-        }
+        protected override string SelectAllCommandText => "select id, data_início, data_fim, nif_hóspede from Estada ";
 
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0}  where id=@id", SelectAllCommandText);
-            }
-        }
+        protected override string SelectCommandText => $"{SelectAllCommandText}  where id=@id";
 
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Estada set id=@id, data_início=@data_início, data_fim=@data_fim, nif_hóspede=@nif_hóspede where courseId=@id";
-            }
-        }
+        protected override string UpdateCommandText => "update Estada set data_início=@data_início, data_fim=@data_fim, nif_hóspede=@nif_hóspede where id=@id";
 
         protected override void DeleteParameters(IDbCommand cmd, Estada e)
         {
@@ -81,21 +51,11 @@ namespace ADOSI2.concrete
         protected override Estada Map(IDataRecord record)
         {
             Estada c = new Estada();
-            c.Id = record.GetInt32(0);
+            c.Id = Convert.ToInt32(record.GetDecimal(0));
             //DATE TIME???
             c.DataInicio = record.GetDateTime(1);
             c.DataFim = record.GetDateTime(2);
             return c;
-        }
-
-        public override Estada Create(Estada entity)
-        {
-            return base.Create(entity);
-        }
-
-        public override Estada Update(Estada entity)
-        {
-            return base.Update(entity);
         }
 
         protected override void SelectParameters(IDbCommand cmd, int? k)

@@ -28,8 +28,8 @@ namespace ADOSI2.mapper
                 if (base.NomeAlojamento == null)
                 {
                     //TODO
-                    AlojamentoMapper pm = new AlojamentoMapper(context);
-                    base.NomeAlojamento = pm.LoadAlojamento(this);
+                    //AlojamentoMapper pm = new AlojamentoMapper(context);
+                  //  base.NomeAlojamento = pm.LoadAlojamento(this);
                 }
 
                 return base.NomeAlojamento;

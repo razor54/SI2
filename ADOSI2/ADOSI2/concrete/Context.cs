@@ -15,11 +15,14 @@ namespace ADOSI2.concrete
     {
         private string connectionString;
         private SqlConnection con = null;
-        
+        private ParqueRepository _parqueRepository;
+        private EstadaRepository _estadaRepository;
 
         public Context(string cs)
         {
             connectionString = cs;
+            _parqueRepository=new ParqueRepository(this);
+            _estadaRepository=new EstadaRepository(this);
            
         }
 
@@ -58,5 +61,7 @@ namespace ADOSI2.concrete
             }
         }
 
+        public ParqueRepository Parques => _parqueRepository;
+        public EstadaRepository Estadas => _estadaRepository;
     }
 }

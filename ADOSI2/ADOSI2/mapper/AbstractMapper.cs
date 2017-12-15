@@ -111,6 +111,7 @@ namespace ADOSI2.mapper
                 cmd.CommandText = InsertCommandText;
                 cmd.CommandType = InsertCommandType;
                 InsertParameters(cmd, entity);
+
                 cmd.ExecuteNonQuery();
                 T ent = UpdateEntityID(cmd, entity);
                 cmd.Parameters.Clear();

@@ -12,6 +12,7 @@ using System.Transactions;
 
 namespace ADOSI2.concrete
 {
+} /*
     class AlojamentoMapper : AbstracMapper<Alojamento,string,List<Alojamento>>,IAlojamentoMapper
     {
         #region HELPER METHODS  
@@ -83,7 +84,7 @@ namespace ADOSI2.concrete
                         ExecuteNonQuery("INSERT INTO StudentCourse (studentId,courseId) values(@studentId,@courseId)", parameters);
                     }
                     */
-                }
+   /*             }
                 ts.Complete();
                 return entity;
             }
@@ -112,7 +113,7 @@ namespace ADOSI2.concrete
                    // ExecuteNonQuery("delete from StudentCourse where studentId=@studentId", parameters);
                 }
                 */
-                Alojamento del = base.Delete(entity);
+  /*              Alojamento del = base.Delete(entity);
                 ts.Complete();
                 return del;
             }
@@ -222,3 +223,4 @@ namespace ADOSI2.concrete
 
     }
 }
+*/

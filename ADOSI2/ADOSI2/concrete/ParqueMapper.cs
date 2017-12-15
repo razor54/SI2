@@ -5,13 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ADOSI2.concrete
 {
-    
+
     class ParqueMapper : AbstracMapper<Parque, string, List<Parque>>, IParqueMapper
     {
 
@@ -20,51 +17,19 @@ namespace ADOSI2.concrete
         {
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Parque where nome=@nome";
-            }
-        }
+        protected override string DeleteCommandText => "delete from Parque where nome=@nome";
 
-        protected override string InsertCommandText
-        {
-            get
-            {
-                //TODO ::::::::TELEFONES::::::::
-                return "insert into Parque(email, nome, morada, estrelas)" +
+        protected override string InsertCommandText => "insert into Parque(email, nome, morada, estrelas)" +
 
-                        "values(@email, @nome, @morada, @estrelas)";
-            }
-        }
+                                                       "values(@email, @nome, @morada, @estrelas)";
 
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select email, nome, morada, estrelas from Estada";
-            }
-        }
+        protected override string SelectAllCommandText => "select email, nome, morada, estrelas from Parque";
 
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0}  where nome=@nome", SelectAllCommandText);
-            }
-        }
+        protected override string SelectCommandText => $"{SelectAllCommandText}  where nome=@nome";
 
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                //DAR UPDATE AO BI OU NIF??? SUPOSTAMENTE NAO DEVE MUDAR ISSO NÉ???
-                return "update Hóspede" +
-                    "set nome = @nome, morada = @morada," +
-                    "email = @email, estrelas = @estrelas where nif=@nif";
-            }
-        }
+        protected override string UpdateCommandText => "update Parque " +
+                                                       "set nome=@nome,morada = @morada," +
+                                                       "email = @email, estrelas = @estrelas where nome=@nome";
 
         protected override void DeleteParameters(IDbCommand cmd, Parque e)
         {
@@ -93,7 +58,9 @@ namespace ADOSI2.concrete
             c.Nome = record.GetString(1);
             c.Morada = record.GetString(2);
             //NUMERIC NOT INT ???
-            c.Estrelas = record.GetInt32(3);
+            var estrelas =record.GetDecimal(3);
+
+            c.Estrelas = Convert.ToInt32(estrelas);
 
 
             return c;

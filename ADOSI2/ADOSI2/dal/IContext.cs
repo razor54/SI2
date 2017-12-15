@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADOSI2.concrete;
 
 namespace ADOSI2.dal
 {
@@ -12,5 +13,8 @@ namespace ADOSI2.dal
         void Open();
         SqlCommand CreateCommand();
         void EnlistTransaction();
+
+        ParqueRepository Parques { get; }
+        EstadaRepository Estadas { get; }
     }
 }

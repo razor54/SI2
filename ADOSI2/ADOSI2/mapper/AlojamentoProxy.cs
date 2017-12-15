@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADOSI2.concrete;
 
 namespace ADOSI2.mapper
 {
@@ -30,7 +31,7 @@ namespace ADOSI2.mapper
                 {
                     //TODO
                     ParqueMapper pm = new ParqueMapper(context);
-                    base.Parque = pm.LoadParque(this);
+                   // base.Parque = pm.LoadParque(this);
                 }
 
                 return base.Parque;

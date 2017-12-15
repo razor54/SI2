@@ -30,8 +30,8 @@ namespace ADOSI2.mapper
                 if (base.IdFatura == null)
                 {
                     //TODO
-                    FaturaMapper pm = new FaturaMapper(context);
-                    base.IdFatura = pm.LoadFatura(this);
+                    //FaturaMapper pm = new FaturaMapper(context);
+                    //base.IdFatura = pm.LoadFatura(this);
                 }
 
                 return base.IdFatura;
