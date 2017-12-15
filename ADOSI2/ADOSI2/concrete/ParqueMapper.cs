@@ -99,15 +99,6 @@ namespace ADOSI2.concrete
             return c;
         }
 
-        public override Parque Create(Parque entity)
-        {
-            return base.Create(entity);
-        }
-
-        public override Parque Update(Parque entity)
-        {
-            return base.Update(entity);
-        }
 
         protected override void SelectParameters(IDbCommand cmd, string k)
         {
@@ -128,9 +119,5 @@ namespace ADOSI2.concrete
             InsertParameters(command, e);
         }
 
-        public Hospede Read(string id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

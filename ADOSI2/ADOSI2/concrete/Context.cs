@@ -34,7 +34,7 @@ namespace ADOSI2.concrete
                 con.Open();
         }
 
-        public SqlCommand createCommand()
+        public SqlCommand CreateCommand()
         {
             Open();
             SqlCommand cmd = con.CreateCommand();
@@ -58,9 +58,5 @@ namespace ADOSI2.concrete
             }
         }
 
-        public SqlCommand CreateCommand()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

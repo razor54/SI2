@@ -75,7 +75,7 @@ namespace ADOSI2.mapper
         }
         protected IDataReader ExecuteReader(String commandText, List<IDataParameter> parameters)
         {
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 if (parameters != null)
                     cmd.Parameters.AddRange(parameters);
@@ -86,7 +86,7 @@ namespace ADOSI2.mapper
         }
         protected void ExecuteNonQuery(String commandText, List<IDataParameter> parameters)
         {
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 if (parameters != null)
                     cmd.Parameters.AddRange(parameters);
@@ -106,7 +106,7 @@ namespace ADOSI2.mapper
         public virtual T Create(T entity)
         {
             EnsureContext();
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 cmd.CommandText = InsertCommandText;
                 cmd.CommandType = InsertCommandType;
@@ -125,7 +125,7 @@ namespace ADOSI2.mapper
 
             EnsureContext();
 
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 cmd.CommandText = DeleteCommandText;
                 cmd.CommandType = DeleteCommandType;
@@ -138,7 +138,7 @@ namespace ADOSI2.mapper
         public virtual T Read(Tid id)
         {
             EnsureContext();
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 cmd.CommandText = SelectCommandText;
                 cmd.CommandType = SelectCommandType;
@@ -152,7 +152,7 @@ namespace ADOSI2.mapper
         {
             EnsureContext();
 
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 cmd.CommandText = SelectAllCommandText;
                 cmd.CommandType = SelectAllCommandType;
@@ -169,7 +169,7 @@ namespace ADOSI2.mapper
 
             EnsureContext();
 
-            using (IDbCommand cmd = context.createCommand())
+            using (IDbCommand cmd = context.CreateCommand())
             {
                 cmd.CommandText = UpdateCommandText;
                 cmd.CommandType = UpdateCommandType;
