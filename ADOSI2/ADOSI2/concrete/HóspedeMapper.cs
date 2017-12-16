@@ -11,11 +11,9 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.concrete
 {
-    class HospedeMapper : AbstracMapper<Hospede, int?, List<Hospede>>, IHospedeMapper
+    public class HóspedeMapper : AbstracMapper<Hóspede, int?, List<Hóspede>>, IHospedeMapper
     {
-
-
-        public HospedeMapper(IContext ctx) : base(ctx)
+        public HóspedeMapper(IContext ctx) : base(ctx)
         {
         }
 
@@ -23,7 +21,7 @@ namespace ADOSI2.concrete
         {
             get
             {
-                return "delete from Hospede where nif=@nif";
+                return "delete from Hóspede where nif = @nif";
             }
         }
 
@@ -41,7 +39,7 @@ namespace ADOSI2.concrete
         {
             get
             {
-                return "select nif, bi, nome, morada,email from Estada";
+                return "select nif, bi, nome, morada,email from Hóspede";
             }
         }
 
@@ -57,19 +55,18 @@ namespace ADOSI2.concrete
         {
             get
             {
-                //DAR UPDATE AO BI OU NIF??? SUPOSTAMENTE NAO DEVE MUDAR ISSO NÉ???
-                return "update Hóspede"+
-                    "set bi = @bi, nome = @nome, morada = @morada,"+
+                return "update Hóspede " +
+                    "set bi = @bi, nome = @nome, morada = @morada, " +
                     "email = @email where nif=@nif";
             }
         }
 
-        protected override void DeleteParameters(IDbCommand cmd, Hospede e)
+        protected override void DeleteParameters(IDbCommand cmd, Hóspede e)
         {
             SelectParameters(cmd, e.Bi);
         }
 
-        protected override void InsertParameters(IDbCommand cmd, Hospede e)
+        protected override void InsertParameters(IDbCommand cmd, Hóspede e)
         {
 
             SqlParameter p1 = new SqlParameter("@nif", e.Nif);
@@ -85,27 +82,16 @@ namespace ADOSI2.concrete
             cmd.Parameters.Add(p5);
         }
 
-        protected override Hospede Map(IDataRecord record)
+        protected override Hóspede Map(IDataRecord record)
         {
-            Hospede c = new Hospede();
-            c.Nif = record.GetInt32(0);
-            c.Bi = record.GetInt32(1);
+            Hóspede c = new Hóspede();
+            c.Nif = Convert.ToInt32(record.GetDecimal(0));
+            c.Bi = Convert.ToInt32(record.GetDecimal(1));
             c.Nome = record.GetString(2);
             c.Morada = record.GetString(3);
             c.Email = record.GetString(4);
-           
-            
+
             return c;
-        }
-
-        public override Hospede Create(Hospede entity)
-        {
-            return base.Create(entity);
-        }
-
-        public override Hospede Update(Hospede entity)
-        {
-            return base.Update(entity);
         }
 
         protected override void SelectParameters(IDbCommand cmd, int? k)
@@ -114,7 +100,7 @@ namespace ADOSI2.concrete
             cmd.Parameters.Add(p1);
         }
 
-        protected override Hospede UpdateEntityID(IDbCommand cmd, Hospede e)
+        protected override Hóspede UpdateEntityID(IDbCommand cmd, Hóspede e)
         {
             var param = cmd.Parameters["@nif"] as SqlParameter;
             e.Nif = int.Parse(param.Value.ToString());
@@ -122,14 +108,9 @@ namespace ADOSI2.concrete
 
         }
 
-        protected override void UpdateParameters(IDbCommand command, Hospede e)
+        protected override void UpdateParameters(IDbCommand command, Hóspede e)
         {
             InsertParameters(command, e);
-        }
-
-        public Hospede Read(string id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

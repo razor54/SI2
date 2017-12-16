@@ -11,7 +11,7 @@ using ADOSI2.dal;
 
 namespace ADOSI2.concrete
 {
-    class Context : IContext
+    public class Context : IContext
     {
         private string connectionString;
         private SqlConnection con = null;

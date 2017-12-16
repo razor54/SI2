@@ -48,8 +48,7 @@
     <Compile Include="concrete\AlojamentoRepository.cs" />
     <Compile Include="concrete\Context.cs" />
     <Compile Include="concrete\EstadaMapper.cs" />
-    <Compile Include="concrete\EstadaRepository.cs" />
-    <Compile Include="concrete\HospedeMapper.cs" />
+    <Compile Include="concrete\HóspedeMapper.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />
     <Compile Include="dal\IAlojamentoRepository.cs" />
@@ -74,9 +73,13 @@
     <Compile Include="model\Bungalow.cs" />
     <Compile Include="model\ComponenteFatura.cs" />
     <Compile Include="model\Estada.cs" />
+    <Compile Include="model\EstadaAlojamento.cs" />
+    <Compile Include="model\EstadaHóspede.cs" />
     <Compile Include="model\Extra.cs" />
+    <Compile Include="model\ExtraEstada.cs" />
     <Compile Include="model\Fatura.cs" />
-    <Compile Include="model\Hospede.cs" />
+    <Compile Include="model\Hóspede.cs" />
+    <Compile Include="model\HóspedeAtividade.cs" />
     <Compile Include="model\Parque.cs" />
     <Compile Include="model\Tenda.cs" />
     <Compile Include="Program.cs" />

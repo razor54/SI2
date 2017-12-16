@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.mapper
 {
-    interface IHospedeMapper : IMapper<Hospede, string, List<Hospede>>
+    interface IHospedeMapper : IMapper<Hóspede, int?, List<Hóspede>>
     {
     }
 }

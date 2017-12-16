@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ADOSI2.concrete;
 
 namespace ADOSI2.mapper
 {
@@ -30,7 +29,7 @@ namespace ADOSI2.mapper
                 if (base.IdEstada == null)
                 {
                     //TODO
-                    EstadaMapper pm = new EstadaMapper(context);
+                    //EstadaMapper pm = new EstadaMapper(context);
                     //base.IdEstada = pm.LoadEstada(this);
                 }
 
