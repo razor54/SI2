@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.concrete
 {
-    class EstadaMapper : AbstracMapper<Estada, int?, List<Estada>>, IEstadaMapper
+    public class EstadaMapper : AbstracMapper<Estada, int?, List<Estada>>, IEstadaMapper
     {
        
        

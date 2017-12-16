@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADOSI2.concrete;
 
 namespace ADOSI2.mapper
 {
@@ -16,27 +17,46 @@ namespace ADOSI2.mapper
             context = ctx;
 
             base.Id = c.Id;
-            base.IdEstada = null;
-            base.NomeHospede = c.NomeHospede;
+            base.Estada = null;
+            base.Hóspede = null;
             base.ValorFinal = c.ValorFinal;
         }
 
-        public override Estada IdEstada 
+        public override Estada Estada 
         {
 
             get
             {
-                if (base.IdEstada == null)
+                if (base.Estada == null)
                 {
                     //TODO
-                    //EstadaMapper pm = new EstadaMapper(context);
-                    //base.IdEstada = pm.LoadEstada(this);
+                    FaturaMapper pm = new FaturaMapper(context);
+                    base.Estada = pm.LoadEstada(this);
                 }
 
-                return base.IdEstada;
+                return base.Estada;
             }
 
-            set => base.IdEstada = value;
+            set => base.Estada = value;
+
+        }
+
+        public override Hóspede Hóspede
+        {
+
+            get
+            {
+                if (base.Estada == null)
+                {
+                    //TODO
+                    FaturaMapper pm = new FaturaMapper(context);
+                    base.Hóspede = pm.LoadHóspede(this);
+                }
+
+                return base.Hóspede;
+            }
+
+            set => base.Hóspede= value;
 
         }
     }

@@ -9,9 +9,9 @@ namespace ADOSI2.model
     public class Fatura
     {
         public int Id { get; set; }
-        public virtual Estada IdEstada { get; set; }
-        public  string NomeHospede { get; set; }
-        public  int? ValorFinal { get; set; }
+        public virtual Estada Estada { get; set; }
+        public virtual Hóspede Hóspede { get; set; }
+        public  decimal? ValorFinal { get; set; }
 
     }
 }
