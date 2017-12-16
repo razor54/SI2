@@ -8,8 +8,7 @@ using System.Data.SqlClient;
 
 namespace ADOSI2.concrete
 {
-
-    class ParqueMapper : AbstracMapper<Parque, string, List<Parque>>, IParqueMapper
+    public class ParqueMapper : AbstracMapper<Parque, string, List<Parque>>, IParqueMapper
     {
 
 

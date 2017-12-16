@@ -32,6 +32,11 @@ namespace ADOSI2Tests
                 Assert.AreEqual(hóspede.Nif, hóspede1.Nif);
                 Assert.AreEqual(hóspede.Nome, hóspede1.Nome);
 
+                foreach (var hospede in hóspedeMapper.ReadAll())
+                {
+                    hóspedeMapper.Delete(hospede);
+                }
+
             }
         }
 
@@ -57,6 +62,12 @@ namespace ADOSI2Tests
 
                 Assert.AreEqual(hóspede.Nif, hóspede1.Nif);
                 Assert.AreEqual(hóspede.Nome, hóspede1.Nome);
+
+                
+                foreach (var hospede in hóspedeMapper.ReadAll())
+                {
+                    hóspedeMapper.Delete(hospede);
+                }
             }
         }
 

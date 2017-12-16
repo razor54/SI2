@@ -17,53 +17,23 @@ namespace ADOSI2.concrete
         {
         }
 
-        protected override string DeleteCommandText
-        {
-            get
-            {
-                return "delete from Hóspede where nif = @nif";
-            }
-        }
+        protected override string DeleteCommandText => "delete from Hóspede where nif = @nif";
 
-        protected override string InsertCommandText
-        {
-            get
-            {
-                return "insert into Hóspede(nif, bi, nome, morada, email)"+
+        protected override string InsertCommandText => "insert into Hóspede(nif, bi, nome, morada, email)"+
 
-                        "values(@nif, @bi, @nome, @morada, @email)";
-            }
-        }
+                                                       "values(@nif, @bi, @nome, @morada, @email)";
 
-        protected override string SelectAllCommandText
-        {
-            get
-            {
-                return "select nif, bi, nome, morada,email from Hóspede";
-            }
-        }
+        protected override string SelectAllCommandText => "select nif, bi, nome, morada,email from Hóspede";
 
-        protected override string SelectCommandText
-        {
-            get
-            {
-                return String.Format("{0}  where nif=@nif", SelectAllCommandText);
-            }
-        }
+        protected override string SelectCommandText => $"{SelectAllCommandText}  where nif=@nif";
 
-        protected override string UpdateCommandText
-        {
-            get
-            {
-                return "update Hóspede " +
-                    "set bi = @bi, nome = @nome, morada = @morada, " +
-                    "email = @email where nif=@nif";
-            }
-        }
+        protected override string UpdateCommandText => "update Hóspede " +
+                                                       "set nome = @nome, morada = @morada, " +
+                                                       "email = @email where nif=@nif";
 
         protected override void DeleteParameters(IDbCommand cmd, Hóspede e)
         {
-            SelectParameters(cmd, e.Bi);
+            SelectParameters(cmd, e.Nif);
         }
 
         protected override void InsertParameters(IDbCommand cmd, Hóspede e)
