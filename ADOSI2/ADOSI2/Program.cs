@@ -141,6 +141,99 @@ namespace ADOSI2
             }
 
 
+            /** TESTAR ALOJAMENTO*/
+            Console.WriteLine(" TESTAR ALOJAMENTO");
+
+            using (Context ctx = new Context(connectionString))
+            {
+
+                /*
+                 * CREATE PARQUE
+                 */
+                Parque p = new Parque();
+                p.Nome = "brasil";
+                p.Email = "brasil@brasil.com";
+                p.Morada = "Rio de Janeiro, Rua Junqueiro 367";
+                p.Estrelas = 5;
+
+                ParqueMapper parqueMap = new ParqueMapper(ctx);
+                p = parqueMap.Create(p);
+                
+                /*
+                 * Alojamento
+                 */
+
+
+                Alojamento c = new Alojamento();
+                c.PreçoBase = 50;
+                c.Nome = "OI";
+                c.Descrição = "sem descricao";
+                c.Localizaçao = "Brasil";
+                c.MaxPessoas = 20;
+                c.Parque = p;
+
+                AlojamentoMapper estadaMapper = new AlojamentoMapper(ctx);
+                c = estadaMapper.Create(c);
+                Alojamento c1 = estadaMapper.Read(c.Nome);
+
+                Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", c1.Nome, c1.PreçoBase, c1.Descrição, c1.Localizaçao,c1.MaxPessoas,c1.Parque);
+
+
+                c1.PreçoBase = 20;
+                c1.Localizaçao = "Espanha";
+                c1.Descrição = "nada de especial";
+                c1.MaxPessoas = 2;
+               
+                estadaMapper.Update(c1);
+                c1 = estadaMapper.Read(c1.Nome);
+                Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", c1.Nome, c1.PreçoBase, c1.Descrição, c1.Localizaçao, c1.MaxPessoas, c1.Parque);
+
+                Alojamento c2 = new Alojamento();
+                c2.PreçoBase = 25;
+                c2.Nome = "BVIBA";
+                c2.Descrição = "AMArelo e azul";
+                c2.Localizaçao = "Portugal";
+                c2.MaxPessoas = 201;
+                c2.Parque = p;
+                c2 = estadaMapper.Create(c2);
+
+                Console.WriteLine("FindAll");
+                foreach (var alojamento in ctx.Alojamentos.FindAll())
+                {
+                    Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", alojamento.Nome, alojamento.PreçoBase, alojamento.Descrição, alojamento.Localizaçao, alojamento.MaxPessoas,alojamento.Parque);
+                }
+                Console.WriteLine("Find");
+                foreach (var alojamento in ctx.Alojamentos.Find(ct => ct.Nome.Equals("BVIBA")))
+                {
+                    Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", alojamento.Nome, alojamento.PreçoBase, alojamento.Descrição, alojamento.Localizaçao, alojamento.MaxPessoas, alojamento.Parque);
+                }
+
+                Console.WriteLine("ReadAll and Delete");
+                foreach (var alojamento in estadaMapper.ReadAll())
+                {
+                    Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", alojamento.Nome, alojamento.PreçoBase, alojamento.Descrição, alojamento.Localizaçao, alojamento.MaxPessoas, alojamento.Parque);
+                    estadaMapper.Delete(alojamento);
+                }
+
+                Console.WriteLine("READ");
+                foreach (var alojamento in estadaMapper.ReadAll())
+                {
+                    Console.WriteLine("Alojamento: {0}-{1}-{2}-{3}-{4} --- PARQUE - {5}", alojamento.Nome, alojamento.PreçoBase, alojamento.Descrição, alojamento.Localizaçao, alojamento.MaxPessoas, alojamento.Parque);
+                }
+
+                /*
+                 * REMOVE THE PARQUE
+                 */
+                foreach (var parque in parqueMap.ReadAll())
+                {
+                    parqueMap.Delete(parque);
+                }
+                Console.WriteLine("REMOVED");
+
+
+
+            }
+
 
             Console.ReadKey();
         }

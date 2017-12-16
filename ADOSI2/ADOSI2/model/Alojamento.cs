@@ -8,7 +8,7 @@ namespace ADOSI2.model
 {
     class Alojamento
     {
-        public int PreçoBase { get; set; } 
+        public Decimal PreçoBase { get; set; } 
         public string Descrição { get; set; } 
         public string Localizaçao { get; set; } 
         public string Nome { get; set; }

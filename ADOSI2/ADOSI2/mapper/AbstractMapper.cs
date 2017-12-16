@@ -81,7 +81,7 @@ namespace ADOSI2.mapper
                     cmd.Parameters.AddRange(parameters);
 
                 cmd.CommandText = commandText;
-                return cmd.ExecuteReader(CommandBehavior.Default);
+                return cmd.ExecuteReader();
             }
         }
         protected void ExecuteNonQuery(String commandText, List<IDataParameter> parameters)

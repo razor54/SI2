@@ -45,12 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="concrete\AlojamentoMapper.cs" />
+    <Compile Include="concrete\AlojamentoRepository.cs" />
     <Compile Include="concrete\Context.cs" />
     <Compile Include="concrete\EstadaMapper.cs" />
     <Compile Include="concrete\EstadaRepository.cs" />
     <Compile Include="concrete\HospedeMapper.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />
+    <Compile Include="dal\IAlojamentoRepository.cs" />
     <Compile Include="dal\IEstadaRepository.cs" />
     <Compile Include="dal\IParqueRepository.cs" />
     <Compile Include="mapper\IAlojamentoMapper.cs" />
