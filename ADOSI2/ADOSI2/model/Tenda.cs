@@ -9,7 +9,7 @@ namespace ADOSI2.model
     class Tenda
     {
         public int Area { get; set; }
-        public virtual Alojamento NomeAlojamento { get; set; }
+        public virtual Alojamento Alojamento { get; set; }
         public string Tipo { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace ADOSI2.model
     {
         public int Id { get; set; }
         public string Descriçao { get; set; }
-        public int PreçoDia { get; set; }
+        public decimal PreçoDia { get; set; }
         public string Tipo { get; set; }
     }
 }

@@ -17,25 +17,25 @@ namespace ADOSI2.mapper
 
             base.Tipo = c.Tipo;
             base.Area = c.Area;
-            base.NomeAlojamento = null;
+            base.Alojamento = null;
         }
 
-        public override Alojamento NomeAlojamento
+        public override Alojamento Alojamento
         {
 
             get
             {
-                if (base.NomeAlojamento == null)
+                if (base.Alojamento == null)
                 {
                     //TODO
                     //AlojamentoMapper pm = new AlojamentoMapper(context);
                     //base.NomeAlojamento = pm.LoadAlojamento(this);
                 }
 
-                return base.NomeAlojamento;
+                return base.Alojamento;
             }
 
-            set => base.NomeAlojamento = value;
+            set => base.Alojamento = value;
 
         }
     }

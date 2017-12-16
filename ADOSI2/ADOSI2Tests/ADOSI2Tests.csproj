@@ -57,6 +57,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtraCrudTests.cs" />
     <Compile Include="HóspedeCrudTests.cs" />
     <Compile Include="ParqueCrudTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
