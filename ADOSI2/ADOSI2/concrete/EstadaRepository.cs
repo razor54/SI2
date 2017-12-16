@@ -8,7 +8,7 @@ using ADOSI2.model;
 
 namespace ADOSI2.concrete
 {
-    class EstadaRepository : IEstadaRepository
+    public class EstadaRepository : IEstadaRepository
     {
         private IContext context;
         public EstadaRepository(IContext ctx)

@@ -8,7 +8,7 @@ using ADOSI2.model;
 
 namespace ADOSI2.concrete
 {
-    class ParqueRepository : IParqueRepository
+    public class ParqueRepository : IParqueRepository
     {
         private IContext context;
         public ParqueRepository(IContext ctx)

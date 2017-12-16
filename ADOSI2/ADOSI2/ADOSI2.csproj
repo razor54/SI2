@@ -48,6 +48,7 @@
     <Compile Include="concrete\AlojamentoRepository.cs" />
     <Compile Include="concrete\Context.cs" />
     <Compile Include="concrete\EstadaMapper.cs" />
+    <Compile Include="concrete\EstadaRepository.cs" />
     <Compile Include="concrete\HóspedeMapper.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />

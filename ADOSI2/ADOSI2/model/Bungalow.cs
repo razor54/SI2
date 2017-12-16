@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Bungalow
+    public class Bungalow
     {
         public string Tipologia { get; set; }
         public virtual Alojamento NomeAlojamento { get; set; }

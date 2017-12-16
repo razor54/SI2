@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Extra
+
+    public class Extra
     {
         public int Id { get; set; }
         public string Descriçao { get; set; }

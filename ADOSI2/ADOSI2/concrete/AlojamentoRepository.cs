@@ -8,7 +8,7 @@ using ADOSI2.model;
 
 namespace ADOSI2.concrete
 {
-    class AlojamentoRepository:IAlojamentoRepository
+    public class AlojamentoRepository:IAlojamentoRepository
     {
         private IContext context;
         public AlojamentoRepository(IContext ctx)

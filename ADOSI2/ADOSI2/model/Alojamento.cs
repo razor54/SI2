@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Alojamento
+    public class 
+        Alojamento
     {
         public Decimal PreçoBase { get; set; } 
         public string Descrição { get; set; } 

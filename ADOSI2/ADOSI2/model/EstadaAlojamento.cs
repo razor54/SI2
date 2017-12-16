@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class EstadaAlojamento
+    public class EstadaAlojamento
     {
         public Alojamento Alojamento { get; set; }
         public Estada Estada { get; set; }

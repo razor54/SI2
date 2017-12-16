@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Parque
+    public class Parque
     {
         public string Email { get; set; }
         public string Nome { get; set; }

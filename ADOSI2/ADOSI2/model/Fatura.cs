@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Fatura
+    public class Fatura
     {
         public int Id { get; set; }
         public virtual Estada IdEstada { get; set; }
