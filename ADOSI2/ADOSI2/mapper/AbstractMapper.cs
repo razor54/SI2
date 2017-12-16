@@ -20,7 +20,7 @@ namespace ADOSI2.mapper
         }
     }
     #endregion
-    abstract class AbstracMapper<T, Tid, TCol> : IMapper<T, Tid, TCol> where T : class, new() where TCol : IList<T>, IEnumerable<T>, new()
+    public abstract class AbstracMapper<T, Tid, TCol> : IMapper<T, Tid, TCol> where T : class, new() where TCol : IList<T>, IEnumerable<T>, new()
     {
         protected IContext context;
         #region Abstract Methods

@@ -30,8 +30,8 @@ namespace ADOSI2.mapper
                 if (base.Parque == null)
                 {
                     //TODO
-                    ParqueMapper pm = new ParqueMapper(context);
-                   // base.Parque = pm.LoadParque(this);
+                    //ParqueMapper pm = new ParqueMapper(context);
+                    //base.Parque = pm.LoadParque(this);
                 }
 
                 return base.Parque;

@@ -8,7 +8,7 @@ using ADOSI2.concrete;
 
 namespace ADOSI2.dal
 {
-    interface IContext : IDisposable
+    public interface IContext : IDisposable
     {
         void Open();
         SqlCommand CreateCommand();

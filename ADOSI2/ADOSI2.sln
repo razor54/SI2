@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADOSI2", "ADOSI2\ADOSI2.csproj", "{274D6E8F-2DFA-48A6-9D07-1BC346092E0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ADOSI2Tests", "ADOSI2Tests\ADOSI2Tests.csproj", "{3EF078BF-B506-493C-8730-71B76181AE44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{274D6E8F-2DFA-48A6-9D07-1BC346092E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{274D6E8F-2DFA-48A6-9D07-1BC346092E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{274D6E8F-2DFA-48A6-9D07-1BC346092E0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EF078BF-B506-493C-8730-71B76181AE44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EF078BF-B506-493C-8730-71B76181AE44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EF078BF-B506-493C-8730-71B76181AE44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EF078BF-B506-493C-8730-71B76181AE44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {511822A6-4791-43DA-89C7-CB46E5AFF31A}
 	EndGlobalSection
 EndGlobal
