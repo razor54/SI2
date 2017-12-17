@@ -9,9 +9,9 @@ namespace ADOSI2.model
     public class ComponenteFatura
     {
         public int Id { get; set; }
-        public virtual Fatura IdFatura { get; set; }
-        public string Descriçao { get; set; }
-        public int Preço { get; set; }
+        public virtual Fatura Fatura { get; set; }
+        public string Descrição { get; set; }
+        public decimal Preço { get; set; }
 
         public string Tipo { get; set; }
 

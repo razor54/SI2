@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="concrete\AlojamentoMapper.cs" />
     <Compile Include="concrete\AlojamentoRepository.cs" />
+    <Compile Include="concrete\ComponenteFaturaMapper.cs" />
     <Compile Include="concrete\Context.cs" />
     <Compile Include="concrete\EstadaMapper.cs" />
     <Compile Include="concrete\EstadaRepository.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="mapper\BungalowProxy.cs" />
     <Compile Include="mapper\ComponenteFaturaProxy.cs" />
     <Compile Include="mapper\FaturaProxy.cs" />
+    <Compile Include="mapper\IComponenteFaturaMapper.cs" />
     <Compile Include="mapper\IEstadaMapper.cs" />
     <Compile Include="mapper\IExtraMapper.cs" />
     <Compile Include="mapper\IFaturaMapper.cs" />

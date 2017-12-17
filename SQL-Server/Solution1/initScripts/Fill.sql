@@ -59,3 +59,23 @@ exec criarAtividade N'02-01-2000', N'20', N'10', N'Canoagem', N'Marechal Carmona
 
 select * from Atividade
 go
+
+select * from Alojamento
+select *from Parque
+select * from Hóspede
+select * from extra
+select *from estada
+select *from fatura
+
+delete fatura
+delete extra
+delete Hóspede
+delete Alojamento
+delete Parque
+delete estada
+
+delete from Hóspede where nif = 987654321
+
+declare @nome varchar(56) = 'oi'
+select nome_parque from Alojamento where nome=@nome
+select nome from parque where nome='brasil'

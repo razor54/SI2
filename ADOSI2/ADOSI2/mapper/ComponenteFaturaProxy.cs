@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ADOSI2.concrete;
 
 namespace ADOSI2.mapper
 {
@@ -16,28 +17,28 @@ namespace ADOSI2.mapper
             context = ctx;
 
             base.Id = c.Id;
-            base.IdFatura = null;
+            base.Fatura = null;
             base.Tipo = c.Tipo;
             base.Preço = c.Preço;
-            base.Descriçao = c.Descriçao;
+            base.Descrição = c.Descrição;
         }
 
-        public override Fatura IdFatura 
+        public override Fatura Fatura 
         {
 
             get
             {
-                if (base.IdFatura == null)
+                if (base.Fatura == null)
                 {
                     //TODO
-                    //FaturaMapper pm = new FaturaMapper(context);
-                    //base.IdFatura = pm.LoadFatura(this);
+                    ComponenteFaturaMapper pm = new ComponenteFaturaMapper(context);
+                    base.Fatura = pm.LoadFatura(this);
                 }
 
-                return base.IdFatura;
+                return base.Fatura;
             }
 
-            set => base.IdFatura = value;
+            set => base.Fatura = value;
 
         }
     }
