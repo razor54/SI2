@@ -45,6 +45,7 @@ namespace ADOSI2Tests
                 fatura.Hóspede = hóspede;
                 fatura.Estada = estada;
                 fatura.Id = 1;
+                fatura.ValorFinal = 0;
 
 
                 var faturaMapper = new FaturaMapper(ctx);
