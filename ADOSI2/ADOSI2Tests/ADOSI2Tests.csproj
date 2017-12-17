@@ -64,6 +64,7 @@
     <Compile Include="ExtraCrudTests.cs" />
     <Compile Include="ExtraEstadaCrudTest.cs" />
     <Compile Include="FaturaCrudTests.cs" />
+    <Compile Include="HospedeAtividadeTests.cs" />
     <Compile Include="HóspedeCrudTests.cs" />
     <Compile Include="ParqueCrudTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

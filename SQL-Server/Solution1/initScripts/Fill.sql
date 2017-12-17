@@ -66,7 +66,19 @@ select * from Hóspede
 select * from extra
 select *from estada
 select *from fatura
+select *from ComponenteFatura
+select * from EstadaHóspede
+select *from EstadaAlojamento
+select * from Atividade
+select *from HóspedeAtividade
 
+
+delete HóspedeAtividade
+delete Atividade
+delete EstadaAlojamento
+delete EstadaHóspede
+delete ExtraEstada
+delete ComponenteFatura
 delete fatura
 delete extra
 delete Hóspede
@@ -74,8 +86,12 @@ delete Alojamento
 delete Parque
 delete estada
 
+
+
 delete from Hóspede where nif = 987654321
 
 declare @nome varchar(56) = 'oi'
 select nome_parque from Alojamento where nome=@nome
 select nome from parque where nome='brasil'
+
+select id_extra, id_estada,preço_dia,descrição from ExtraEstada  where id_extra=@id_extra and id_estada=@id_estada

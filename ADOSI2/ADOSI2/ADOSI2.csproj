@@ -58,6 +58,7 @@
     <Compile Include="concrete\ExtraRepository.cs" />
     <Compile Include="concrete\FaturaMapper.cs" />
     <Compile Include="concrete\FaturaRepository.cs" />
+    <Compile Include="concrete\HóspedeAtividadeMapper.cs" />
     <Compile Include="concrete\HóspedeMapper.cs" />
     <Compile Include="concrete\HóspedeRepository.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="dal\IFaturaRepository.cs" />
     <Compile Include="dal\IHóspedeRepository.cs" />
     <Compile Include="dal\IParqueRepository.cs" />
+    <Compile Include="mapper\HóspedeAtividadeProxy.cs" />
+    <Compile Include="mapper\IHóspedeAtividadeMapper.cs" />
     <Compile Include="mapper\IAlojamentoMapper.cs" />
     <Compile Include="dal\IContext.cs" />
     <Compile Include="dal\IRepository.cs" />

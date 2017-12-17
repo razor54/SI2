@@ -8,7 +8,7 @@ namespace ADOSI2.model
 {
     public class HóspedeAtividade
     {
-        public Hóspede Hóspede { get; set; }
+        public virtual Hóspede Hóspede { get; set; }
         public string Nome_Atividade { get; set; }
         public string Nome_Parque { get; set; }
     }
