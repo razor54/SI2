@@ -86,12 +86,3 @@ delete Alojamento
 delete Parque
 delete estada
 
-
-
-delete from Hóspede where nif = 987654321
-
-declare @nome varchar(56) = 'oi'
-select nome_parque from Alojamento where nome=@nome
-select nome from parque where nome='brasil'
-
-select id_extra, id_estada,preço_dia,descrição from ExtraEstada  where id_extra=@id_extra and id_estada=@id_estada
