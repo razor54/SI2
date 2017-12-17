@@ -68,6 +68,8 @@
     <Compile Include="HóspedeCrudTests.cs" />
     <Compile Include="ParqueCrudTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BungalowCrudTests.cs" />
+    <Compile Include="TendaCrudTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
