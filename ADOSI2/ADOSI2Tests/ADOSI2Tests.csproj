@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponenteFaturaTests.cs" />
+    <Compile Include="EstadaHóspedeCrudTest.cs" />
     <Compile Include="ExtraCrudTests.cs" />
     <Compile Include="ExtraEstadaCrudTest.cs" />
     <Compile Include="FaturaCrudTests.cs" />
