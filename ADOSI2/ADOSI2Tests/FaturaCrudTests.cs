@@ -16,7 +16,7 @@ namespace ADOSI2Tests
         private string connectionString = ConfigurationManager.ConnectionStrings["si2cs"].ConnectionString;
 
         [TestMethod]
-        public void InsertTest()
+        public void InsertFaturaTest()
         {
             using (Context ctx = new Context(connectionString))
             {
@@ -80,7 +80,7 @@ namespace ADOSI2Tests
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public void UpdateFaturaTest()
         {
             using (Context ctx = new Context(connectionString))
             {

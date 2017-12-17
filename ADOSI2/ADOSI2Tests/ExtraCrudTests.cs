@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 using ADOSI2.concrete;
 using ADOSI2.model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +11,7 @@ namespace ADOSI2Tests
         private string connectionString = ConfigurationManager.ConnectionStrings["si2cs"].ConnectionString;
 
         [TestMethod]
-        public void InsertTest()
+        public void InsertExtraTest()
         {
             using (Context ctx = new Context(connectionString))
             {
@@ -45,7 +40,7 @@ namespace ADOSI2Tests
         }
 
         [TestMethod]
-        public void UpdateTest()
+        public void UpdateExtraTest()
         {
             using (Context ctx = new Context(connectionString))
             {
@@ -81,7 +76,7 @@ namespace ADOSI2Tests
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public void DeleteExtraTest()
         {
             using (Context ctx = new Context(connectionString))
             {

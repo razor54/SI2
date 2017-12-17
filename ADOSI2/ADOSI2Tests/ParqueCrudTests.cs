@@ -18,7 +18,7 @@ namespace ADOSI2Tests
 
 
         [TestMethod]
-        public void InsertTest()
+        public void InsertParqueTest()
         {
             using (Context ctx = new Context(connectionString))
             {
