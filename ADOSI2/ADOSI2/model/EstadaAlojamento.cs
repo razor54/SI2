@@ -10,7 +10,7 @@ namespace ADOSI2.model
     {
         public Alojamento Alojamento { get; set; }
         public Estada Estada { get; set; }
-        public int Preço_Base { get; set; }
+        public decimal PreçoBase { get; set; }
         public string Descrição { get; set; }
     }
 }

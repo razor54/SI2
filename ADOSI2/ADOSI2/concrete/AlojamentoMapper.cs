@@ -14,7 +14,7 @@ using ADOSI2.concrete;
 
 namespace ADOSI2.concrete
 {
-    class AlojamentoMapper : AbstracMapper<Alojamento, string, List<Alojamento>>, IAlojamentoMapper
+    public class AlojamentoMapper : AbstracMapper<Alojamento, string, List<Alojamento>>, IAlojamentoMapper
     {
         #region HELPER METHODS  
 
