@@ -10,7 +10,7 @@ namespace ADOSI2.model
     {
         public virtual Extra Extra { get; set; }
         public virtual Estada Estada { get; set; }
-        public int Preço_Dia { get; set; }
+        public decimal PreçoDia { get; set; }
         public string Descrição { get; set; }
     }
 }
