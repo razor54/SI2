@@ -8,12 +8,13 @@ namespace ADOSI2.model
 {
     public class Atividade
     {
-        public int Numero { get; set; }
-        public int Preço { get; set; }
+        public int Número { get; set; }
+        public DateTime DataAtividade { get; set; }
+        public decimal Preço { get; set; }
         public int Lotaçao { get; set; }
-        public int NomeAtividade { get; set; }
+        public string NomeAtividade { get; set; }
         public virtual Parque Parque{ get; set; }
-        public string Decriçao{ get; set; }
+        public string Descrição{ get; set; }
 
 
     }

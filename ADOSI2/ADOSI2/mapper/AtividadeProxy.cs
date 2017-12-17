@@ -17,10 +17,11 @@ namespace ADOSI2.mapper
             context = ctx;
 
             base.NomeAtividade = c.NomeAtividade;
+            base.DataAtividade = c.DataAtividade;
             base.Lotaçao = c.Lotaçao;
-            base.Numero = c.Numero;
+            base.Número = c.Número;
             base.Preço = c.Preço;
-            base.Decriçao = c.Decriçao;
+            base.Descrição = c.Descrição;
 
             base.Parque = null;
         }
@@ -33,8 +34,8 @@ namespace ADOSI2.mapper
                 if (base.Parque == null)
                 {
                     //TODO
-                    //ParqueMapper pm = new ParqueMapper(context);
-                    //base.Parque = pm.LoadParque(this);
+                    AtividadeMapper pm = new AtividadeMapper(context);
+                    base.Parque = pm.LoadParque(this);
                 }
 
                 return base.Parque;
