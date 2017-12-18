@@ -64,12 +64,18 @@
     <Compile Include="concrete\HóspedeRepository.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />
+    <Compile Include="concrete\BungalowMapper.cs" />
+    <Compile Include="concrete\TendaMapper.cs" />
+    <Compile Include="concrete\BungalowRepository.cs" />
+    <Compile Include="concrete\TendaRepository.cs" />
     <Compile Include="dal\IAlojamentoRepository.cs" />
     <Compile Include="dal\IEstadaRepository.cs" />
     <Compile Include="dal\IExtraRepository.cs" />
     <Compile Include="dal\IFaturaRepository.cs" />
     <Compile Include="dal\IHóspedeRepository.cs" />
     <Compile Include="dal\IParqueRepository.cs" />
+    <Compile Include="dal\IBungalowRepository.cs" />
+    <Compile Include="dal\ITendaRepository.cs" />
     <Compile Include="mapper\HóspedeAtividadeProxy.cs" />
     <Compile Include="mapper\IHóspedeAtividadeMapper.cs" />
     <Compile Include="mapper\IAlojamentoMapper.cs" />
@@ -92,6 +98,8 @@
     <Compile Include="mapper\IHospedeMapper.cs" />
     <Compile Include="mapper\IMapper.cs" />
     <Compile Include="mapper\IParqueMapper.cs" />
+    <Compile Include="mapper\IBungalowMapper.cs" />
+    <Compile Include="mapper\ITendaMapper.cs" />
     <Compile Include="mapper\TendaProxy.cs" />
     <Compile Include="model\Alojamento.cs" />
     <Compile Include="model\Atividade.cs" />

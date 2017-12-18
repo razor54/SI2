@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ADOSI2.model
 {
-    class Tenda
+    public class Tenda
     {
-        public int Area { get; set; }
+        public Decimal Area { get; set; }
         public virtual Alojamento Alojamento { get; set; }
         public string Tipo { get; set; }
     }

@@ -9,6 +9,6 @@ namespace ADOSI2.model
     public class Bungalow
     {
         public string Tipologia { get; set; }
-        public virtual Alojamento NomeAlojamento { get; set; }
+        public virtual Alojamento Alojamento { get; set; }
     }
 }
