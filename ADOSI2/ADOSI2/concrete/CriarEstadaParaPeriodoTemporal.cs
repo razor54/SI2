@@ -100,7 +100,9 @@ namespace ADOSI2.concrete
 
 
 
-                    var affected = cmd.ExecuteScalar().ToString();
+                    var affected = cmd.ExecuteNonQuery().ToString();
+
+                    cmd.Parameters.Clear();
 
                     Console.WriteLine("{0} rows affected",affected);
                 }

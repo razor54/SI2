@@ -62,6 +62,7 @@
     <Compile Include="concrete\HóspedeAtividadeMapper.cs" />
     <Compile Include="concrete\HóspedeMapper.cs" />
     <Compile Include="concrete\HóspedeRepository.cs" />
+    <Compile Include="concrete\InscreverHóspedeEmAtividade.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />
     <Compile Include="concrete\BungalowMapper.cs" />
