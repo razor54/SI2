@@ -67,6 +67,7 @@
     <Compile Include="HospedeAtividadeTests.cs" />
     <Compile Include="HóspedeCrudTests.cs" />
     <Compile Include="InscreverHospedeAtividadeTests.cs" />
+    <Compile Include="PagamentoEstadaComFaturaTests.cs" />
     <Compile Include="ParqueCrudTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BungalowCrudTests.cs" />

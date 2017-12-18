@@ -49,7 +49,7 @@
     <Compile Include="concrete\AtividadeMapper.cs" />
     <Compile Include="concrete\ComponenteFaturaMapper.cs" />
     <Compile Include="concrete\Context.cs" />
-    <Compile Include="concrete\CriarEstadaParaPeriodoTemporal.cs" />
+    <Compile Include="concrete\logic\CriarEstadaParaPeriodoTemporal.cs" />
     <Compile Include="concrete\EstadaAlojamentoMapper.cs" />
     <Compile Include="concrete\EstadaHóspedeMapper.cs" />
     <Compile Include="concrete\EstadaMapper.cs" />
@@ -62,7 +62,8 @@
     <Compile Include="concrete\HóspedeAtividadeMapper.cs" />
     <Compile Include="concrete\HóspedeMapper.cs" />
     <Compile Include="concrete\HóspedeRepository.cs" />
-    <Compile Include="concrete\InscreverHóspedeEmAtividade.cs" />
+    <Compile Include="concrete\logic\InscreverHóspedeEmAtividade.cs" />
+    <Compile Include="concrete\logic\PagamentoEstadaComFatura.cs" />
     <Compile Include="concrete\ParqueMapper.cs" />
     <Compile Include="concrete\ParqueRepository.cs" />
     <Compile Include="concrete\BungalowMapper.cs" />
