@@ -1,0 +1,1465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alojamento">
+          <Key>
+            <PropertyRef Name="nome" />
+          </Key>
+          <Property Name="preço_base" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" />
+          <Property Name="localização" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="nome_parque" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="max_pessoas" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Atividade">
+          <Key>
+            <PropertyRef Name="número" />
+            <PropertyRef Name="nome_atividade" />
+            <PropertyRef Name="nome_parque" />
+          </Key>
+          <Property Name="número" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data_atividade" Type="date" Nullable="false" />
+          <Property Name="preço" Type="money" Nullable="false" />
+          <Property Name="lotação" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_atividade" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="nome_parque" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SI2-Trabalho.dbo.Bungalow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Bungalow">
+          <Key>
+            <PropertyRef Name="tipologia" />
+            <PropertyRef Name="nome_alojamento" />
+          </Key>
+          <Property Name="tipologia" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="nome_alojamento" Type="varchar" MaxLength="56" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ComponenteFatura">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_fatura" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_fatura" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="preço" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="data_início" Type="date" Nullable="false" />
+          <Property Name="data_fim" Type="date" Nullable="false" />
+          <Property Name="nif_hóspede" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="pagamento" Type="varchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="EstadaAlojamento">
+          <Key>
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="id_estada" />
+          </Key>
+          <Property Name="nome_alojamento" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="id_estada" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="preço_base" Type="money" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EstadaHóspede">
+          <Key>
+            <PropertyRef Name="nif_hóspede" />
+            <PropertyRef Name="id_estada" />
+          </Key>
+          <Property Name="nif_hóspede" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id_estada" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Extra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" />
+          <Property Name="preço_dia" Type="money" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="ExtraEstada">
+          <Key>
+            <PropertyRef Name="id_extra" />
+            <PropertyRef Name="id_estada" />
+          </Key>
+          <Property Name="id_extra" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id_estada" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="preço_dia" Type="money" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id_estada" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_hóspede" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="nif_hóspede" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="valor_final" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Hóspede">
+          <Key>
+            <PropertyRef Name="nif" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="64" />
+          <Property Name="morada" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="bi" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nif" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HóspedeAtividade">
+          <Key>
+            <PropertyRef Name="nif_hóspede" />
+            <PropertyRef Name="nome_atividade" />
+            <PropertyRef Name="nome_parque" />
+          </Key>
+          <Property Name="nif_hóspede" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_atividade" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="nome_parque" Type="varchar" MaxLength="56" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Parque">
+          <Key>
+            <PropertyRef Name="nome" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="morada" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="estrelas" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SI2-Trabalho.dbo.Tenda' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tenda">
+          <Key>
+            <PropertyRef Name="área" />
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="área" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_alojamento" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Bungallows">
+          <Key>
+            <PropertyRef Name="tipologia" />
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="preço_base" />
+            <PropertyRef Name="localização" />
+            <PropertyRef Name="nome_parque" />
+            <PropertyRef Name="max_pessoas" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="morada" />
+          </Key>
+          <Property Name="tipologia" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="nome_alojamento" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="preço_base" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="varchar" MaxLength="256" />
+          <Property Name="localização" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nome_parque" Type="varchar" MaxLength="56" Nullable="false" />
+          <Property Name="max_pessoas" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="morada" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="estrelas" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK__Alojament__nome___398D8EEE">
+          <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parque">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Alojamento">
+              <PropertyRef Name="nome_parque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Atividade__nome___47DBAE45">
+          <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
+          <End Role="Atividade" Type="Self.Atividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parque">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Atividade">
+              <PropertyRef Name="nome_parque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bungalow__nome_a__3C69FB99">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="Bungalow" Type="Self.Bungalow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Bungalow">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Component__id_fa__5165187F">
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="1" />
+          <End Role="ComponenteFatura" Type="Self.ComponenteFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComponenteFatura">
+              <PropertyRef Name="id_fatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaAlo__id_es__5DCAEF64">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EstadaAlojamento">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaAlo__nome___5CD6CB2B">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="EstadaAlojamento">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaHós__id_es__59FA5E80">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="EstadaHóspede" Type="Self.EstadaHóspede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EstadaHóspede">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaHós__nif_h__59063A47">
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
+          <End Role="EstadaHóspede" Type="Self.EstadaHóspede" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hóspede">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="EstadaHóspede">
+              <PropertyRef Name="nif_hóspede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtraEsta__id_es__5629CD9C">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExtraEstada">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtraEsta__id_ex__5535A963">
+          <End Role="Extra" Type="Self.Extra" Multiplicity="1" />
+          <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Extra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExtraEstada">
+              <PropertyRef Name="id_extra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fatura__id_estad__4D94879B">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fatura__nif_hósp__4E88ABD4">
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hóspede">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="nif_hóspede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HóspedeAt__nif_h__60A75C0F">
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
+          <End Role="HóspedeAtividade" Type="Self.HóspedeAtividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hóspede">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="HóspedeAtividade">
+              <PropertyRef Name="nif_hóspede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenda__nome_aloj__3E52440B">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="Tenda" Type="Self.Tenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Tenda">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="atualizarAtividade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="data_atividade" Type="date" Mode="In" />
+          <Parameter Name="lotação" Type="numeric" Mode="In" />
+          <Parameter Name="preço" Type="money" Mode="In" />
+          <Parameter Name="nome_atividade" Type="varchar" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="atualizarBungalowNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="preço_base" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="localização" Type="varchar" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="max_pessoas" Type="numeric" Mode="In" />
+          <Parameter Name="tipologia" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="atualizarExtraDeAlojamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_dia" Type="money" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="atualizarExtraPessoal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_dia" Type="money" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="atualizarHóspede" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nif" Type="numeric" Mode="In" />
+          <Parameter Name="bi" Type="numeric" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="atualizarTendaNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="preço_base" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="localização" Type="varchar" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="max_pessoas" Type="numeric" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="área" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="criarEstadaParaUmPeríodoDeTempo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="data_início" Type="date" Mode="In" />
+          <Parameter Name="data_fim" Type="date" Mode="In" />
+          <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
+          <Parameter Name="bi" Type="numeric" Mode="In" />
+          <Parameter Name="nome_hóspede" Type="varchar" Mode="In" />
+          <Parameter Name="morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="preço_base" Type="money" Mode="In" />
+          <Parameter Name="descrição_alojamento" Type="varchar" Mode="In" />
+          <Parameter Name="localização" Type="varchar" Mode="In" />
+          <Parameter Name="nome_alojamento" Type="varchar" Mode="In" />
+          <Parameter Name="max_pessoas" Type="numeric" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+          <Parameter Name="tipologia" Type="varchar" Mode="In" />
+          <Parameter Name="id_extra_alojamento" Type="numeric" Mode="In" />
+          <Parameter Name="descrição_extra_alojamento" Type="varchar" Mode="In" />
+          <Parameter Name="preço_extra_alojamento" Type="money" Mode="In" />
+          <Parameter Name="tipo_extra" Type="varchar" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+          <Parameter Name="id_extra_pessoal" Type="numeric" Mode="In" />
+          <Parameter Name="descrição_extra_pessoal" Type="varchar" Mode="In" />
+          <Parameter Name="preço_extra_pessoal" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="enviarEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
+          <Parameter Name="mensagem" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="enviarEmailsNumIntervaloTemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dias" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inscreverHóspedeNumaAtividade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
+          <Parameter Name="nome_atividade" Type="varchar" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="inserirAtividade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="data_atividade" Type="date" Mode="In" />
+          <Parameter Name="lotação" Type="numeric" Mode="In" />
+          <Parameter Name="preço" Type="money" Mode="In" />
+          <Parameter Name="nome_atividade" Type="varchar" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="inserirBungalowNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="preço_base" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="localização" Type="varchar" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="max_pessoas" Type="numeric" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+          <Parameter Name="tipologia" Type="varchar" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserirEstadaComResponsávelExistente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="data_início" Type="date" Mode="In" />
+          <Parameter Name="data_fim" Type="date" Mode="In" />
+          <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserirEstadaSemResponsávelExistente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="data_início" Type="date" Mode="In" />
+          <Parameter Name="data_fim" Type="date" Mode="In" />
+          <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
+          <Parameter Name="bi" Type="numeric" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="inserirExtraDeAlojamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_dia" Type="money" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserirExtraPessoal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="preço_dia" Type="money" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserirHóspedeComEstadaExistente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nif" Type="numeric" Mode="In" />
+          <Parameter Name="bi" Type="numeric" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="morada" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="inserirTendaNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="preço_base" Type="numeric" Mode="In" />
+          <Parameter Name="descrição" Type="varchar" Mode="In" />
+          <Parameter Name="localização" Type="varchar" Mode="In" />
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+          <Parameter Name="max_pessoas" Type="numeric" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+          <Parameter Name="tipo" Type="varchar" Mode="In" />
+          <Parameter Name="área" Type="numeric" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="listarAtividadesComlugares" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dataInit" Type="date" Mode="In" />
+          <Parameter Name="dataFim" Type="date" Mode="In" />
+        </Function>
+        <Function Name="mediaDosPreçosDasFaturas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="numeric" Mode="In" />
+          <Parameter Name="low" Type="int" Mode="In" />
+          <Parameter Name="top" Type="int" Mode="In" />
+        </Function>
+        <Function Name="pagamentoEstadaComFatura" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_estada" Type="numeric" Mode="In" />
+          <Parameter Name="total" Type="numeric" Mode="InOut" />
+        </Function>
+        <Function Name="removerAtividade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome_atividade" Type="varchar" Mode="In" />
+          <Parameter Name="nome_parque" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="removerBungalowNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="removerExtraDeAlojamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="removerExtraPessoal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="numeric" Mode="In" />
+          <Parameter Name="id_fatura" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="removerHóspede" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nif" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="removerTendaNumParque" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nome" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Alojamento" EntityType="Self.Alojamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Atividade" EntityType="Self.Atividade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComponenteFatura" EntityType="Self.ComponenteFatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estada" EntityType="Self.Estada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadaAlojamento" EntityType="Self.EstadaAlojamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadaHóspede" EntityType="Self.EstadaHóspede" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Extra" EntityType="Self.Extra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExtraEstada" EntityType="Self.ExtraEstada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fatura" EntityType="Self.Fatura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hóspede" EntityType="Self.Hóspede" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HóspedeAtividade" EntityType="Self.HóspedeAtividade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parque" EntityType="Self.Parque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bungalow" EntityType="Self.Bungalow" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Bungalow].[tipologia] AS [tipologia], 
+    [Bungalow].[nome_alojamento] AS [nome_alojamento]
+    FROM [dbo].[Bungalow] AS [Bungalow]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tenda" EntityType="Self.Tenda" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tenda].[área] AS [área], 
+    [Tenda].[nome_alojamento] AS [nome_alojamento], 
+    [Tenda].[tipo] AS [tipo]
+    FROM [dbo].[Tenda] AS [Tenda]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Bungallows" EntityType="Self.Bungallows" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Bungallows].[tipologia] AS [tipologia], 
+    [Bungallows].[nome_alojamento] AS [nome_alojamento], 
+    [Bungallows].[preço_base] AS [preço_base], 
+    [Bungallows].[descrição] AS [descrição], 
+    [Bungallows].[localização] AS [localização], 
+    [Bungallows].[nome_parque] AS [nome_parque], 
+    [Bungallows].[max_pessoas] AS [max_pessoas], 
+    [Bungallows].[email] AS [email], 
+    [Bungallows].[morada] AS [morada], 
+    [Bungallows].[estrelas] AS [estrelas]
+    FROM [dbo].[Bungallows] AS [Bungallows]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Alojament__nome___398D8EEE" Association="Self.FK__Alojament__nome___398D8EEE">
+            <End Role="Parque" EntitySet="Parque" />
+            <End Role="Alojamento" EntitySet="Alojamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Atividade__nome___47DBAE45" Association="Self.FK__Atividade__nome___47DBAE45">
+            <End Role="Parque" EntitySet="Parque" />
+            <End Role="Atividade" EntitySet="Atividade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bungalow__nome_a__3C69FB99" Association="Self.FK__Bungalow__nome_a__3C69FB99">
+            <End Role="Alojamento" EntitySet="Alojamento" />
+            <End Role="Bungalow" EntitySet="Bungalow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Component__id_fa__5165187F" Association="Self.FK__Component__id_fa__5165187F">
+            <End Role="Fatura" EntitySet="Fatura" />
+            <End Role="ComponenteFatura" EntitySet="ComponenteFatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaAlo__id_es__5DCAEF64" Association="Self.FK__EstadaAlo__id_es__5DCAEF64">
+            <End Role="Estada" EntitySet="Estada" />
+            <End Role="EstadaAlojamento" EntitySet="EstadaAlojamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaAlo__nome___5CD6CB2B" Association="Self.FK__EstadaAlo__nome___5CD6CB2B">
+            <End Role="Alojamento" EntitySet="Alojamento" />
+            <End Role="EstadaAlojamento" EntitySet="EstadaAlojamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaHós__id_es__59FA5E80" Association="Self.FK__EstadaHós__id_es__59FA5E80">
+            <End Role="Estada" EntitySet="Estada" />
+            <End Role="EstadaHóspede" EntitySet="EstadaHóspede" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaHós__nif_h__59063A47" Association="Self.FK__EstadaHós__nif_h__59063A47">
+            <End Role="Hóspede" EntitySet="Hóspede" />
+            <End Role="EstadaHóspede" EntitySet="EstadaHóspede" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtraEsta__id_es__5629CD9C" Association="Self.FK__ExtraEsta__id_es__5629CD9C">
+            <End Role="Estada" EntitySet="Estada" />
+            <End Role="ExtraEstada" EntitySet="ExtraEstada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtraEsta__id_ex__5535A963" Association="Self.FK__ExtraEsta__id_ex__5535A963">
+            <End Role="Extra" EntitySet="Extra" />
+            <End Role="ExtraEstada" EntitySet="ExtraEstada" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fatura__id_estad__4D94879B" Association="Self.FK__Fatura__id_estad__4D94879B">
+            <End Role="Estada" EntitySet="Estada" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fatura__nif_hósp__4E88ABD4" Association="Self.FK__Fatura__nif_hósp__4E88ABD4">
+            <End Role="Hóspede" EntitySet="Hóspede" />
+            <End Role="Fatura" EntitySet="Fatura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HóspedeAt__nif_h__60A75C0F" Association="Self.FK__HóspedeAt__nif_h__60A75C0F">
+            <End Role="Hóspede" EntitySet="Hóspede" />
+            <End Role="HóspedeAtividade" EntitySet="HóspedeAtividade" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenda__nome_aloj__3E52440B" Association="Self.FK__Tenda__nome_aloj__3E52440B">
+            <End Role="Alojamento" EntitySet="Alojamento" />
+            <End Role="Tenda" EntitySet="Tenda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alojamento">
+          <Key>
+            <PropertyRef Name="nome" />
+          </Key>
+          <Property Name="preço_base" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="localização" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_parque" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="max_pessoas" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Parque" Relationship="Self.FK__Alojament__nome___398D8EEE" FromRole="Alojamento" ToRole="Parque" />
+          <NavigationProperty Name="Bungalows" Relationship="Self.FK__Bungalow__nome_a__3C69FB99" FromRole="Alojamento" ToRole="Bungalow" />
+          <NavigationProperty Name="EstadaAlojamentoes" Relationship="Self.FK__EstadaAlo__nome___5CD6CB2B" FromRole="Alojamento" ToRole="EstadaAlojamento" />
+          <NavigationProperty Name="Tendas" Relationship="Self.FK__Tenda__nome_aloj__3E52440B" FromRole="Alojamento" ToRole="Tenda" />
+        </EntityType>
+        <EntityType Name="Atividade">
+          <Key>
+            <PropertyRef Name="número" />
+            <PropertyRef Name="nome_atividade" />
+            <PropertyRef Name="nome_parque" />
+          </Key>
+          <Property Name="número" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data_atividade" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="preço" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="lotação" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_atividade" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_parque" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Parque" Relationship="Self.FK__Atividade__nome___47DBAE45" FromRole="Atividade" ToRole="Parque" />
+        </EntityType>
+        <EntityType Name="ComponenteFatura">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="id_fatura" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_fatura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="preço" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Fatura" Relationship="Self.FK__Component__id_fa__5165187F" FromRole="ComponenteFatura" ToRole="Fatura" />
+        </EntityType>
+        <EntityType Name="Estada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="data_início" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="data_fim" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nif_hóspede" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="pagamento" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EstadaAlojamentoes" Relationship="Self.FK__EstadaAlo__id_es__5DCAEF64" FromRole="Estada" ToRole="EstadaAlojamento" />
+          <NavigationProperty Name="ExtraEstadas" Relationship="Self.FK__ExtraEsta__id_es__5629CD9C" FromRole="Estada" ToRole="ExtraEstada" />
+          <NavigationProperty Name="Faturas" Relationship="Self.FK__Fatura__id_estad__4D94879B" FromRole="Estada" ToRole="Fatura" />
+          <NavigationProperty Name="Hóspede" Relationship="Self.EstadaHóspede" FromRole="Estada" ToRole="Hóspede" />
+        </EntityType>
+        <EntityType Name="EstadaAlojamento">
+          <Key>
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="id_estada" />
+          </Key>
+          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_estada" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="preço_base" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alojamento" Relationship="Self.FK__EstadaAlo__nome___5CD6CB2B" FromRole="EstadaAlojamento" ToRole="Alojamento" />
+          <NavigationProperty Name="Estada" Relationship="Self.FK__EstadaAlo__id_es__5DCAEF64" FromRole="EstadaAlojamento" ToRole="Estada" />
+        </EntityType>
+        <EntityType Name="Extra">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="preço_dia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ExtraEstadas" Relationship="Self.FK__ExtraEsta__id_ex__5535A963" FromRole="Extra" ToRole="ExtraEstada" />
+        </EntityType>
+        <EntityType Name="ExtraEstada">
+          <Key>
+            <PropertyRef Name="id_extra" />
+            <PropertyRef Name="id_estada" />
+          </Key>
+          <Property Name="id_extra" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id_estada" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="preço_dia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estada" Relationship="Self.FK__ExtraEsta__id_es__5629CD9C" FromRole="ExtraEstada" ToRole="Estada" />
+          <NavigationProperty Name="Extra" Relationship="Self.FK__ExtraEsta__id_ex__5535A963" FromRole="ExtraEstada" ToRole="Extra" />
+        </EntityType>
+        <EntityType Name="Fatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="id_estada" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_hóspede" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nif_hóspede" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="valor_final" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="ComponenteFaturas" Relationship="Self.FK__Component__id_fa__5165187F" FromRole="Fatura" ToRole="ComponenteFatura" />
+          <NavigationProperty Name="Estada" Relationship="Self.FK__Fatura__id_estad__4D94879B" FromRole="Fatura" ToRole="Estada" />
+          <NavigationProperty Name="Hóspede" Relationship="Self.FK__Fatura__nif_hósp__4E88ABD4" FromRole="Fatura" ToRole="Hóspede" />
+        </EntityType>
+        <EntityType Name="Hóspede">
+          <Key>
+            <PropertyRef Name="nif" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="morada" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bi" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nif" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Faturas" Relationship="Self.FK__Fatura__nif_hósp__4E88ABD4" FromRole="Hóspede" ToRole="Fatura" />
+          <NavigationProperty Name="HóspedeAtividade" Relationship="Self.FK__HóspedeAt__nif_h__60A75C0F" FromRole="Hóspede" ToRole="HóspedeAtividade" />
+          <NavigationProperty Name="Estadas" Relationship="Self.EstadaHóspede" FromRole="Hóspede" ToRole="Estada" />
+        </EntityType>
+        <EntityType Name="HóspedeAtividade">
+          <Key>
+            <PropertyRef Name="nif_hóspede" />
+            <PropertyRef Name="nome_atividade" />
+            <PropertyRef Name="nome_parque" />
+          </Key>
+          <Property Name="nif_hóspede" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_atividade" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_parque" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Hóspede" Relationship="Self.FK__HóspedeAt__nif_h__60A75C0F" FromRole="HóspedeAtividade" ToRole="Hóspede" />
+        </EntityType>
+        <EntityType Name="Parque">
+          <Key>
+            <PropertyRef Name="nome" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="morada" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estrelas" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Alojamentoes" Relationship="Self.FK__Alojament__nome___398D8EEE" FromRole="Parque" ToRole="Alojamento" />
+          <NavigationProperty Name="Atividades" Relationship="Self.FK__Atividade__nome___47DBAE45" FromRole="Parque" ToRole="Atividade" />
+        </EntityType>
+        <EntityType Name="Bungalow">
+          <Key>
+            <PropertyRef Name="tipologia" />
+            <PropertyRef Name="nome_alojamento" />
+          </Key>
+          <Property Name="tipologia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alojamento" Relationship="Self.FK__Bungalow__nome_a__3C69FB99" FromRole="Bungalow" ToRole="Alojamento" />
+        </EntityType>
+        <EntityType Name="Tenda">
+          <Key>
+            <PropertyRef Name="área" />
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="área" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Alojamento" Relationship="Self.FK__Tenda__nome_aloj__3E52440B" FromRole="Tenda" ToRole="Alojamento" />
+        </EntityType>
+        <EntityType Name="Bungallow">
+          <Key>
+            <PropertyRef Name="tipologia" />
+            <PropertyRef Name="nome_alojamento" />
+            <PropertyRef Name="preço_base" />
+            <PropertyRef Name="localização" />
+            <PropertyRef Name="nome_parque" />
+            <PropertyRef Name="max_pessoas" />
+            <PropertyRef Name="email" />
+            <PropertyRef Name="morada" />
+          </Key>
+          <Property Name="tipologia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="preço_base" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="descrição" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="localização" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nome_parque" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="max_pessoas" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="morada" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estrelas" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Association Name="FK__Alojament__nome___398D8EEE">
+          <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parque">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Alojamento">
+              <PropertyRef Name="nome_parque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bungalow__nome_a__3C69FB99">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="Bungalow" Type="Self.Bungalow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Bungalow">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaAlo__nome___5CD6CB2B">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="EstadaAlojamento">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenda__nome_aloj__3E52440B">
+          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
+          <End Role="Tenda" Type="Self.Tenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Tenda">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Atividade__nome___47DBAE45">
+          <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
+          <End Role="Atividade" Type="Self.Atividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parque">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Atividade">
+              <PropertyRef Name="nome_parque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Component__id_fa__5165187F">
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="1" />
+          <End Role="ComponenteFatura" Type="Self.ComponenteFatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fatura">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ComponenteFatura">
+              <PropertyRef Name="id_fatura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EstadaAlo__id_es__5DCAEF64">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="EstadaAlojamento">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtraEsta__id_es__5629CD9C">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExtraEstada">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fatura__id_estad__4D94879B">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="id_estada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ExtraEsta__id_ex__5535A963">
+          <End Role="Extra" Type="Self.Extra" Multiplicity="1" />
+          <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Extra">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ExtraEstada">
+              <PropertyRef Name="id_extra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Fatura__nif_hósp__4E88ABD4">
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
+          <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hóspede">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="Fatura">
+              <PropertyRef Name="nif_hóspede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HóspedeAt__nif_h__60A75C0F">
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
+          <End Role="HóspedeAtividade" Type="Self.HóspedeAtividade" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hóspede">
+              <PropertyRef Name="nif" />
+            </Principal>
+            <Dependent Role="HóspedeAtividade">
+              <PropertyRef Name="nif_hóspede" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EstadaHóspede">
+          <End Role="Estada" Type="Self.Estada" Multiplicity="*" />
+          <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alojamentoes" EntityType="Self.Alojamento" />
+          <EntitySet Name="Atividades" EntityType="Self.Atividade" />
+          <EntitySet Name="ComponenteFaturas" EntityType="Self.ComponenteFatura" />
+          <EntitySet Name="Estadas" EntityType="Self.Estada" />
+          <EntitySet Name="EstadaAlojamentoes" EntityType="Self.EstadaAlojamento" />
+          <EntitySet Name="Extras" EntityType="Self.Extra" />
+          <EntitySet Name="ExtraEstadas" EntityType="Self.ExtraEstada" />
+          <EntitySet Name="Faturas" EntityType="Self.Fatura" />
+          <EntitySet Name="Hóspede" EntityType="Self.Hóspede" />
+          <EntitySet Name="HóspedeAtividade" EntityType="Self.HóspedeAtividade" />
+          <EntitySet Name="Parques" EntityType="Self.Parque" />
+          <EntitySet Name="Bungalows" EntityType="Self.Bungalow" />
+          <EntitySet Name="Tendas" EntityType="Self.Tenda" />
+          <EntitySet Name="Bungallows" EntityType="Self.Bungallow" />
+          <AssociationSet Name="FK__Alojament__nome___398D8EEE" Association="Self.FK__Alojament__nome___398D8EEE">
+            <End Role="Parque" EntitySet="Parques" />
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bungalow__nome_a__3C69FB99" Association="Self.FK__Bungalow__nome_a__3C69FB99">
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+            <End Role="Bungalow" EntitySet="Bungalows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaAlo__nome___5CD6CB2B" Association="Self.FK__EstadaAlo__nome___5CD6CB2B">
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+            <End Role="EstadaAlojamento" EntitySet="EstadaAlojamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenda__nome_aloj__3E52440B" Association="Self.FK__Tenda__nome_aloj__3E52440B">
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+            <End Role="Tenda" EntitySet="Tendas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Atividade__nome___47DBAE45" Association="Self.FK__Atividade__nome___47DBAE45">
+            <End Role="Parque" EntitySet="Parques" />
+            <End Role="Atividade" EntitySet="Atividades" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Component__id_fa__5165187F" Association="Self.FK__Component__id_fa__5165187F">
+            <End Role="Fatura" EntitySet="Faturas" />
+            <End Role="ComponenteFatura" EntitySet="ComponenteFaturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EstadaAlo__id_es__5DCAEF64" Association="Self.FK__EstadaAlo__id_es__5DCAEF64">
+            <End Role="Estada" EntitySet="Estadas" />
+            <End Role="EstadaAlojamento" EntitySet="EstadaAlojamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtraEsta__id_es__5629CD9C" Association="Self.FK__ExtraEsta__id_es__5629CD9C">
+            <End Role="Estada" EntitySet="Estadas" />
+            <End Role="ExtraEstada" EntitySet="ExtraEstadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fatura__id_estad__4D94879B" Association="Self.FK__Fatura__id_estad__4D94879B">
+            <End Role="Estada" EntitySet="Estadas" />
+            <End Role="Fatura" EntitySet="Faturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ExtraEsta__id_ex__5535A963" Association="Self.FK__ExtraEsta__id_ex__5535A963">
+            <End Role="Extra" EntitySet="Extras" />
+            <End Role="ExtraEstada" EntitySet="ExtraEstadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Fatura__nif_hósp__4E88ABD4" Association="Self.FK__Fatura__nif_hósp__4E88ABD4">
+            <End Role="Hóspede" EntitySet="Hóspede" />
+            <End Role="Fatura" EntitySet="Faturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HóspedeAt__nif_h__60A75C0F" Association="Self.FK__HóspedeAt__nif_h__60A75C0F">
+            <End Role="Hóspede" EntitySet="Hóspede" />
+            <End Role="HóspedeAtividade" EntitySet="HóspedeAtividade" />
+          </AssociationSet>
+          <AssociationSet Name="EstadaHóspede" Association="Self.EstadaHóspede">
+            <End Role="Estada" EntitySet="Estadas" />
+            <End Role="Hóspede" EntitySet="Hóspede" />
+          </AssociationSet>
+          <FunctionImport Name="atualizarAtividade">
+            <Parameter Name="data_atividade" Mode="In" Type="DateTime" />
+            <Parameter Name="lotação" Mode="In" Type="Decimal" />
+            <Parameter Name="preço" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_atividade" Mode="In" Type="String" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="atualizarBungalowNumParque">
+            <Parameter Name="preço_base" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="localização" Mode="In" Type="String" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="max_pessoas" Mode="In" Type="Decimal" />
+            <Parameter Name="tipologia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="atualizarExtraDeAlojamento">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_dia" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="atualizarExtraPessoal">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_dia" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="atualizarHóspede">
+            <Parameter Name="nif" Mode="In" Type="Decimal" />
+            <Parameter Name="bi" Mode="In" Type="Decimal" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="atualizarTendaNumParque">
+            <Parameter Name="preço_base" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="localização" Mode="In" Type="String" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="max_pessoas" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="área" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="criarEstadaParaUmPeríodoDeTempo">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="data_início" Mode="In" Type="DateTime" />
+            <Parameter Name="data_fim" Mode="In" Type="DateTime" />
+            <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
+            <Parameter Name="bi" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_hóspede" Mode="In" Type="String" />
+            <Parameter Name="morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="preço_base" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição_alojamento" Mode="In" Type="String" />
+            <Parameter Name="localização" Mode="In" Type="String" />
+            <Parameter Name="nome_alojamento" Mode="In" Type="String" />
+            <Parameter Name="max_pessoas" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+            <Parameter Name="tipologia" Mode="In" Type="String" />
+            <Parameter Name="id_extra_alojamento" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição_extra_alojamento" Mode="In" Type="String" />
+            <Parameter Name="preço_extra_alojamento" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo_extra" Mode="In" Type="String" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+            <Parameter Name="id_extra_pessoal" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição_extra_pessoal" Mode="In" Type="String" />
+            <Parameter Name="preço_extra_pessoal" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="enviarEmail">
+            <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
+            <Parameter Name="mensagem" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="enviarEmailsNumIntervaloTemporal" ReturnType="Collection(Model.enviarEmailsNumIntervaloTemporal_Result)">
+            <Parameter Name="dias" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inscreverHóspedeNumaAtividade">
+            <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_atividade" Mode="In" Type="String" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="inserirAtividade">
+            <Parameter Name="data_atividade" Mode="In" Type="DateTime" />
+            <Parameter Name="lotação" Mode="In" Type="Decimal" />
+            <Parameter Name="preço" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_atividade" Mode="In" Type="String" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="inserirBungalowNumParque">
+            <Parameter Name="preço_base" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="localização" Mode="In" Type="String" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="max_pessoas" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+            <Parameter Name="tipologia" Mode="In" Type="String" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserirEstadaComResponsávelExistente">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="data_início" Mode="In" Type="DateTime" />
+            <Parameter Name="data_fim" Mode="In" Type="DateTime" />
+            <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserirEstadaSemResponsávelExistente">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="data_início" Mode="In" Type="DateTime" />
+            <Parameter Name="data_fim" Mode="In" Type="DateTime" />
+            <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
+            <Parameter Name="bi" Mode="In" Type="Decimal" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="inserirExtraDeAlojamento">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_dia" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserirExtraPessoal">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="preço_dia" Mode="In" Type="Decimal" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserirHóspedeComEstadaExistente">
+            <Parameter Name="nif" Mode="In" Type="Decimal" />
+            <Parameter Name="bi" Mode="In" Type="Decimal" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="morada" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="inserirTendaNumParque">
+            <Parameter Name="preço_base" Mode="In" Type="Decimal" />
+            <Parameter Name="descrição" Mode="In" Type="String" />
+            <Parameter Name="localização" Mode="In" Type="String" />
+            <Parameter Name="nome" Mode="In" Type="String" />
+            <Parameter Name="max_pessoas" Mode="In" Type="Decimal" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+            <Parameter Name="tipo" Mode="In" Type="String" />
+            <Parameter Name="área" Mode="In" Type="Decimal" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="listarAtividadesComlugares" ReturnType="Collection(Model.listarAtividadesComlugares_Result)">
+            <Parameter Name="dataInit" Mode="In" Type="DateTime" />
+            <Parameter Name="dataFim" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="mediaDosPreçosDasFaturas">
+            <Parameter Name="year" Mode="In" Type="Decimal" />
+            <Parameter Name="low" Mode="In" Type="Int32" />
+            <Parameter Name="top" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="pagamentoEstadaComFatura">
+            <Parameter Name="id_estada" Mode="In" Type="Decimal" />
+            <Parameter Name="total" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="removerAtividade">
+            <Parameter Name="nome_atividade" Mode="In" Type="String" />
+            <Parameter Name="nome_parque" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="removerBungalowNumParque">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="removerExtraDeAlojamento">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="removerExtraPessoal">
+            <Parameter Name="id" Mode="In" Type="Decimal" />
+            <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="removerHóspede">
+            <Parameter Name="nif" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="removerTendaNumParque">
+            <Parameter Name="nome" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="enviarEmailsNumIntervaloTemporal_Result">
+          <Property Type="Decimal" Name="id" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="data_início" Nullable="false" />
+          <Property Type="DateTime" Name="data_fim" Nullable="false" />
+          <Property Type="Decimal" Name="nif_hóspede" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="pagamento" Nullable="true" MaxLength="12" />
+        </ComplexType>
+        <ComplexType Name="listarAtividadesComlugares_Result">
+          <Property Type="Decimal" Name="número" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="data_atividade" Nullable="false" />
+          <Property Type="Decimal" Name="preço" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="lotação" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="nome_atividade" Nullable="false" MaxLength="56" />
+          <Property Type="String" Name="descrição" Nullable="true" MaxLength="256" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Alojamentoes">
+            <EntityTypeMapping TypeName="Model.Alojamento">
+              <MappingFragment StoreEntitySet="Alojamento">
+                <ScalarProperty Name="preço_base" ColumnName="preço_base" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+                <ScalarProperty Name="localização" ColumnName="localização" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="nome_parque" ColumnName="nome_parque" />
+                <ScalarProperty Name="max_pessoas" ColumnName="max_pessoas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Atividades">
+            <EntityTypeMapping TypeName="Model.Atividade">
+              <MappingFragment StoreEntitySet="Atividade">
+                <ScalarProperty Name="número" ColumnName="número" />
+                <ScalarProperty Name="data_atividade" ColumnName="data_atividade" />
+                <ScalarProperty Name="preço" ColumnName="preço" />
+                <ScalarProperty Name="lotação" ColumnName="lotação" />
+                <ScalarProperty Name="nome_atividade" ColumnName="nome_atividade" />
+                <ScalarProperty Name="nome_parque" ColumnName="nome_parque" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComponenteFaturas">
+            <EntityTypeMapping TypeName="Model.ComponenteFatura">
+              <MappingFragment StoreEntitySet="ComponenteFatura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_fatura" ColumnName="id_fatura" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+                <ScalarProperty Name="preço" ColumnName="preço" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estadas">
+            <EntityTypeMapping TypeName="Model.Estada">
+              <MappingFragment StoreEntitySet="Estada">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data_início" ColumnName="data_início" />
+                <ScalarProperty Name="data_fim" ColumnName="data_fim" />
+                <ScalarProperty Name="nif_hóspede" ColumnName="nif_hóspede" />
+                <ScalarProperty Name="pagamento" ColumnName="pagamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadaAlojamentoes">
+            <EntityTypeMapping TypeName="Model.EstadaAlojamento">
+              <MappingFragment StoreEntitySet="EstadaAlojamento">
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+                <ScalarProperty Name="id_estada" ColumnName="id_estada" />
+                <ScalarProperty Name="preço_base" ColumnName="preço_base" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Extras">
+            <EntityTypeMapping TypeName="Model.Extra">
+              <MappingFragment StoreEntitySet="Extra">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+                <ScalarProperty Name="preço_dia" ColumnName="preço_dia" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExtraEstadas">
+            <EntityTypeMapping TypeName="Model.ExtraEstada">
+              <MappingFragment StoreEntitySet="ExtraEstada">
+                <ScalarProperty Name="id_extra" ColumnName="id_extra" />
+                <ScalarProperty Name="id_estada" ColumnName="id_estada" />
+                <ScalarProperty Name="preço_dia" ColumnName="preço_dia" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faturas">
+            <EntityTypeMapping TypeName="Model.Fatura">
+              <MappingFragment StoreEntitySet="Fatura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_estada" ColumnName="id_estada" />
+                <ScalarProperty Name="nome_hóspede" ColumnName="nome_hóspede" />
+                <ScalarProperty Name="nif_hóspede" ColumnName="nif_hóspede" />
+                <ScalarProperty Name="valor_final" ColumnName="valor_final" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hóspede">
+            <EntityTypeMapping TypeName="Model.Hóspede">
+              <MappingFragment StoreEntitySet="Hóspede">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="morada" ColumnName="morada" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="bi" ColumnName="bi" />
+                <ScalarProperty Name="nif" ColumnName="nif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HóspedeAtividade">
+            <EntityTypeMapping TypeName="Model.HóspedeAtividade">
+              <MappingFragment StoreEntitySet="HóspedeAtividade">
+                <ScalarProperty Name="nif_hóspede" ColumnName="nif_hóspede" />
+                <ScalarProperty Name="nome_atividade" ColumnName="nome_atividade" />
+                <ScalarProperty Name="nome_parque" ColumnName="nome_parque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parques">
+            <EntityTypeMapping TypeName="Model.Parque">
+              <MappingFragment StoreEntitySet="Parque">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="morada" ColumnName="morada" />
+                <ScalarProperty Name="estrelas" ColumnName="estrelas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bungalows">
+            <EntityTypeMapping TypeName="Model.Bungalow">
+              <MappingFragment StoreEntitySet="Bungalow">
+                <ScalarProperty Name="tipologia" ColumnName="tipologia" />
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tendas">
+            <EntityTypeMapping TypeName="Model.Tenda">
+              <MappingFragment StoreEntitySet="Tenda">
+                <ScalarProperty Name="área" ColumnName="área" />
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bungallows">
+            <EntityTypeMapping TypeName="Model.Bungallow">
+              <MappingFragment StoreEntitySet="Bungallows">
+                <ScalarProperty Name="tipologia" ColumnName="tipologia" />
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+                <ScalarProperty Name="preço_base" ColumnName="preço_base" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+                <ScalarProperty Name="localização" ColumnName="localização" />
+                <ScalarProperty Name="nome_parque" ColumnName="nome_parque" />
+                <ScalarProperty Name="max_pessoas" ColumnName="max_pessoas" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="morada" ColumnName="morada" />
+                <ScalarProperty Name="estrelas" ColumnName="estrelas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EstadaHóspede" TypeName="Model.EstadaHóspede" StoreEntitySet="EstadaHóspede">
+            <EndProperty Name="Estada">
+              <ScalarProperty Name="id" ColumnName="id_estada" />
+            </EndProperty>
+            <EndProperty Name="Hóspede">
+              <ScalarProperty Name="nif" ColumnName="nif_hóspede" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="atualizarAtividade" FunctionName="Model.Store.atualizarAtividade" />
+          <FunctionImportMapping FunctionImportName="atualizarBungalowNumParque" FunctionName="Model.Store.atualizarBungalowNumParque" />
+          <FunctionImportMapping FunctionImportName="atualizarExtraDeAlojamento" FunctionName="Model.Store.atualizarExtraDeAlojamento" />
+          <FunctionImportMapping FunctionImportName="atualizarExtraPessoal" FunctionName="Model.Store.atualizarExtraPessoal" />
+          <FunctionImportMapping FunctionImportName="atualizarHóspede" FunctionName="Model.Store.atualizarHóspede" />
+          <FunctionImportMapping FunctionImportName="atualizarTendaNumParque" FunctionName="Model.Store.atualizarTendaNumParque" />
+          <FunctionImportMapping FunctionImportName="criarEstadaParaUmPeríodoDeTempo" FunctionName="Model.Store.criarEstadaParaUmPeríodoDeTempo" />
+          <FunctionImportMapping FunctionImportName="enviarEmail" FunctionName="Model.Store.enviarEmail" />
+          <FunctionImportMapping FunctionImportName="enviarEmailsNumIntervaloTemporal" FunctionName="Model.Store.enviarEmailsNumIntervaloTemporal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.enviarEmailsNumIntervaloTemporal_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data_início" ColumnName="data_início" />
+                <ScalarProperty Name="data_fim" ColumnName="data_fim" />
+                <ScalarProperty Name="nif_hóspede" ColumnName="nif_hóspede" />
+                <ScalarProperty Name="pagamento" ColumnName="pagamento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="inscreverHóspedeNumaAtividade" FunctionName="Model.Store.inscreverHóspedeNumaAtividade" />
+          <FunctionImportMapping FunctionImportName="inserirAtividade" FunctionName="Model.Store.inserirAtividade" />
+          <FunctionImportMapping FunctionImportName="inserirBungalowNumParque" FunctionName="Model.Store.inserirBungalowNumParque" />
+          <FunctionImportMapping FunctionImportName="inserirEstadaComResponsávelExistente" FunctionName="Model.Store.inserirEstadaComResponsávelExistente" />
+          <FunctionImportMapping FunctionImportName="inserirEstadaSemResponsávelExistente" FunctionName="Model.Store.inserirEstadaSemResponsávelExistente" />
+          <FunctionImportMapping FunctionImportName="inserirExtraDeAlojamento" FunctionName="Model.Store.inserirExtraDeAlojamento" />
+          <FunctionImportMapping FunctionImportName="inserirExtraPessoal" FunctionName="Model.Store.inserirExtraPessoal" />
+          <FunctionImportMapping FunctionImportName="inserirHóspedeComEstadaExistente" FunctionName="Model.Store.inserirHóspedeComEstadaExistente" />
+          <FunctionImportMapping FunctionImportName="inserirTendaNumParque" FunctionName="Model.Store.inserirTendaNumParque" />
+          <FunctionImportMapping FunctionImportName="listarAtividadesComlugares" FunctionName="Model.Store.listarAtividadesComlugares">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.listarAtividadesComlugares_Result">
+                <ScalarProperty Name="número" ColumnName="número" />
+                <ScalarProperty Name="data_atividade" ColumnName="data_atividade" />
+                <ScalarProperty Name="preço" ColumnName="preço" />
+                <ScalarProperty Name="lotação" ColumnName="lotação" />
+                <ScalarProperty Name="nome_atividade" ColumnName="nome_atividade" />
+                <ScalarProperty Name="descrição" ColumnName="descrição" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="mediaDosPreçosDasFaturas" FunctionName="Model.Store.mediaDosPreçosDasFaturas" />
+          <FunctionImportMapping FunctionImportName="pagamentoEstadaComFatura" FunctionName="Model.Store.pagamentoEstadaComFatura" />
+          <FunctionImportMapping FunctionImportName="removerAtividade" FunctionName="Model.Store.removerAtividade" />
+          <FunctionImportMapping FunctionImportName="removerBungalowNumParque" FunctionName="Model.Store.removerBungalowNumParque" />
+          <FunctionImportMapping FunctionImportName="removerExtraDeAlojamento" FunctionName="Model.Store.removerExtraDeAlojamento" />
+          <FunctionImportMapping FunctionImportName="removerExtraPessoal" FunctionName="Model.Store.removerExtraPessoal" />
+          <FunctionImportMapping FunctionImportName="removerHóspede" FunctionName="Model.Store.removerHóspede" />
+          <FunctionImportMapping FunctionImportName="removerTendaNumParque" FunctionName="Model.Store.removerTendaNumParque" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

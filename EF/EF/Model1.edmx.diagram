@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c20a0cd5777b403aa95e5e1d13caa81c" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Alojamento" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Atividade" Width="1.5" PointX="3.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ComponenteFatura" Width="1.5" PointX="7.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Estada" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EstadaAlojamento" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Extra" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ExtraEstada" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Fatura" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Hóspede" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.HóspedeAtividade" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Parque" Width="1.5" PointX="1.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Bungalow" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tenda" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Bungallow" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Alojament__nome___398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Bungalow__nome_a__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EstadaAlo__nome___5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Tenda__nome_aloj__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Atividade__nome___47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Component__id_fa__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__EstadaAlo__id_es__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__ExtraEsta__id_es__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Fatura__id_estad__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__ExtraEsta__id_ex__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Fatura__nif_hósp__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__HóspedeAt__nif_h__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EstadaHóspede" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
