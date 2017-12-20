@@ -54,7 +54,6 @@ as
 				end catch
 			end
 	commit
-
 go
 
 begin tran

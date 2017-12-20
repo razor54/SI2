@@ -9,7 +9,7 @@ using System.Transactions;
 
 namespace ADOSI2.concrete.logic
 {
-    class EnviarEmailsNumPeriodo
+    public class EnviarEmailsNumPeriodo
     {
         private readonly Context _context;
 
@@ -32,7 +32,7 @@ namespace ADOSI2.concrete.logic
          * return success
          */
 
-        public bool Execute(int dias)
+        public bool Execute(int dias, out int contador)
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
             {
@@ -46,13 +46,16 @@ namespace ADOSI2.concrete.logic
 
 
                     var diasSql = new SqlParameter("@dias", dias);
+                    contador = 0;
+                    var contadorSql = new SqlParameter("@contador", contador);
+                    contadorSql.Direction = ParameterDirection.Output;
                    
                     cmd.Parameters.Add(diasSql);
-                    
+                    cmd.Parameters.Add(contadorSql);
 
                     var affected = cmd.ExecuteNonQuery().ToString();
+                    contador = (int) contadorSql.Value;
                     cmd.Parameters.Clear();
-
 
                     Console.WriteLine("{0} rows affected", affected);
                 }

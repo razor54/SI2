@@ -47,7 +47,7 @@ go
 /** ENVIAR EMAILS COM ESTADAS A INICIAR BREVEMENTE **/
 -- prevenir que alguém apague uma estada durante a execução
 create procedure enviarEmailsNumIntervaloTemporal
-	@dias numeric
+	@dias numeric, @contador numeric output
 as
 	set transaction isolation level serializable
 	begin tran
@@ -63,6 +63,7 @@ as
 			while @@FETCH_STATUS = 0
 			begin
 				exec enviarEmail @nif, N'Tem uma estada marcada para breve'
+				select @contador = @contador + 1
 				fetch next from cursor_fatura into @nif
 			end
 			close cursor_fatura
@@ -81,9 +82,12 @@ begin tran
 		N'Rua Sem Nome', N'jaquim@gmail.com', N'12345'
 
 	insert into Estada(id, data_início, data_fim, nif_hóspede)
-		values(67890, '01-04-2000', '01-08-2000', 222)
+		values(67890, '01-10-2000', '01-12-2000', 222)
 	exec inserirHóspedeComEstadaExistente N'222', N'789', N'Pedro', 
 		N'Praceta Sem Nome', N'pedro@gmail.com', N'67890'
 
-	exec enviarEmailsNumIntervaloTemporal N'5'
+	declare @contador numeric = 0
+	exec enviarEmailsNumIntervaloTemporal N'5', @contador output
+
+	select @contador as contador
 rollback

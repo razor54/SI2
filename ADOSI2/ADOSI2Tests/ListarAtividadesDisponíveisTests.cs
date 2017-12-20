@@ -7,34 +7,34 @@ using System.Threading.Tasks;
 using ADOSI2.concrete;
 using ADOSI2.model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ADOSI2.concrete.logic;
 
 namespace ADOSI2Tests
 {
     [TestClass]
-    public class InscreverHospedeAtividadeTests
+    public class ListarAtividadesDisponíveisTests
     {
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["si2cs"].ConnectionString;
 
         [TestMethod]
-        public void InsertHóspedeTest()
+        public void ListAvailableActivitiesTest()
         {
             using (Context ctx = new Context(_connectionString))
             {
                 var estada = new Estada
                 {
-                    DataInicio = new DateTime(2007, 3, 1),
-                    DataFim = new DateTime(2017, 3, 1),
-                    Id = 25,
-                    NifHospede = 0
+                    DataInicio = new DateTime(2017, 1, 1),
+                    DataFim = new DateTime(2017, 5, 2),
+                    Id = 123456,
+                    NifHospede = 111
                 };
 
                 EstadaMapper estadaMapper = new EstadaMapper(ctx);
                 estada = estadaMapper.Create(estada);
 
-
                 Hóspede hóspede = new Hóspede();
-                hóspede.Bi = 1234567890;
-                hóspede.Nif = 0;
+                hóspede.Bi = 456;
+                hóspede.Nif = 111;
                 hóspede.Nome = "Jaquim";
                 hóspede.Email = "jaquim@gmail.com";
                 hóspede.Morada = "Rua da Calçada";
@@ -49,12 +49,8 @@ namespace ADOSI2Tests
                 };
 
                 var estadaHospedeMapper = new EstadaHóspedeMapper(ctx);
-
                 estadaHóspede = estadaHospedeMapper.Create(estadaHóspede);
 
-                /*
-                 * CREATE PARQUE
-                 */
                 Parque p = new Parque();
                 p.Nome = "brasil";
                 p.Email = "brasil@brasil.com";
@@ -64,52 +60,57 @@ namespace ADOSI2Tests
                 ParqueMapper parqueMap = new ParqueMapper(ctx);
                 p = parqueMap.Create(p);
 
-
-                var atividade = new Atividade
+                Atividade atividade = new Atividade
                 {
                     Parque = p,
-                    DataAtividade = new DateTime(2009, 10, 1),
-                    Descrição = "FORA",
+                    DataAtividade = new DateTime(2017, 1, 1),
+                    Descrição = "Canoagem",
                     Preço = 90,
                     Lotaçao = 12,
-                    NomeAtividade = "HAMBURGER"
+                    NomeAtividade = "Canoagem"
                 };
+
                 var atividadeMapper = new AtividadeMapper(ctx);
                 atividade = atividadeMapper.Create(atividade);
 
-
-                Fatura fatura = new Fatura();
-                fatura.Hóspede = hóspede;
-                fatura.Estada = estada;
-                fatura.Id = 1;
-                fatura.ValorFinal = 0;
-
-
-                var faturaMapper = new FaturaMapper(ctx);
-                fatura = faturaMapper.Create(fatura);
-
-
-                var inscr = new InscreverHóspedeEmAtividade(ctx);
-
-                inscr.Execute(hóspede.Nif, atividade.NomeAtividade, p.Nome);
-
-
-                 var hospedeAtividadeMapper = new HóspedeAtividadeMapper(ctx);
-                 var componenteFaturaMapper = new ComponenteFaturaMapper(ctx);
-
-                var hospedeAtividade = hospedeAtividadeMapper.Read(atividade.NomeAtividade);
-                Assert.IsNotNull(hospedeAtividade);
-                var count = componenteFaturaMapper.ReadAll().Count;
-                Assert.AreNotEqual(count,0);
-
-                /*
-                 * REMOVE THE PARQUE
-                 */
-               
-
-                foreach (var cp in hospedeAtividadeMapper.ReadAll())
+                Atividade atividade2 = new Atividade
                 {
-                    hospedeAtividadeMapper.Delete(cp);
+                    Parque = p,
+                    DataAtividade = new DateTime(2016, 1, 2),
+                    Descrição = "Pesca",
+                    Preço = 45,
+                    Lotaçao = 20,
+                    NomeAtividade = "Pesca"
+                };
+
+                atividade2 = atividadeMapper.Create(atividade2);
+
+                HóspedeAtividade hóspedeAtividade = new HóspedeAtividade()
+                {
+                    Hóspede = hóspede,
+                    Nome_Atividade = atividade.NomeAtividade,
+                    Nome_Parque = p.Nome
+                };
+
+                var hóspedeAtividadeMapper = new HóspedeAtividadeMapper(ctx);
+                hóspedeAtividade = hóspedeAtividadeMapper.Create(hóspedeAtividade);
+
+                HóspedeAtividade hóspedeAtividade2 = new HóspedeAtividade()
+                {
+                    Hóspede = hóspede,
+                    Nome_Atividade = atividade2.NomeAtividade,
+                    Nome_Parque = p.Nome
+                };
+
+                hóspedeAtividade2 = hóspedeAtividadeMapper.Create(hóspedeAtividade2);
+
+                var listagem = new ListarAtividadeComLugares(ctx);
+
+                listagem.Execute(new DateTime(2016, 1, 1), new DateTime(2018, 1, 1));
+
+                foreach (var h in hóspedeAtividadeMapper.ReadAll())
+                {
+                    hóspedeAtividadeMapper.Delete(h);
                 }
                 foreach (var s in atividadeMapper.ReadAll())
                 {
@@ -118,16 +119,6 @@ namespace ADOSI2Tests
                 foreach (var e in estadaHospedeMapper.ReadAll())
                 {
                     estadaHospedeMapper.Delete(e);
-                }
-
-                foreach (var cp in componenteFaturaMapper.ReadAll())
-                {
-                    componenteFaturaMapper.Delete(cp);
-                }
-
-                foreach (var e in faturaMapper.ReadAll())
-                {
-                    faturaMapper.Delete(e);
                 }
 
                 foreach (var hospede in hóspedeMapper.ReadAll())
@@ -139,7 +130,6 @@ namespace ADOSI2Tests
                 {
                     parqueMap.Delete(parque);
                 }
-
 
                 foreach (var e in estadaMapper.ReadAll())
                 {

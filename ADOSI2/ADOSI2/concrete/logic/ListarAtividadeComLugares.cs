@@ -9,7 +9,7 @@ using System.Transactions;
 
 namespace ADOSI2.concrete.logic
 {
-    class ListarAtividadeComLugares
+    public class ListarAtividadeComLugares
     {
         private readonly Context _context;
 
@@ -32,7 +32,7 @@ namespace ADOSI2.concrete.logic
          * return success
          */
 
-        public bool Execute(DateTime dataInicio,DateTime dataFim)
+        public bool Execute(DateTime dataInicio, DateTime dataFim)
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
             {
@@ -51,10 +51,8 @@ namespace ADOSI2.concrete.logic
                     cmd.Parameters.Add(dataInitSql);
                     cmd.Parameters.Add(dataFimSql);
 
-
-                    var affected = cmd.ExecuteNonQuery().ToString();
+                    var affected = cmd.ExecuteNonQuery();
                     cmd.Parameters.Clear();
-
 
                     Console.WriteLine("{0} rows affected", affected);
                 }

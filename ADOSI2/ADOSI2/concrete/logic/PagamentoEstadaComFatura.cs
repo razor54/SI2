@@ -9,7 +9,7 @@ using System.Transactions;
 
 namespace ADOSI2.concrete
 {
-    class PagamentoEstadaComFatura
+    public class PagamentoEstadaComFatura
     {
         private readonly Context _context;
 
@@ -55,7 +55,7 @@ namespace ADOSI2.concrete
                     cmd.Parameters.Add(totalSql);
 
                     var affected = cmd.ExecuteNonQuery().ToString();
-                    total=Convert.ToInt32(cmd.Parameters[@total].ToString());
+                    total = (int) totalSql.Value;
                     cmd.Parameters.Clear();
 
 
