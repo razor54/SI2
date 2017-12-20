@@ -49,6 +49,7 @@
     <Compile Include="concrete\AtividadeMapper.cs" />
     <Compile Include="concrete\ComponenteFaturaMapper.cs" />
     <Compile Include="concrete\Context.cs" />
+    <Compile Include="concrete\logic\ApagarParqueEAssociaçoes.cs" />
     <Compile Include="concrete\logic\CriarEstadaParaPeriodoTemporal.cs" />
     <Compile Include="concrete\EstadaAlojamentoMapper.cs" />
     <Compile Include="concrete\EstadaHóspedeMapper.cs" />

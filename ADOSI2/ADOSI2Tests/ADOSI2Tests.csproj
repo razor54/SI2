@@ -58,6 +58,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApagarParqueEAssociaçoesTests.cs" />
     <Compile Include="AtividadeTests.cs" />
     <Compile Include="ComponenteFaturaTests.cs" />
     <Compile Include="EstadaAlojamentoTests.cs" />
