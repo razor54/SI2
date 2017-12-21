@@ -38,9 +38,9 @@ namespace EF
         public virtual DbSet<Hóspede> Hóspede { get; set; }
         public virtual DbSet<HóspedeAtividade> HóspedeAtividade { get; set; }
         public virtual DbSet<Parque> Parques { get; set; }
+        public virtual DbSet<Bungallow> Bungallows { get; set; }
         public virtual DbSet<Bungalow> Bungalows { get; set; }
         public virtual DbSet<Tenda> Tendas { get; set; }
-        public virtual DbSet<Bungallow> Bungallows { get; set; }
     
         public virtual int atualizarAtividade(Nullable<System.DateTime> data_atividade, Nullable<decimal> lotação, Nullable<decimal> preço, string nome_atividade, string nome_parque, string descrição)
         {
@@ -318,13 +318,13 @@ namespace EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("enviarEmail", nif_hóspedeParameter, mensagemParameter);
         }
     
-        public virtual ObjectResult<enviarEmailsNumIntervaloTemporal_Result> enviarEmailsNumIntervaloTemporal(Nullable<decimal> dias)
+        public virtual ObjectResult<enviarEmailsNumIntervaloTemporal_Result> enviarEmailsNumIntervaloTemporal(Nullable<decimal> dias, ObjectParameter contador)
         {
             var diasParameter = dias.HasValue ?
                 new ObjectParameter("dias", dias) :
                 new ObjectParameter("dias", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enviarEmailsNumIntervaloTemporal_Result>("enviarEmailsNumIntervaloTemporal", diasParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<enviarEmailsNumIntervaloTemporal_Result>("enviarEmailsNumIntervaloTemporal", diasParameter, contador);
         }
     
         public virtual int inscreverHóspedeNumaAtividade(Nullable<decimal> nif_hóspede, string nome_atividade, string nome_parque)

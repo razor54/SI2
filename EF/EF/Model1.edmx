@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alojamento">
           <Key>
             <PropertyRef Name="nome" />
@@ -30,11 +30,8 @@
           <Property Name="nome_parque" Type="varchar" MaxLength="56" Nullable="false" />
           <Property Name="descrição" Type="varchar" MaxLength="256" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SI2-Trabalho.dbo.Bungalow' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Bungalow">
           <Key>
-            <PropertyRef Name="tipologia" />
             <PropertyRef Name="nome_alojamento" />
           </Key>
           <Property Name="tipologia" Type="varchar" MaxLength="256" Nullable="false" />
@@ -137,12 +134,8 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungalow' does not have a primary
           <Property Name="morada" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="estrelas" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SI2-Trabalho.dbo.Tenda' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Tenda">
           <Key>
-            <PropertyRef Name="área" />
-            <PropertyRef Name="nome_alojamento" />
             <PropertyRef Name="tipo" />
           </Key>
           <Property Name="área" Type="numeric" Precision="18" Scale="0" Nullable="false" />
@@ -150,7 +143,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Tenda' does not have a primary ke
           <Property Name="tipo" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Si2-Trabalho.dbo.Bungallows' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Bungallows">
           <Key>
             <PropertyRef Name="tipologia" />
@@ -173,7 +166,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <Property Name="morada" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="estrelas" Type="numeric" Precision="18" Scale="0" />
         </EntityType>
-        <Association Name="FK__Alojament__nome___398D8EEE">
+        <Association Name="FK__Alojament__nome___10E07F16">
           <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
           <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +178,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Atividade__nome___47DBAE45">
+        <Association Name="FK__Atividade__nome___2116E6DF">
           <End Role="Parque" Type="Self.Parque" Multiplicity="1" />
           <End Role="Atividade" Type="Self.Atividade" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,9 +190,9 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bungalow__nome_a__3C69FB99">
+        <Association Name="FK__Bungalow__nome_a__14B10FFA">
           <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
-          <End Role="Bungalow" Type="Self.Bungalow" Multiplicity="*" />
+          <End Role="Bungalow" Type="Self.Bungalow" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Alojamento">
               <PropertyRef Name="nome" />
@@ -209,7 +202,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Component__id_fa__5165187F">
+        <Association Name="FK__Component__id_fa__2AA05119">
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="1" />
           <End Role="ComponenteFatura" Type="Self.ComponenteFatura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -221,7 +214,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EstadaAlo__id_es__5DCAEF64">
+        <Association Name="FK__EstadaAlo__id_es__370627FE">
           <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
           <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -233,7 +226,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EstadaAlo__nome___5CD6CB2B">
+        <Association Name="FK__EstadaAlo__nome___361203C5">
           <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
           <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,7 +238,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EstadaHós__id_es__59FA5E80">
+        <Association Name="FK__EstadaHós__id_es__3335971A">
           <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
           <End Role="EstadaHóspede" Type="Self.EstadaHóspede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -257,7 +250,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__EstadaHós__nif_h__59063A47">
+        <Association Name="FK__EstadaHós__nif_h__324172E1">
           <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
           <End Role="EstadaHóspede" Type="Self.EstadaHóspede" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,7 +262,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ExtraEsta__id_es__5629CD9C">
+        <Association Name="FK__ExtraEsta__id_es__2F650636">
           <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
           <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +274,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ExtraEsta__id_ex__5535A963">
+        <Association Name="FK__ExtraEsta__id_ex__2E70E1FD">
           <End Role="Extra" Type="Self.Extra" Multiplicity="1" />
           <End Role="ExtraEstada" Type="Self.ExtraEstada" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +286,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fatura__id_estad__4D94879B">
+        <Association Name="FK__Fatura__id_estad__26CFC035">
           <End Role="Estada" Type="Self.Estada" Multiplicity="1" />
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -305,7 +298,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Fatura__nif_hósp__4E88ABD4">
+        <Association Name="FK__Fatura__nif_hósp__27C3E46E">
           <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
           <End Role="Fatura" Type="Self.Fatura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -317,7 +310,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__HóspedeAt__nif_h__60A75C0F">
+        <Association Name="FK__HóspedeAt__nif_h__39E294A9">
           <End Role="Hóspede" Type="Self.Hóspede" Multiplicity="1" />
           <End Role="HóspedeAtividade" Type="Self.HóspedeAtividade" Multiplicity="*" />
           <ReferentialConstraint>
@@ -329,7 +322,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Tenda__nome_aloj__3E52440B">
+        <Association Name="FK__Tenda__nome_aloj__178D7CA5">
           <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
           <End Role="Tenda" Type="Self.Tenda" Multiplicity="*" />
           <ReferentialConstraint>
@@ -418,6 +411,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
         </Function>
         <Function Name="enviarEmailsNumIntervaloTemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="dias" Type="numeric" Mode="In" />
+          <Parameter Name="contador" Type="numeric" Mode="InOut" />
         </Function>
         <Function Name="inscreverHóspedeNumaAtividade" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nif_hóspede" Type="numeric" Mode="In" />
@@ -530,6 +524,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Alojamento" EntityType="Self.Alojamento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Atividade" EntityType="Self.Atividade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bungalow" EntityType="Self.Bungalow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ComponenteFatura" EntityType="Self.ComponenteFatura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estada" EntityType="Self.Estada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadaAlojamento" EntityType="Self.EstadaAlojamento" Schema="dbo" store:Type="Tables" />
@@ -540,19 +535,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <EntitySet Name="Hóspede" EntityType="Self.Hóspede" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HóspedeAtividade" EntityType="Self.HóspedeAtividade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Parque" EntityType="Self.Parque" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Bungalow" EntityType="Self.Bungalow" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Bungalow].[tipologia] AS [tipologia], 
-    [Bungalow].[nome_alojamento] AS [nome_alojamento]
-    FROM [dbo].[Bungalow] AS [Bungalow]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Tenda" EntityType="Self.Tenda" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Tenda].[área] AS [área], 
-    [Tenda].[nome_alojamento] AS [nome_alojamento], 
-    [Tenda].[tipo] AS [tipo]
-    FROM [dbo].[Tenda] AS [Tenda]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Tenda" EntityType="Self.Tenda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bungallows" EntityType="Self.Bungallows" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Bungallows].[tipologia] AS [tipologia], 
@@ -567,65 +550,64 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
     [Bungallows].[estrelas] AS [estrelas]
     FROM [dbo].[Bungallows] AS [Bungallows]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__Alojament__nome___398D8EEE" Association="Self.FK__Alojament__nome___398D8EEE">
+          <AssociationSet Name="FK__Alojament__nome___10E07F16" Association="Self.FK__Alojament__nome___10E07F16">
             <End Role="Parque" EntitySet="Parque" />
             <End Role="Alojamento" EntitySet="Alojamento" />
           </AssociationSet>
-          <AssociationSet Name="FK__Atividade__nome___47DBAE45" Association="Self.FK__Atividade__nome___47DBAE45">
+          <AssociationSet Name="FK__Atividade__nome___2116E6DF" Association="Self.FK__Atividade__nome___2116E6DF">
             <End Role="Parque" EntitySet="Parque" />
             <End Role="Atividade" EntitySet="Atividade" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bungalow__nome_a__3C69FB99" Association="Self.FK__Bungalow__nome_a__3C69FB99">
+          <AssociationSet Name="FK__Bungalow__nome_a__14B10FFA" Association="Self.FK__Bungalow__nome_a__14B10FFA">
             <End Role="Alojamento" EntitySet="Alojamento" />
             <End Role="Bungalow" EntitySet="Bungalow" />
           </AssociationSet>
-          <AssociationSet Name="FK__Component__id_fa__5165187F" Association="Self.FK__Component__id_fa__5165187F">
+          <AssociationSet Name="FK__Component__id_fa__2AA05119" Association="Self.FK__Component__id_fa__2AA05119">
             <End Role="Fatura" EntitySet="Fatura" />
             <End Role="ComponenteFatura" EntitySet="ComponenteFatura" />
           </AssociationSet>
-          <AssociationSet Name="FK__EstadaAlo__id_es__5DCAEF64" Association="Self.FK__EstadaAlo__id_es__5DCAEF64">
+          <AssociationSet Name="FK__EstadaAlo__id_es__370627FE" Association="Self.FK__EstadaAlo__id_es__370627FE">
             <End Role="Estada" EntitySet="Estada" />
             <End Role="EstadaAlojamento" EntitySet="EstadaAlojamento" />
           </AssociationSet>
-          <AssociationSet Name="FK__EstadaAlo__nome___5CD6CB2B" Association="Self.FK__EstadaAlo__nome___5CD6CB2B">
+          <AssociationSet Name="FK__EstadaAlo__nome___361203C5" Association="Self.FK__EstadaAlo__nome___361203C5">
             <End Role="Alojamento" EntitySet="Alojamento" />
             <End Role="EstadaAlojamento" EntitySet="EstadaAlojamento" />
           </AssociationSet>
-          <AssociationSet Name="FK__EstadaHós__id_es__59FA5E80" Association="Self.FK__EstadaHós__id_es__59FA5E80">
+          <AssociationSet Name="FK__EstadaHós__id_es__3335971A" Association="Self.FK__EstadaHós__id_es__3335971A">
             <End Role="Estada" EntitySet="Estada" />
             <End Role="EstadaHóspede" EntitySet="EstadaHóspede" />
           </AssociationSet>
-          <AssociationSet Name="FK__EstadaHós__nif_h__59063A47" Association="Self.FK__EstadaHós__nif_h__59063A47">
+          <AssociationSet Name="FK__EstadaHós__nif_h__324172E1" Association="Self.FK__EstadaHós__nif_h__324172E1">
             <End Role="Hóspede" EntitySet="Hóspede" />
             <End Role="EstadaHóspede" EntitySet="EstadaHóspede" />
           </AssociationSet>
-          <AssociationSet Name="FK__ExtraEsta__id_es__5629CD9C" Association="Self.FK__ExtraEsta__id_es__5629CD9C">
+          <AssociationSet Name="FK__ExtraEsta__id_es__2F650636" Association="Self.FK__ExtraEsta__id_es__2F650636">
             <End Role="Estada" EntitySet="Estada" />
             <End Role="ExtraEstada" EntitySet="ExtraEstada" />
           </AssociationSet>
-          <AssociationSet Name="FK__ExtraEsta__id_ex__5535A963" Association="Self.FK__ExtraEsta__id_ex__5535A963">
+          <AssociationSet Name="FK__ExtraEsta__id_ex__2E70E1FD" Association="Self.FK__ExtraEsta__id_ex__2E70E1FD">
             <End Role="Extra" EntitySet="Extra" />
             <End Role="ExtraEstada" EntitySet="ExtraEstada" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fatura__id_estad__4D94879B" Association="Self.FK__Fatura__id_estad__4D94879B">
+          <AssociationSet Name="FK__Fatura__id_estad__26CFC035" Association="Self.FK__Fatura__id_estad__26CFC035">
             <End Role="Estada" EntitySet="Estada" />
             <End Role="Fatura" EntitySet="Fatura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Fatura__nif_hósp__4E88ABD4" Association="Self.FK__Fatura__nif_hósp__4E88ABD4">
+          <AssociationSet Name="FK__Fatura__nif_hósp__27C3E46E" Association="Self.FK__Fatura__nif_hósp__27C3E46E">
             <End Role="Hóspede" EntitySet="Hóspede" />
             <End Role="Fatura" EntitySet="Fatura" />
           </AssociationSet>
-          <AssociationSet Name="FK__HóspedeAt__nif_h__60A75C0F" Association="Self.FK__HóspedeAt__nif_h__60A75C0F">
+          <AssociationSet Name="FK__HóspedeAt__nif_h__39E294A9" Association="Self.FK__HóspedeAt__nif_h__39E294A9">
             <End Role="Hóspede" EntitySet="Hóspede" />
             <End Role="HóspedeAtividade" EntitySet="HóspedeAtividade" />
           </AssociationSet>
-          <AssociationSet Name="FK__Tenda__nome_aloj__3E52440B" Association="Self.FK__Tenda__nome_aloj__3E52440B">
+          <AssociationSet Name="FK__Tenda__nome_aloj__178D7CA5" Association="Self.FK__Tenda__nome_aloj__178D7CA5">
             <End Role="Alojamento" EntitySet="Alojamento" />
             <End Role="Tenda" EntitySet="Tenda" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -640,9 +622,9 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <Property Name="nome_parque" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="max_pessoas" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <NavigationProperty Name="Parque" Relationship="Self.FK__Alojament__nome___398D8EEE" FromRole="Alojamento" ToRole="Parque" />
-          <NavigationProperty Name="Bungalows" Relationship="Self.FK__Bungalow__nome_a__3C69FB99" FromRole="Alojamento" ToRole="Bungalow" />
           <NavigationProperty Name="EstadaAlojamentoes" Relationship="Self.FK__EstadaAlo__nome___5CD6CB2B" FromRole="Alojamento" ToRole="EstadaAlojamento" />
-          <NavigationProperty Name="Tendas" Relationship="Self.FK__Tenda__nome_aloj__3E52440B" FromRole="Alojamento" ToRole="Tenda" />
+          <NavigationProperty Name="Bungalow" Relationship="Model.FK__Bungalow__nome_a__14B10FFA" FromRole="Alojamento" ToRole="Bungalow1" />
+          <NavigationProperty Name="Tendas1" Relationship="Model.FK__Tenda__nome_aloj__178D7CA5" FromRole="Alojamento" ToRole="Tenda1" />
         </EntityType>
         <EntityType Name="Atividade">
           <Key>
@@ -767,26 +749,6 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <NavigationProperty Name="Alojamentoes" Relationship="Self.FK__Alojament__nome___398D8EEE" FromRole="Parque" ToRole="Alojamento" />
           <NavigationProperty Name="Atividades" Relationship="Self.FK__Atividade__nome___47DBAE45" FromRole="Parque" ToRole="Atividade" />
         </EntityType>
-        <EntityType Name="Bungalow">
-          <Key>
-            <PropertyRef Name="tipologia" />
-            <PropertyRef Name="nome_alojamento" />
-          </Key>
-          <Property Name="tipologia" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Alojamento" Relationship="Self.FK__Bungalow__nome_a__3C69FB99" FromRole="Bungalow" ToRole="Alojamento" />
-        </EntityType>
-        <EntityType Name="Tenda">
-          <Key>
-            <PropertyRef Name="área" />
-            <PropertyRef Name="nome_alojamento" />
-            <PropertyRef Name="tipo" />
-          </Key>
-          <Property Name="área" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="nome_alojamento" Type="String" MaxLength="56" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Alojamento" Relationship="Self.FK__Tenda__nome_aloj__3E52440B" FromRole="Tenda" ToRole="Alojamento" />
-        </EntityType>
         <EntityType Name="Bungallow">
           <Key>
             <PropertyRef Name="tipologia" />
@@ -821,18 +783,6 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bungalow__nome_a__3C69FB99">
-          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
-          <End Role="Bungalow" Type="Self.Bungalow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Alojamento">
-              <PropertyRef Name="nome" />
-            </Principal>
-            <Dependent Role="Bungalow">
-              <PropertyRef Name="nome_alojamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__EstadaAlo__nome___5CD6CB2B">
           <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
           <End Role="EstadaAlojamento" Type="Self.EstadaAlojamento" Multiplicity="*" />
@@ -841,18 +791,6 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
               <PropertyRef Name="nome" />
             </Principal>
             <Dependent Role="EstadaAlojamento">
-              <PropertyRef Name="nome_alojamento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Tenda__nome_aloj__3E52440B">
-          <End Role="Alojamento" Type="Self.Alojamento" Multiplicity="1" />
-          <End Role="Tenda" Type="Self.Tenda" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Alojamento">
-              <PropertyRef Name="nome" />
-            </Principal>
-            <Dependent Role="Tenda">
               <PropertyRef Name="nome_alojamento" />
             </Dependent>
           </ReferentialConstraint>
@@ -969,24 +907,14 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <EntitySet Name="Hóspede" EntityType="Self.Hóspede" />
           <EntitySet Name="HóspedeAtividade" EntityType="Self.HóspedeAtividade" />
           <EntitySet Name="Parques" EntityType="Self.Parque" />
-          <EntitySet Name="Bungalows" EntityType="Self.Bungalow" />
-          <EntitySet Name="Tendas" EntityType="Self.Tenda" />
           <EntitySet Name="Bungallows" EntityType="Self.Bungallow" />
           <AssociationSet Name="FK__Alojament__nome___398D8EEE" Association="Self.FK__Alojament__nome___398D8EEE">
             <End Role="Parque" EntitySet="Parques" />
             <End Role="Alojamento" EntitySet="Alojamentoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bungalow__nome_a__3C69FB99" Association="Self.FK__Bungalow__nome_a__3C69FB99">
-            <End Role="Alojamento" EntitySet="Alojamentoes" />
-            <End Role="Bungalow" EntitySet="Bungalows" />
-          </AssociationSet>
           <AssociationSet Name="FK__EstadaAlo__nome___5CD6CB2B" Association="Self.FK__EstadaAlo__nome___5CD6CB2B">
             <End Role="Alojamento" EntitySet="Alojamentoes" />
             <End Role="EstadaAlojamento" EntitySet="EstadaAlojamentoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Tenda__nome_aloj__3E52440B" Association="Self.FK__Tenda__nome_aloj__3E52440B">
-            <End Role="Alojamento" EntitySet="Alojamentoes" />
-            <End Role="Tenda" EntitySet="Tendas" />
           </AssociationSet>
           <AssociationSet Name="FK__Atividade__nome___47DBAE45" Association="Self.FK__Atividade__nome___47DBAE45">
             <End Role="Parque" EntitySet="Parques" />
@@ -1101,6 +1029,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           </FunctionImport>
           <FunctionImport Name="enviarEmailsNumIntervaloTemporal" ReturnType="Collection(Model.enviarEmailsNumIntervaloTemporal_Result)">
             <Parameter Name="dias" Mode="In" Type="Decimal" />
+            <Parameter Name="contador" Mode="InOut" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="inscreverHóspedeNumaAtividade">
             <Parameter Name="nif_hóspede" Mode="In" Type="Decimal" />
@@ -1194,7 +1123,7 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             <Parameter Name="nome_parque" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="removerBungalowNumParque">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="removerExtraDeAlojamento">
             <Parameter Name="id" Mode="In" Type="Decimal" />
@@ -1205,11 +1134,21 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
             <Parameter Name="id_fatura" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="removerHóspede">
-            <Parameter Name="nif" Mode="In" Type="Decimal" />
+          <Parameter Name="nif" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="removerTendaNumParque">
-            <Parameter Name="nome" Mode="In" Type="String" />
+          <Parameter Name="nome" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Bungalows" EntityType="Model.Bungalow" />
+          <EntitySet Name="Tendas" EntityType="Model.Tenda" />
+          <AssociationSet Name="FK__Bungalow__nome_a__14B10FFA" Association="Model.FK__Bungalow__nome_a__14B10FFA">
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+            <End Role="Bungalow1" EntitySet="Bungalows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tenda__nome_aloj__178D7CA5" Association="Model.FK__Tenda__nome_aloj__178D7CA5">
+            <End Role="Alojamento" EntitySet="Alojamentoes" />
+            <End Role="Tenda1" EntitySet="Tendas" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="enviarEmailsNumIntervaloTemporal_Result">
           <Property Type="Decimal" Name="id" Nullable="false" Precision="18" Scale="0" />
@@ -1226,6 +1165,47 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <Property Type="String" Name="nome_atividade" Nullable="false" MaxLength="56" />
           <Property Type="String" Name="descrição" Nullable="true" MaxLength="256" />
         </ComplexType>
+        <EntityType Name="Bungalow">
+          <Key>
+            <PropertyRef Name="nome_alojamento" />
+          </Key>
+          <Property Name="tipologia" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="nome_alojamento" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alojamento" Relationship="Model.FK__Bungalow__nome_a__14B10FFA" FromRole="Bungalow1" ToRole="Alojamento" />
+        </EntityType>
+        <EntityType Name="Tenda">
+          <Key>
+            <PropertyRef Name="tipo" />
+          </Key>
+          <Property Name="área" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="nome_alojamento" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alojamento" Relationship="Model.FK__Tenda__nome_aloj__178D7CA5" FromRole="Tenda1" ToRole="Alojamento" />
+        </EntityType>
+        <Association Name="FK__Bungalow__nome_a__14B10FFA">
+          <End Type="Model.Alojamento" Role="Alojamento" Multiplicity="1" />
+          <End Type="Model.Bungalow" Role="Bungalow1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Bungalow1">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tenda__nome_aloj__178D7CA5">
+          <End Type="Model.Alojamento" Role="Alojamento" Multiplicity="1" />
+          <End Type="Model.Tenda" Role="Tenda1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alojamento">
+              <PropertyRef Name="nome" />
+            </Principal>
+            <Dependent Role="Tenda1">
+              <PropertyRef Name="nome_alojamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1350,23 +1330,6 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Bungalows">
-            <EntityTypeMapping TypeName="Model.Bungalow">
-              <MappingFragment StoreEntitySet="Bungalow">
-                <ScalarProperty Name="tipologia" ColumnName="tipologia" />
-                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tendas">
-            <EntityTypeMapping TypeName="Model.Tenda">
-              <MappingFragment StoreEntitySet="Tenda">
-                <ScalarProperty Name="área" ColumnName="área" />
-                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Bungallows">
             <EntityTypeMapping TypeName="Model.Bungallow">
               <MappingFragment StoreEntitySet="Bungallows">
@@ -1439,6 +1402,23 @@ warning 6002: The table/view 'SI2-Trabalho.dbo.Bungallows' does not have a prima
           <FunctionImportMapping FunctionImportName="removerExtraPessoal" FunctionName="Model.Store.removerExtraPessoal" />
           <FunctionImportMapping FunctionImportName="removerHóspede" FunctionName="Model.Store.removerHóspede" />
           <FunctionImportMapping FunctionImportName="removerTendaNumParque" FunctionName="Model.Store.removerTendaNumParque" />
+          <EntitySetMapping Name="Bungalows">
+            <EntityTypeMapping TypeName="Model.Bungalow">
+              <MappingFragment StoreEntitySet="Bungalow">
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+                <ScalarProperty Name="tipologia" ColumnName="tipologia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tendas">
+            <EntityTypeMapping TypeName="Model.Tenda">
+              <MappingFragment StoreEntitySet="Tenda">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="nome_alojamento" ColumnName="nome_alojamento" />
+                <ScalarProperty Name="área" ColumnName="área" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -17,9 +17,8 @@ namespace EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Alojamento()
         {
-            this.Bungalows = new HashSet<Bungalow>();
             this.EstadaAlojamentoes = new HashSet<EstadaAlojamento>();
-            this.Tendas = new HashSet<Tenda>();
+            this.Tendas1 = new HashSet<Tenda>();
         }
     
         public decimal preço_base { get; set; }
@@ -31,10 +30,9 @@ namespace EF
     
         public virtual Parque Parque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bungalow> Bungalows { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EstadaAlojamento> EstadaAlojamentoes { get; set; }
+        public virtual Bungalow Bungalow { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tenda> Tendas { get; set; }
+        public virtual ICollection<Tenda> Tendas1 { get; set; }
     }
 }

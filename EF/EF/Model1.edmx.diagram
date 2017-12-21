@@ -16,13 +16,9 @@
         <EntityTypeShape EntityType="Model.Hóspede" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.HóspedeAtividade" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Parque" Width="1.5" PointX="1.5" PointY="19.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Bungalow" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Tenda" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Bungallow" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK__Alojament__nome___398D8EEE" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Bungalow__nome_a__3C69FB99" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__EstadaAlo__nome___5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK__Tenda__nome_aloj__3E52440B" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Atividade__nome___47DBAE45" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Component__id_fa__5165187F" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__EstadaAlo__id_es__5DCAEF64" ManuallyRouted="false" />
@@ -32,6 +28,10 @@
         <AssociationConnector Association="Model.FK__Fatura__nif_hósp__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__HóspedeAt__nif_h__60A75C0F" ManuallyRouted="false" />
         <AssociationConnector Association="Model.EstadaHóspede" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.Bungalow" Width="1.5" PointX="3" PointY="23.375" />
+        <EntityTypeShape EntityType="Model.Tenda" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="Model.FK__Bungalow__nome_a__14B10FFA" />
+        <AssociationConnector Association="Model.FK__Tenda__nome_aloj__178D7CA5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
