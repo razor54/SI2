@@ -11,12 +11,12 @@ using ADOSI2.model;
 
 namespace ADOSI2.concrete.logic
 {
-    public class ApagarParqueEAssociaçoes
+    public struct ApagarParqueEAssociaçoes
     {
         private readonly Context _context;
 
         #region Helper
-        protected void EnsureContext()
+        private void EnsureContext()
         {
             if (_context == null)
                 throw new InvalidOperationException("Data Context not set.");

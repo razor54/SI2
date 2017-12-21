@@ -9,17 +9,17 @@ using System.Transactions;
 
 namespace ADOSI2.concrete
 {
-    public class PagamentoEstadaComFatura
+    public struct PagamentoEstadaComFatura
     {
         private readonly Context _context;
 
         #region Helper
-        protected void EnsureContext()
+
+        private void EnsureContext()
         {
             if (_context == null)
                 throw new InvalidOperationException("Data Context not set.");
         }
-
 
         #endregion
 
@@ -32,7 +32,7 @@ namespace ADOSI2.concrete
          * return success
          */
 
-        public bool Execute(int idEstada,out int total)
+        public bool Execute(int idEstada, out int total)
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
             {
@@ -40,7 +40,6 @@ namespace ADOSI2.concrete
                 _context.EnlistTransaction();
                 using (IDbCommand cmd = _context.CreateCommand())
                 {
-
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "pagamentoEstadaComFatura";
 
@@ -49,7 +48,7 @@ namespace ADOSI2.concrete
                     total = 0;
                     var totalSql = new SqlParameter("@total", total);
 
-                    totalSql.Direction=ParameterDirection.Output;
+                    totalSql.Direction = ParameterDirection.Output;
 
                     cmd.Parameters.Add(idEstadaSql);
                     cmd.Parameters.Add(totalSql);
@@ -64,8 +63,8 @@ namespace ADOSI2.concrete
 
 
                 ts.Complete();
-
             }
+
             return true;
         }
     }

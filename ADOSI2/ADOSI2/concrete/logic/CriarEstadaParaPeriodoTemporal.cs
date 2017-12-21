@@ -10,17 +10,17 @@ using System.Transactions;
 
 namespace ADOSI2.concrete
 {
-    class CriarEstadaParaPeriodoTemporal
+    struct CriarEstadaParaPeriodoTemporal
     {
         private readonly Context _context;
 
         #region Helper
-        protected void EnsureContext()
+
+        private void EnsureContext()
         {
             if (_context == null)
                 throw new InvalidOperationException("Data Context not set.");
         }
-
 
         #endregion
 
@@ -33,10 +33,12 @@ namespace ADOSI2.concrete
          * return success
          */
 
-        public bool Execute(int id, DateTime datainicio, DateTime dataFim,int nifHospede,int bi,string nomeHospede
-            ,string morada,string email,decimal preçoBase,string descriçãoAlojamento,string localizaçao,string nomeAlojamento,
-            int maxPessoas,string nomeParque,string tipologia,int idExtraAlojamento,string descriçaoExtraAlojamento,decimal preçoExtraAlojamento,
-            string tipoExtra,int idFatura,int idExtraPessoal,string descriçãoExtraPessoal,decimal preçoExtraPessoal)
+        public bool Execute(int id, DateTime datainicio, DateTime dataFim, int nifHospede, int bi, string nomeHospede
+            , string morada, string email, decimal preçoBase, string descriçãoAlojamento, string localizaçao,
+            string nomeAlojamento,
+            int maxPessoas, string nomeParque, string tipologia, int idExtraAlojamento, string descriçaoExtraAlojamento,
+            decimal preçoExtraAlojamento,
+            string tipoExtra, int idFatura, int idExtraPessoal, string descriçãoExtraPessoal, decimal preçoExtraPessoal)
         {
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required))
             {
@@ -44,12 +46,11 @@ namespace ADOSI2.concrete
                 _context.EnlistTransaction();
                 using (IDbCommand cmd = _context.CreateCommand())
                 {
-                    
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandText = "criarEstadaParaUmPeríodoDeTempo";
 
-                    var idSql = new SqlParameter("@id",id);
-                    var dataInicioSql = new SqlParameter("@data_início",datainicio);
+                    var idSql = new SqlParameter("@id", id);
+                    var dataInicioSql = new SqlParameter("@data_início", datainicio);
                     var dataFimSql = new SqlParameter("@data_fim", dataFim);
                     var nifHospedeSql = new SqlParameter("@nif_hóspede", nifHospede);
                     var biSql = new SqlParameter("@bi", bi);
@@ -64,14 +65,14 @@ namespace ADOSI2.concrete
                     var nomeParqueSql = new SqlParameter("@nome_parque", maxPessoas);
                     var tipologiaSql = new SqlParameter("@tipologia", tipologia);
                     var idExtraAlojamentoSql = new SqlParameter("@id_extra_alojamento", idExtraAlojamento);
-                    var descriçaoExtraAlojamentoSql = new SqlParameter("@descrição_extra_alojamento", descriçaoExtraAlojamento);
+                    var descriçaoExtraAlojamentoSql =
+                        new SqlParameter("@descrição_extra_alojamento", descriçaoExtraAlojamento);
                     var preçoExtraAlojamentoSql = new SqlParameter("@preço_extra_alojamento", preçoExtraAlojamento);
                     var tipoExtraSql = new SqlParameter("@tipo_extra", tipoExtra);
                     var idFaturaSql = new SqlParameter("@id_fatura", idFatura);
                     var idExtraPessoalSql = new SqlParameter("@id_extra_pessoal", idExtraPessoal);
                     var descriçãoExtraPessoalSql = new SqlParameter("@descrição_extra_pessoal", descriçãoExtraPessoal);
                     var preçoExtraPessoalSql = new SqlParameter("@preço_extra_pessoal", preçoExtraPessoal);
-
 
 
                     cmd.Parameters.Add(idSql);
@@ -99,17 +100,17 @@ namespace ADOSI2.concrete
                     cmd.Parameters.Add(preçoExtraPessoalSql);
 
 
-
                     var affected = cmd.ExecuteNonQuery().ToString();
 
                     cmd.Parameters.Clear();
 
-                    Console.WriteLine("{0} rows affected",affected);
+                    Console.WriteLine("{0} rows affected", affected);
                 }
-                
+
 
                 ts.Complete();
             }
+
             return true;
         }
     }

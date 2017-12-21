@@ -69,6 +69,7 @@
     <Compile Include="ListarAtividadesDisponiveisTests.cs" />
     <Compile Include="PagamentoEstadaComFaturaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoverParqueEAssociaçoesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

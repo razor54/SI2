@@ -14,7 +14,7 @@ namespace EFTests
     {
         //NOT WORKING because bungalows don't have primary key
         [TestMethod]
-         void InsertBungalowTest()
+        public void InsertBungalowTest()
         {
             using (var ctx = new Entities())
             {
