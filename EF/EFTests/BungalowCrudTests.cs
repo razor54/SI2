@@ -49,10 +49,12 @@ namespace EFTests
                     Bungalow bungalow = new Bungalow
                     {
                         tipologia = "T0",
-                        Alojamento = alojamento
+                        Alojamento = alojamento,
+                        nome_alojamento = alojamento.nome
                     };
 
                     ctx.Bungalows.Add(bungalow);
+
                     ctx.SaveChanges();
 
                     Bungalow bungalow1 = ctx.Bungalows.Find(bungalow.Alojamento.nome);

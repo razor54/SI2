@@ -58,8 +58,14 @@
   <ItemGroup>
     <Compile Include="AtividadeTests.cs" />
     <Compile Include="BungalowCrudTests.cs" />
+    <Compile Include="ComponenteFaturaTests.cs" />
+    <Compile Include="EliminarParqueComAssociaçoesTests.cs" />
+    <Compile Include="EnviarEmailsTests.cs" />
+    <Compile Include="ExtraEstadaTests.cs" />
     <Compile Include="FaturaCrudTests.cs" />
     <Compile Include="HospedeTest.cs" />
+    <Compile Include="InscreverHospedeEmAtividadeTests.cs" />
+    <Compile Include="ListarAtividadesDisponiveisTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
