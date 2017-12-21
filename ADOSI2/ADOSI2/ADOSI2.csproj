@@ -122,9 +122,13 @@
     <Compile Include="model\Tenda.cs" />
     <Compile Include="operations\AlojamentoNumParqueOperations.cs" />
     <Compile Include="operations\AtividadeOperations.cs" />
+    <Compile Include="operations\EliminarParqueEAssociaçoesOperation.cs" />
+    <Compile Include="operations\EnviarEmailsOperations.cs" />
     <Compile Include="operations\ExtraOperations.cs" />
     <Compile Include="operations\InscreverHóspedeNumaAtividadeOperations.cs" />
     <Compile Include="operations\HóspedeOperations.cs" />
+    <Compile Include="operations\ListarAtividadesDisponiveisOperations.cs" />
+    <Compile Include="operations\PagamentoDeUmaEstadaOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

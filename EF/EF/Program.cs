@@ -2,42 +2,123 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using ADOSI2.operations;
 
 namespace EF
 {
     class Program
     {
-        static void Main(string[] args)
+        delegate void Command(Entities context);
+
+       
+
+        static void Main()
         {
+            Dictionary<int, KeyValuePair<string, Command>> commands =
+                new Dictionary<int, KeyValuePair<string, Command>>
+                {
+                    {0, new KeyValuePair<string, Command>("Inserir hóspede", HóspedeOperations.InserirHóspede)},
+                    {1, new KeyValuePair<string, Command>("Atualizar hóspede", HóspedeOperations.AtualizarHóspede)},
+                    {2, new KeyValuePair<string, Command>("Remover hóspede", HóspedeOperations.RemoverHóspede)},
+                    {3, new KeyValuePair<string, Command>("Listar Hóspedes", HóspedeOperations.PrintHóspede)},
+                    {
+                        4,
+                        new KeyValuePair<string, Command>("Inserir alojamento num Parque existente",
+                            AlojamentoNumParqueOperations.InserirAlojamentoEmParque)
+                    },
+                    {
+                        5,
+                        new KeyValuePair<string, Command>("Atualizar alojamento num Parque existente",
+                            AlojamentoNumParqueOperations.AtualizarAlojamento)
+                    },
+                    {
+                        6,
+                        new KeyValuePair<string, Command>("Remover alojamento num Parque existente",
+                            AlojamentoNumParqueOperations.RemoverAlojamento)
+                    },
+                    {
+                        7,
+                        new KeyValuePair<string, Command>("Listar Alojamentos",
+                            AlojamentoNumParqueOperations.ListarAlojamentos)
+                    },
+                    {8, new KeyValuePair<string, Command>("Inserir extra", ExtraOperations.InserirExtra)},
+                    {9, new KeyValuePair<string, Command>("Atualizar extra", ExtraOperations.AtualizarExtra)},
+                    {10, new KeyValuePair<string, Command>("Remover extra", ExtraOperations.RemoverExtra)},
+                    {11, new KeyValuePair<string, Command>("Listar Extras",ExtraOperations.ReadExtras) },
+                    {12, new KeyValuePair<string, Command>("Inserir atividade", AtividadeOperations.InserirAtividade)},
+                    {
+                        13,
+                        new KeyValuePair<string, Command>("Atualizar atividade", AtividadeOperations.AtualizarAtividade)
+                    },
+                    {14, new KeyValuePair<string, Command>("Remover atividade", AtividadeOperations.RemoverAtividade)},
+                    {15 ,new KeyValuePair<string, Command>("Listar Atividades",AtividadeOperations.ReadAtividades)},
+                    {
+                        16,
+                        new KeyValuePair<string, Command>("Inscrever hóspede numa atividade",
+                            InscreverHóspedeNumaAtividadeOperations.Inscrever)
+                    },
+                    {
+                        17,
+                        new KeyValuePair<string, Command>("Pagamento de uma estada",
+                            PagamentoDeUmaEstadaOperations.Pagamento)
+                    },
+                    {
+                        18, new KeyValuePair<string, Command>("Enviar emails a todos os hóspedes responsáveis " +
+                                                              "por estadas que se irão iniciar dentro de \r\num dado período temporal",
+                            EnviarEmailsOperations.EnviarEmails)
+                    },
+                    {
+                        19, new KeyValuePair<string, Command>(
+                            "Listar  todas  as  atividades  com  lugares  disponíveis  para  um  intervalo  de  datas \r\nespecificado",
+                            ListarAtividadesDisponiveisOperations.ListarAtividadesDisponiveis)
+                    },
+                    {
+                        20, new KeyValuePair<string, Command>("Apagar Parque e associações",
+                            EliminarParqueEAssociaçoesOperation.EliminarParqueEAssociaçoes)
+                    }
+                };
+            // not implemented
+
+
             using (var ctx = new Entities())
             {
-                ctx.Hóspede.Add(new Hóspede()
+                while (true)
                 {
-                    bi = 12,
-                    email = "sasa@sasa.sa",
-                    morada = "Rua sem nome",
-                    nome = "Jaquim",
-                    nif = 1234567
+                    try
+                    {
+                        Print(commands);
+                        Console.WriteLine("\nO que deseja fazer?");
+                        var readLine = Console.ReadLine();
+                        if (!readLine.Any()) break;
+                        int read = Convert.ToInt32(readLine);
+                        Command cmd = commands[read].Value;
+                        Console.Clear();
+                        cmd.Invoke(ctx);
+                    }
+                    catch (Exception)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Houve um erro.Tente novamente.");
+                    }
 
-                });
-                ctx.SaveChanges();
-
-                foreach (var h in ctx.Hóspede)
-                {
-                    Console.WriteLine("Hospede -- {0},{1},{2},{3},{4}",h.nome,h.nif,h.bi,h.morada,h.email);
-                    ctx.Hóspede.Remove(h);
+                    Console.WriteLine("\nPressione [Enter] para continuar");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
-                Console.WriteLine("To delete press [Enter]");
-                Console.ReadKey();
-                ctx.SaveChanges();
-
-                
-
             }
-            
+        }
 
+        private static void Print(Dictionary<int, KeyValuePair<string, Command>> cmds)
+        {
+            for (int i = 0; i < cmds.Count; i++)
+            {
+                Console.WriteLine("{0} - {1}", i, cmds[i].Key);
+            }
+
+            Console.WriteLine("\nPressione apenas [Enter] para sair");
         }
     }
 }

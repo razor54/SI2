@@ -111,6 +111,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="operations\AlojamentoNumParqueOperations.cs" />
+    <Compile Include="operations\AtividadeOperations.cs" />
+    <Compile Include="operations\EliminarParqueEAssociaçoesOperation.cs" />
+    <Compile Include="operations\EnviarEmailsOperations.cs" />
+    <Compile Include="operations\ExtraOperations.cs" />
+    <Compile Include="operations\HóspedeOperations.cs" />
+    <Compile Include="operations\InscreverHóspedeNumaAtividadeOperations.cs" />
+    <Compile Include="operations\ListarAtividadesDisponiveisOperations.cs" />
+    <Compile Include="operations\PagamentoDeUmaEstadaOperations.cs" />
     <Compile Include="Parque.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -60,6 +60,10 @@ exec criarAtividade N'02-01-2000', N'20', N'10', N'Canoagem', N'Marechal Carmona
 select * from Atividade
 go
 
+
+insert into Parque(email,nome,morada,estrelas)
+			values('parque1@email.com','parque1','sem morada', 2)
+
 select * from Alojamento
 select *from Parque
 select * from Hóspede

@@ -10,51 +10,111 @@ namespace ADOSI2.operations
 {
     static class AlojamentoNumParqueOperations
     {
-        public static void RemoverHóspede(Context context)
+        public static void RemoverAlojamento(Context context)
         {
-            HóspedeMapper hóspedeMapper = new HóspedeMapper(context);
-            Console.Write("Insira o nif: ");
-            Hóspede hóspede = hóspedeMapper.Read(Convert.ToInt32(Console.ReadLine()));
-            hóspedeMapper.Delete(hóspede);
+            var alojamentoMapper = new AlojamentoMapper(context);
+            
+
+            Console.WriteLine("Insira o nome do alojamento que pretende remover :");
+
+            var alojamento = alojamentoMapper.Read(Console.ReadLine());
+
+            while (alojamento == null)
+            {
+                Console.WriteLine("Por favor tente novamente, o alojamento indicado não Existe. Ou pressione [Enter] para sair");
+                var input = Console.ReadLine();
+                if (!input.Any()) return;
+                alojamento = alojamentoMapper.Read(input);
+            }
+
+            alojamentoMapper.Delete(alojamento);
         }
 
-        public static void AtualizarHóspede(Context context)
+        public static void AtualizarAlojamento(Context context)
         {
-            HóspedeMapper hóspedeMapper = new HóspedeMapper(context);
-            Console.Write("Insira o nif: ");
-            Hóspede hóspede = hóspedeMapper.Read(Convert.ToInt32(Console.ReadLine()));
+            var alojamentoMapper = new AlojamentoMapper(context);
+            var parqueMapper = new ParqueMapper(context);
 
-            Console.Write("Insira o bi: ");
-            hóspede.Bi = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Insira o nif: ");
-            hóspede.Nif = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Insira o nome: ");
-            hóspede.Nome = Console.ReadLine();
-            Console.Write("Insira o email: ");
-            hóspede.Email = Console.ReadLine();
-            Console.Write("Insira a morada: ");
-            hóspede.Morada = Console.ReadLine();
+            Console.WriteLine("Insira o nome do alojamento que pretende alterar :");
 
-            hóspedeMapper.Update(hóspede);
+           var alojamento = alojamentoMapper.Read( Console.ReadLine());
+
+            while (alojamento == null)
+            {
+                Console.WriteLine("Por favor tente novamente, o alojamento indicado não Existe. Ou pressione [Enter] para sair");
+                var input = Console.ReadLine();
+                if(!input.Any())return;
+                 alojamento = alojamentoMapper.Read(input);
+            }
+
+            Console.WriteLine("Insira o nome do Parque :");
+            var parqueNome = Console.ReadLine();
+            alojamento.Parque = parqueMapper.Read(parqueNome);
+            if (alojamento.Parque == null)
+                throw new KeyNotFoundException("O parque não existe");
+
+            Console.WriteLine("Insira a descrição do alojamento :");
+            alojamento.Descrição = Console.ReadLine();
+
+            Console.WriteLine("Insira a localização do alojamento :");
+            alojamento.Localizaçao = Console.ReadLine();
+
+            Console.WriteLine("insira o número máximo de pessoas");
+            alojamento.MaxPessoas = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("insira o preço base");
+            alojamento.PreçoBase = Convert.ToInt32(Console.ReadLine());
+
+
+            alojamentoMapper.Update(alojamento);
+           
         }
 
-        public static void InserirHóspede(Context context)
+        public static void InserirAlojamentoEmParque(Context context)
         {
-            Hóspede hóspede = new Hóspede();
+            var alojamentoMapper = new AlojamentoMapper(context);
+            var parqueMapper = new ParqueMapper(context);
 
-            Console.Write("Insira o bi: ");
-            hóspede.Bi = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Insira o nif: ");
-            hóspede.Nif = Convert.ToInt32(Console.ReadLine());
-            Console.Write("Insira o nome: ");
-            hóspede.Nome = Console.ReadLine();
-            Console.Write("Insira o email: ");
-            hóspede.Email = Console.ReadLine();
-            Console.Write("Insira a morada: ");
-            hóspede.Morada = Console.ReadLine();
+            Alojamento alojamento = new Alojamento();
 
-            HóspedeMapper hóspedeMapper = new HóspedeMapper(context);
-            hóspede = hóspedeMapper.Create(hóspede);
+            Console.WriteLine("Insira o nome :");
+
+            alojamento.Nome = Console.ReadLine();
+
+            Console.WriteLine("Insira o nome do Parque :");
+            var parqueNome = Console.ReadLine();
+            alojamento.Parque = parqueMapper.Read(parqueNome);
+            if(alojamento.Parque==null)
+                throw new KeyNotFoundException("O parque não existe");
+
+            Console.WriteLine("Insira a descrição do alojamento :");
+            alojamento.Descrição = Console.ReadLine();
+
+            Console.WriteLine("Insira a localização do alojamento :");
+            alojamento.Localizaçao = Console.ReadLine();
+
+            Console.WriteLine("insira o número máximo de pessoas");
+            alojamento.MaxPessoas= Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("insira o preço base");
+            alojamento.PreçoBase = Convert.ToInt32(Console.ReadLine());
+
+
+            alojamentoMapper.Create(alojamento);
+
+        }
+
+        public static void ListarAlojamentos(Context ctx)
+        {
+            var alojamentoMapper = new AlojamentoMapper(ctx);
+
+            Console.WriteLine("Lista de Alojamentos\n");
+            Console.WriteLine("Nome - Descrição - Localização - Máximo número de pessoas - Nome do Parque - Preço base");
+
+            foreach (var alojamento in alojamentoMapper.ReadAll())
+            {
+                Console.WriteLine("{0} - {1} - {2} - {3} - {4} - {5}", alojamento.Nome,alojamento.Descrição,alojamento.Localizaçao,alojamento.MaxPessoas,alojamento.Parque.Nome,alojamento.PreçoBase);
+            }
         }
     }
 }

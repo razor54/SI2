@@ -56,5 +56,18 @@ namespace ADOSI2.operations
             HóspedeMapper hóspedeMapper = new HóspedeMapper(context);
             hóspede = hóspedeMapper.Create(hóspede);
         }
+
+        public static void PrintHóspede(Context ctx)
+        {
+            HóspedeMapper hm = new HóspedeMapper(ctx);
+
+
+            Console.WriteLine("Hóspedes\n");
+            Console.WriteLine("BI - Email - NIF - NOME - NIF");
+            foreach (var h in hm.ReadAll())
+            {
+                Console.WriteLine("{0} - {1} - {2} - {3} - {4}", h.Bi, h.Email, h.Morada, h.Nome, h.Nif);
+            }
+        }
     }
 }
