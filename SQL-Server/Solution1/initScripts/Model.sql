@@ -65,13 +65,13 @@ create table Alojamento(
 create table Bungalow(
 	tipologia varchar(256) not null check (tipologia = 'T0' or tipologia = 'T1' or
 								tipologia = 'T2' or tipologia = 'T3' or tipologia = 'T4'),
-	nome_alojamento varchar(56)not null references Alojamento(nome)
+	nome_alojamento varchar(56)not null references Alojamento(nome) primary key
 )
 
 create table Tenda(
 	área numeric not null,
 	nome_alojamento varchar(56) not null references Alojamento(nome),
-	tipo varchar(25) not null check (tipo = 'yurt' or tipo = 'tipi' or tipo = 'safari')
+	tipo varchar(25) not null check (tipo = 'yurt' or tipo = 'tipi' or tipo = 'safari') primary key
 )
 
 create table Estada(
