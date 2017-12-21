@@ -12,7 +12,7 @@ namespace EFTests
     [TestClass]
     public class BungalowCrudTests
     {
-        //NOT WORKING
+        //NOT WORKING because bungalows don't have primary key
         [TestMethod]
          void InsertBungalowTest()
         {
@@ -49,7 +49,6 @@ namespace EFTests
                     Bungalow bungalow = new Bungalow
                     {
                         tipologia = "T0",
-                        Alojamento = alojamento,
                         nome_alojamento = alojamento.nome
                     };
 
