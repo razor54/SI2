@@ -120,6 +120,11 @@
     <Compile Include="model\HóspedeAtividade.cs" />
     <Compile Include="model\Parque.cs" />
     <Compile Include="model\Tenda.cs" />
+    <Compile Include="operations\AlojamentoNumParqueOperations.cs" />
+    <Compile Include="operations\AtividadeOperations.cs" />
+    <Compile Include="operations\ExtraOperations.cs" />
+    <Compile Include="operations\InscreverHóspedeNumaAtividadeOperations.cs" />
+    <Compile Include="operations\HóspedeOperations.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
