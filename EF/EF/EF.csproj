@@ -111,6 +111,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="operations\AdicionarEstadaParaPeriodoTEmporal.cs" />
     <Compile Include="operations\AlojamentoNumParqueOperations.cs" />
     <Compile Include="operations\AtividadeOperations.cs" />
     <Compile Include="operations\EliminarParqueEAssociaçoesOperation.cs" />

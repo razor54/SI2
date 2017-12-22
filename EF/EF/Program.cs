@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using ADOSI2.operations;
+using EF.operations;
 
 namespace EF
 {
@@ -78,7 +79,8 @@ namespace EF
                     {
                         20, new KeyValuePair<string, Command>("Apagar Parque e associações",
                             EliminarParqueEAssociaçoesOperation.EliminarParqueEAssociaçoes)
-                    }
+                    },
+                    {21,new KeyValuePair<string, Command>("Criar uma estada para um dado período de tempo",AdicionarEstadaParaPeriodoTEmporal.AdicionarEstadaParaPeriodoTemporal) }
                 };
             // not implemented
 
