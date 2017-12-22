@@ -14,9 +14,9 @@ namespace ADOSI2.operations
         {
 
             Console.WriteLine("Insira o Id da estada");
-             ObjectParameter output = new ObjectParameter("total", typeof(Int32));
+            ObjectParameter output = new ObjectParameter("total", typeof(Int32));
             var pagamento = ctx.pagamentoEstadaComFatura(Convert.ToInt32(Console.ReadLine()),output);
-            
+            ctx.SaveChanges();
             
             Console.WriteLine("O valor total da fatura é {0}", output.Value);
             

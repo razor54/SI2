@@ -76,7 +76,10 @@ namespace ADOSI2
                     {
                         18, new KeyValuePair<string, Command>("Apagar Parque e associações",
                             EliminarParqueEAssociaçoesOperation.EliminarParqueEAssociaçoes)
-                    }
+                    },
+                    {19,new KeyValuePair<string, Command>("Criar uma estada para um dado período de tempo",AdicionarEstadaParaPeriodoTEmporal.AdicionarEstadaParaPeriodoTemporal) },
+                    {20,new KeyValuePair<string, Command>("  obter o total pago por hóspede \r\nrelativo a estadas num dado parque num intervalo de datas especificado ",
+                        ObterTotalPagoPorHóspedeOperations.ObterTotalPagoPorHóspede)}
                 };
             // not implemented
 

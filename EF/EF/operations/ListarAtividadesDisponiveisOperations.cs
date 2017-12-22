@@ -11,6 +11,7 @@ namespace ADOSI2.operations
     {
         public static void ListarAtividadesDisponiveis(Entities ctx)
         {
+            
             Console.WriteLine("Insira a data de Inicio (ano-mes-dia)");
 
             var line = Console.ReadLine();
