@@ -19,7 +19,7 @@ namespace ADOSI2Tests
         private readonly string _connectionString = ConfigurationManager.ConnectionStrings["si2cs"].ConnectionString;
 
         [TestMethod]
-        void EnviarEmailsNumPeriodoTest()
+        public void EnviarEmailsNumPeriodoTest()
         {
             using (Context ctx = new Context(_connectionString))
             {

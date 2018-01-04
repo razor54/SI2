@@ -52,6 +52,7 @@ as
 	set transaction isolation level serializable
 	begin tran
 		begin try
+			select @contador = 0
 			declare @início date = '01-01-2000'--getdate()
 			declare @fim date = dateadd(DAY, @dias, @início), @nif numeric
 
