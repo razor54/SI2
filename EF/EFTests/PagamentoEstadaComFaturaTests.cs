@@ -15,7 +15,7 @@ namespace EFTests
     public class PagamentoEstadaComFaturaTests
     {
         [TestMethod]
-        void PagamentoEstadaComFaturaTest()
+        public void PagamentoEstadaComFaturaTest()
         {
             
             using (var ctx = new Entities())
@@ -105,15 +105,18 @@ namespace EFTests
 
                     ctx.Atividades.Add(atividade);
 
+                    ctx.SaveChanges();
+
                     var inscResult = ctx.inscreverHóspedeNumaAtividade(hóspede.nif, atividade.nome_atividade,
                         atividade.nome_parque);
+                    ctx.SaveChanges();
                     ObjectParameter output = new ObjectParameter("total", typeof(Int32));
-
+                    
                     var pagamentoResult = ctx.pagamentoEstadaComFatura(estada.id, output);
 
 
                     // atualizar valor final da fatura
-                    fatura.valor_final = (int) output.Value;
+                    fatura.valor_final = Convert.ToInt32( output.Value);
 
                     ctx.SaveChanges();
 
